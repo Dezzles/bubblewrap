@@ -45,13 +45,17 @@ namespace Bubblewrap
 			{
 				Value_ = V;
 			}
-			T operator==( T V )
+			bool operator==( T V )
 			{
 				return V == Value_;
 			}
 			operator T() const
 			{
 				return( Value_ );
+			}
+			T operator->( ) const
+			{
+				return Value_;
 			}
 		private:
 			T Value_;

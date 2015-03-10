@@ -39,5 +39,26 @@ namespace Bubblewrap
 		{
 
 		}
+
+		void GoBase::Initialise( Json::Value Params )
+		{
+			if ( !Params[ "name" ].isNull() )
+				Name_ = Params[ "name" ].asString();
+		}
+
+		GoEntity* GoBase::GetParentEntity()
+		{	
+			return Parent_;
+		}
+
+		Managers::MgrManagers& GoBase::GetManager()
+		{
+			return *Manager_;
+		}
+
+		std::string GoBase::GetName()
+		{
+			return Name_;
+		}
 	}
 }

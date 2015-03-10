@@ -19,15 +19,14 @@ namespace Bubblewrap
 			: public GoBase
 		{
 			GoEntity();
-			GoEntity( Json::Value Params );
+			void Initialise( Json::Value Params );
 
-			std::vector < GoEntity* > Children_;
+			std::vector < GoBase* > Children_;
 			std::vector< GoComponent* > Components_;
 
 			Math::Vector2f Position_;
 
-			GoEntityP Parent_;
-
+			std::string Name_;
 		public:
 			CREATE_REGISTER( GoEntity );
 
@@ -49,9 +48,26 @@ namespace Bubblewrap
 				return ret;
 			}
 
+			template <class T>
+			std::vector<T*> GetComponentsByType( std::string Name )
+			{
+				std::vector<T*> ret;
+				unsigned int cCount = Components_.size();
+				for ( unsigned int Idx = 0; Idx < cCount; ++Idx )
+				{
+					T* test = dynamic_cast< T* >( Components_[ Idx ] );
+					if ( ( test != nullptr ) && ( test->GetName() == Name ) )
+					{
+						ret.push_back( test );
+					}
+				}
+				return ret;
+			}
 
-			GoEntity* GetParent() const;
-				
+
+			void SetLocalPosition( Math::Vector2f Position );
+			Math::Vector2f WorldPosition();
+			Math::Vector2f LocalPosition();
 		};
 	}
 }

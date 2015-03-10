@@ -1,8 +1,9 @@
-#ifndef MGRMANAGER_H
-#define MGRMANAGER_h
+#ifndef MGRCONTAINER_H
+#define MGRCONTAINER_H
 
 #include <algorithm>
 #include <vector>
+#include <functional>
 namespace Bubblewrap
 {
 	namespace Managers
@@ -66,6 +67,25 @@ namespace Bubblewrap
 				Items_[ Idx ].Manager_ = nullptr;
 				Items_[ Idx ].Valid_ = false;
 			}
+
+			void Update( float dt )
+			{
+				int count = Items_.size();
+				for ( int Idx = 0; Idx < count; ++Idx )
+				{
+					Items_[ Idx ].Manager_->Update( dt );
+				}
+			}
+
+			void OnAll( std::function<void(T_*)> fn )
+			{
+				for ( std::vector<MgrWrapper>::iterator iter = Items_.begin(); iter != Items_.end(); ++iter )
+				{
+					if ( ( *iter ).Valid_ )
+						fn( ( *iter ).Manager_ );
+				}
+			}
+
 		private:
 			std::vector<MgrWrapper> Items_;
 		};

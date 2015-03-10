@@ -8,7 +8,7 @@ namespace Bubblewrap
 	{
 #define CREATE_MANAGER( T, U ) \
 	public: \
-		MgrContainer<T> Get ## U ## Manager () { return Cnt ## U ## _ ; } \
+		MgrContainer<T> &Get ## U ## Manager () { return Cnt ## U ## _ ; } \
 	private: \
 		MgrContainer<T> Cnt ## U ## _;
 

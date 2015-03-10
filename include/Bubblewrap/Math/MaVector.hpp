@@ -1,6 +1,7 @@
 #ifndef MAVECTOR_H
 #define MAVECTOR_H
 
+#include <math.h>
 namespace Bubblewrap
 {
 	namespace Math
@@ -32,6 +33,11 @@ namespace Bubblewrap
 			T_ Y() const
 			{
 				return Y_;
+			}
+
+			static Vector2 FromPolarCoords( T_ Theta, T_ Radius )
+			{
+				return Vector2( cosf( Theta ) * Radius, sinf( Theta ) * Radius );
 			}
 
 			Vector2 operator==( Vector2& Other )

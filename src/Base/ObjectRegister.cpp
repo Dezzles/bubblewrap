@@ -1,13 +1,18 @@
 #include "Bubblewrap/Base/ObjectRegister.hpp"
-//#include "CollisionSystem.h"
 #include "Bubblewrap/Base/GoEntity.hpp"
+#include "Bubblewrap/Base/GoBase.hpp"
+#include "Bubblewrap/Render/ReSprite.hpp"
+#include "Bubblewrap/Render/ReTexture.hpp"
 namespace Bubblewrap
 {
 	namespace Base
 	{
 		ObjectRegister::ObjectRegister()
 		{
-			REGISTER_CLASS( this, GoEntity );
+			RegisterCreator( "GoEntity", &GoEntity::Create, &GoEntity::CreateJson, &GoEntity::CopyDef );
+			RegisterCreator( "ReSprite", &Render::ReSprite::Create, &Render::ReSprite::CreateJson, &Render::ReSprite::CopyDef );
+			RegisterCreator( "ReTexture", &Render::ReTexture::Create, &Render::ReTexture::CreateJson, &Render::ReTexture::CopyDef );
+			LoadState_ = 0;
 		}
 
 		ObjectRegister::~ObjectRegister()
@@ -23,10 +28,9 @@ namespace Bubblewrap
 		int ObjectRegister::RegisterObject( GoBase* Object )
 		{
 			Object->Id_ = NextId_++;
-			Object->ObjectRegister_ = this;
+			Object->ObjectRegister_ = this;	
+			Object->Manager_ = Managers_;
 			Objects_.push_back( Object );
-
-			Object->OnAttach();
 
 			return Object->Id_;
 		}
@@ -46,9 +50,9 @@ namespace Bubblewrap
 
 		void ObjectRegister::Update( float Dt )
 		{
-			for ( unsigned int Idx = 0; Idx < Objects_.size(); ++Idx )
+			for ( unsigned int Idx = 0; Idx < ParentlessItems_.size(); ++Idx )
 			{
-				Objects_[ Idx ]->Update( Dt );
+				ParentlessItems_[ Idx ]->Update( Dt );
 			}
 			CheckCollisions();
 			DestroyPhase();
@@ -137,30 +141,75 @@ namespace Bubblewrap
 			CallBacks_.push_back( Function );
 		}
 
-		void ObjectRegister::RegisterCreator( std::string Class, std::function < GoBase*( ) > Creator, std::function < GoBase*( Json::Value ) > CreatorJson )
+		void ObjectRegister::RegisterCreator( std::string Class, std::function < GoBase*( ) > Creator, std::function < GoBase*( Json::Value ) > CreatorJson, 
+											  std::function< void( GoBase*, GoBase* ) > Copier )
 		{
-			ClassGenerators_[ Class ] = Creator;
-			ClassGeneratorsJson_[ Class ] = CreatorJson;
+			ClassGenerators_[ Class ].ClassGenerator_ = Creator;
+			ClassGenerators_[ Class ].ClassGeneratorJson_ = CreatorJson;
+			ClassGenerators_[ Class ].ClassCopier_ = Copier;
 		}
 
-		GoBase* ObjectRegister::CreateObject( std::string Type )
+		GoBase* ObjectRegister::CreateObject( std::string Type, GoEntity* Parent )
 		{
-			GoBase* obj = ClassGenerators_[ Type ]();
-
+			++LoadState_;
+			GoBase* obj = ClassGenerators_[ Type ].ClassGenerator_();
+			obj->Parent_ = Parent;
 			RegisterObject( obj );
+			ToAttach_.push_back( obj );
+
+			if ( Parent == nullptr )
+			{
+				ParentlessItems_.push_back( obj );
+			}
+			--LoadState_;
+			if ( LoadState_ == 0 )
+			{
+				AttachItems();
+			}
 
 			return obj;
 		}
 
-		GoBase* ObjectRegister::CreateObject( Json::Value Json )
+		GoBase* ObjectRegister::CreateObject( Json::Value Json, GoEntity* Parent )
 		{
+			++LoadState_;
 			std::string Type = Json[ "type" ].asString();
-			GoBase* obj = ClassGeneratorsJson_[ Type ]( Json );
-
+			GoBase* obj = ClassGenerators_[ Type ].ClassGeneratorJson_( Json );
+			ToAttach_.push_back( obj );
+			obj->Parent_ = Parent;
 			RegisterObject( obj );
-
+			if ( Parent == nullptr )
+			{
+				ParentlessItems_.push_back( obj );
+			}
+			obj->Initialise( Json );
+			--LoadState_;
+			if ( LoadState_ == 0 )
+			{
+				AttachItems();
+			}
 			return obj;
 
+		}
+
+		void ObjectRegister::SetManager( Managers::MgrManagers* Manager )
+		{
+			if ( Managers_ != nullptr )
+			{
+				assert( false &&  "DONT BE A DUMBASS" );
+				return;
+			}
+			Managers_ = Manager;
+		}
+
+		void ObjectRegister::AttachItems()
+		{
+			unsigned int uCount = ToAttach_.size();
+			for ( unsigned int Idx = 0; Idx < uCount; ++Idx )
+			{
+				ToAttach_[ Idx ]->OnAttach();
+			}
+			ToAttach_.clear();
 		}
 	}
 }
