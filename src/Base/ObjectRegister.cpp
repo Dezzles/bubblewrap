@@ -3,6 +3,7 @@
 #include "Bubblewrap/Base/GoBase.hpp"
 #include "Bubblewrap/Render/ReSprite.hpp"
 #include "Bubblewrap/Render/ReTexture.hpp"
+#include "Bubblewrap/File/FiFSFile.hpp"
 namespace Bubblewrap
 {
 	namespace Base
@@ -13,6 +14,7 @@ namespace Bubblewrap
 			RegisterCreator( "ReSprite", &Render::ReSprite::Create, &Render::ReSprite::CreateJson, &Render::ReSprite::CopyDef );
 			RegisterCreator( "ReTexture", &Render::ReTexture::Create, &Render::ReTexture::CreateJson, &Render::ReTexture::CopyDef );
 			LoadState_ = 0;
+			LoadingPackage_ = false;
 		}
 
 		ObjectRegister::~ObjectRegister()
@@ -180,11 +182,21 @@ namespace Bubblewrap
 			RegisterObject( obj );
 			if ( Parent == nullptr )
 			{
-				ParentlessItems_.push_back( obj );
+				if ( LoadingPackage_ )
+				{
+				}
+				else
+				{
+					ParentlessItems_.push_back( obj );
+				}
 			}
 			obj->Initialise( Json );
+			if ( LoadingPackage_ && (Parent == nullptr) )
+			{
+				PackageObjects_[ CurrentPackage_ ][ obj->GetName() ] = obj;
+			}
 			--LoadState_;
-			if ( LoadState_ == 0 )
+			if ( ( LoadState_ == 0 ) && ( !LoadingPackage_ ) )
 			{
 				AttachItems();
 			}
@@ -210,6 +222,57 @@ namespace Bubblewrap
 				ToAttach_[ Idx ]->OnAttach();
 			}
 			ToAttach_.clear();
+		}
+
+		void ObjectRegister::LoadPackage( std::string PackageFile )
+		{
+			LoadingPackage_ = true;
+			File::FiFSFile file( PackageFile );
+			file.Open( File::FsMode::Read );
+
+			std::string fileData = file.ReadAll();
+			file.Close();
+			Json::Value root;
+			Json::Reader rdr;
+
+			rdr.parse( fileData, root );
+
+			CurrentPackage_ = root[ "name" ].asCString();
+
+			Json::Value items = root[ "items" ];
+
+			for ( unsigned int Idx = 0; Idx < items.size(); ++Idx )
+			{
+				CreateObject( items[ Idx ], nullptr );
+			}
+
+			LoadingPackage_ = false;
+
+		}
+
+		GoBase* ObjectRegister::LoadObject( std::string Name, GoEntity* Parent )
+		{
+			int split = Name.find_first_of( ':' );
+			std::string package = Name.substr( 0, split );
+			std::string name = Name.substr( split + 1 );
+			return LoadObject( package, name, Parent );
+		}
+
+		GoBase* ObjectRegister::LoadObject( std::string PackageName, std::string Name, GoEntity* Parent )
+		{
+			GoBase* base = PackageObjects_[ PackageName ][ Name ];
+
+			GoBase* ret = CreateObject( base->TypeName(), Parent );
+			ClassGenerators_[ base->TypeName() ].ClassCopier_( ret, base );
+
+			return ret;
+
+		}
+		GoBase* ObjectRegister::CreateCopy( GoBase* Base, GoEntity* Parent )
+		{
+			GoBase* ret = CreateObject( Base->TypeName(), Parent );
+			ClassGenerators_[ Base->TypeName() ].ClassCopier_( ret, Base );
+			return ret;
 		}
 	}
 }

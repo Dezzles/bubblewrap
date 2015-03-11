@@ -12,8 +12,9 @@ namespace Bubblewrap
 		{
 			int WindowCount_ = 0;
 			Render::ReWindow::WindowSettings* WindowSettings_ = nullptr;
-			std::string BaseJson;
+			std::vector<std::string> Packages_;
 			std::function<void( Base::ObjectRegister* )> TypeRegistration_;
+			std::string BaseObject_;
 		};
 		class GoGame
 		{

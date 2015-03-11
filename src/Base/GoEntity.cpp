@@ -13,6 +13,7 @@ namespace Bubblewrap
 
 		void GoEntity::Initialise( Json::Value Params )
 		{
+			GoBase::Initialise( Params );
 			Name_ = Params[ "name" ].asString();
 			if ( Params[ "position" ].isObject() )
 			{
@@ -54,6 +55,19 @@ namespace Bubblewrap
 
 		void GoEntity::Copy( GoEntity* Target, GoEntity* Base )
 		{
+			Target->Position_ = Target->Position_;
+			unsigned int uCount = Base->Components_.size();
+			for ( unsigned int Idx = 0; Idx < uCount; ++Idx )
+			{
+				Target->Components_.push_back( static_cast<GoComponent*>( Base->GetRegister().CreateCopy( Base->Components_[ Idx ], Target ) ) );
+			}
+
+			uCount = Base->Children_.size();
+			for ( unsigned int Idx = 0; Idx < uCount; ++Idx )
+			{
+				Target->Children_.push_back( Base->GetRegister().CreateCopy( Base->Children_[ Idx ], Target ) );
+				// Children_[ Idx ]->Update( Dt );
+			}
 
 		}
 		Math::Vector2f GoEntity::WorldPosition()

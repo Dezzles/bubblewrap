@@ -15,10 +15,14 @@
 	} \
 	static void Copy( TYPE* Target, TYPE* Base ); \
 	static void CopyDef( Bubblewrap::Base::GoBase* Target, Bubblewrap::Base::GoBase* Base ) \
-		{\
+	{\
 		TYPE* target = dynamic_cast<TYPE*>( Target ); \
 		TYPE* base = dynamic_cast<TYPE*>( Base ); \
-		Copy( target, base ); \
+	Copy( target, base ); \
+	} \
+	virtual std::string TypeName() \
+	{\
+		return #TYPE;\
 	}
 
 #define REGISTER_CLASS( REGISTER , CLASS )  REGISTER->RegisterCreator( #CLASS, &CLASS::Create, &CLASS::CreateJson, &CLASS::Copy );

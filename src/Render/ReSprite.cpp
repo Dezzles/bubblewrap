@@ -23,10 +23,12 @@ namespace Bubblewrap
 
 		void ReSprite::Copy( ReSprite* Target, ReSprite* Base )
 		{
-			Target->Size_ = Base->Size_;
-			Target->Window_ = Base->Window_;
-			Target->TextureName_ = Target->TextureName_;
-			Target->Texture_ = Target->Texture_;
+			Target->SetSize( Base->Size_ );
+			Target->SetWindow( Base->Window_ );
+			Target->TextureName_ = Base->TextureName_;
+			Target->Texture_ = Base->Texture_;
+			Target->SetColour( Base->Colour_ );
+
 		}
 
 		void ReSprite::OnAttach()

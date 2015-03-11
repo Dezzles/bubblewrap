@@ -32,6 +32,8 @@ namespace Bubblewrap
 
 			GoEntity* GetParentEntity();
 			std::string GetName();
+
+			virtual std::string TypeName() = 0;
 		private:
 
 			GoEntity* Parent_;

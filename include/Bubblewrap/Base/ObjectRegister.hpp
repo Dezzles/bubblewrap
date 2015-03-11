@@ -48,6 +48,12 @@ namespace Bubblewrap
 								  std::function< void( GoBase*, GoBase* ) > Copier );
 			void RepeatMessage( EvtMessage Message );
 			void SetManager( Managers::MgrManagers* Manager );
+
+			void LoadPackage( std::string PackageFile );
+			GoBase* LoadObject( std::string Package_, std::string Name, GoEntity* Parent );
+			GoBase* LoadObject( std::string Name, GoEntity* Parent );
+
+			GoBase* CreateCopy( GoBase* Obj, GoEntity* Parent );
 		private:
 			struct OrGenerators
 			{
@@ -75,6 +81,10 @@ namespace Bubblewrap
 			int LoadState_;
 
 			void AttachItems();
+
+			std::map<std::string, std::map<std::string, GoBase*>> PackageObjects_;
+			std::string CurrentPackage_;
+			bool LoadingPackage_;
 		};
 	}
 }

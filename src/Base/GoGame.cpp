@@ -19,20 +19,12 @@ namespace Bubblewrap
 
 			Settings.TypeRegistration_( &Register_ );
 
-			File::FiFSFile file( Settings.BaseJson );
-			file.Open(File::FsMode::Read);
-
-			std::string fileData = file.ReadAll();
-			file.Close();
-			Json::Value root;
-			Json::Reader rdr;
-
-			rdr.parse( fileData, root );
-
-			for ( unsigned int Idx = 0; Idx < root.size(); ++Idx )
+			for ( unsigned int Idx = 0; Idx < Settings.Packages_.size(); ++Idx )
 			{
-				Register_.CreateObject( root[ Idx ], nullptr );
+				Register_.LoadPackage( Settings.Packages_[ Idx ] );
 			}
+
+			Register_.LoadObject( Settings.BaseObject_, nullptr );
 			sf::Clock clock;
 			float PrevTime = clock.getElapsedTime().asSeconds();
 			bool running = true;
