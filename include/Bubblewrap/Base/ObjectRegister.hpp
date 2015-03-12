@@ -1,10 +1,9 @@
 #ifndef OBJECTREGISTER_H
 #define OBJECTREGISTER_H
 
-#include "Bubblewrap/Base/EvtMessage.hpp"
-#include "Bubblewrap/Base/GoBase.hpp"
+#include "Bubblewrap/Base/Base.hpp"
 #include "Bubblewrap/Base/DType.hpp"
-#include "Bubblewrap/Managers/MgrManagers.hpp"
+#include "Bubblewrap/Managers/Managers.hpp"
 #include <vector>
 #include <functional>
 #include "json/json.h"
@@ -24,7 +23,7 @@ namespace Bubblewrap
 
 			void DestroyPhase();
 
-			void AddReceiver( std::function< void( EvtMessage ) > Function );
+//			void AddReceiver( std::function< void( EvtMessage ) > Function );
 			template<typename T>
 			std::vector<T*> GetObjectsByType()
 			{
@@ -42,18 +41,18 @@ namespace Bubblewrap
 			}
 
 
-			GoBase* CreateObject( std::string Type, GoEntity* Parent );
-			GoBase* CreateObject( Json::Value Json, GoEntity* Parent );
+			GoBase* CreateObject( std::string Type, Entity* Parent );
+			GoBase* CreateObject( Json::Value Json, Entity* Parent );
 			void RegisterCreator( std::string Class, std::function < GoBase*( ) > Creator, std::function < GoBase*( Json::Value ) > CreatorJson,
 								  std::function< void( GoBase*, GoBase* ) > Copier );
-			void RepeatMessage( EvtMessage Message );
+			// void RepeatMessage( EvtMessage Message );
 			void SetManager( Managers::MgrManagers* Manager );
 
 			void LoadPackage( std::string PackageFile );
-			GoBase* LoadObject( std::string Package_, std::string Name, GoEntity* Parent );
-			GoBase* LoadObject( std::string Name, GoEntity* Parent );
+			GoBase* LoadObject( std::string Package_, std::string Name, Entity* Parent );
+			GoBase* LoadObject( std::string Name, Entity* Parent );
 
-			GoBase* CreateCopy( GoBase* Obj, GoEntity* Parent );
+			GoBase* CreateCopy( GoBase* Obj, Entity* Parent );
 		private:
 			struct OrGenerators
 			{
@@ -66,7 +65,7 @@ namespace Bubblewrap
 
 			std::map< GoBase*, std::map< GoBase*, DBool > > CollisionMap;
 
-			std::vector< std::function< void( EvtMessage ) > > CallBacks_;
+			// std::vector< std::function< void( EvtMessage ) > > CallBacks_;
 			std::map<std::string, OrGenerators > ClassGenerators_;
 			int RegisterObject( GoBase* Object );
 

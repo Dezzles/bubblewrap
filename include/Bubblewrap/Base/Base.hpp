@@ -1,15 +1,14 @@
 #ifndef GoBase_H
 #define GoBase_H
 
-#include "Bubblewrap/Base/EvtMessage.hpp"
-#include "Bubblewrap/Managers/MgrManagers.hpp"
+#include "Bubblewrap/Managers/Managers.hpp"
 #include "Json/Json.h"
 namespace Bubblewrap
 {
 	namespace Base
 	{
 		class ObjectRegister;
-		class GoEntity;
+		class Entity;
 
 		class GoBase
 		{
@@ -18,7 +17,6 @@ namespace Bubblewrap
 			GoBase( );
 
 			virtual void Update( float dt ) = 0;
-			virtual void ReceiveMessage( EvtMessage Message );
 			void Destroy();
 			int Id();
 
@@ -30,13 +28,13 @@ namespace Bubblewrap
 
 			virtual void Initialise( Json::Value Params );
 
-			GoEntity* GetParentEntity();
+			Entity* GetParentEntity();
 			std::string GetName();
 
 			virtual std::string TypeName() = 0;
 		private:
 
-			GoEntity* Parent_;
+			Entity* Parent_;
 			int Id_;
 			bool Destroy_;
 			ObjectRegister* ObjectRegister_;

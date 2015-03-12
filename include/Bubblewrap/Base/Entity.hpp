@@ -1,9 +1,9 @@
-#ifndef GOENTITY_H
-#define GOENTITY_H
+#ifndef Entity_H
+#define Entity_H
 
-#include "Bubblewrap/Base/GoBase.hpp"
+#include "Bubblewrap/Base/Base.hpp"
 #include "Bubblewrap/Base/Defines.hpp"
-#include "Bubblewrap/Math/MaVector.hpp"
+#include "Bubblewrap/Math/Vector.hpp"
 #include "Json/Json.h"
 
 
@@ -13,22 +13,22 @@ namespace Bubblewrap
 	namespace Base
 	{
 
-		EMPTY_POINTER( GoEntity );
-		class GoComponent;
-		class GoEntity
+		EMPTY_POINTER( Entity );
+		class Component;
+		class Entity
 			: public GoBase
 		{
-			GoEntity();
+			Entity();
 			void Initialise( Json::Value Params );
 
 			std::vector < GoBase* > Children_;
-			std::vector< GoComponent* > Components_;
+			std::vector< Component* > Components_;
 
 			Math::Vector2f Position_;
 
 			std::string Name_;
 		public:
-			CREATE_REGISTER( GoEntity );
+			CREATE_REGISTER( Entity );
 
 			virtual void Update( float Dt );
 

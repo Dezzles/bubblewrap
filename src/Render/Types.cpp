@@ -1,28 +1,28 @@
-#include "Bubblewrap/Render/ReTypes.hpp"
+#include "Bubblewrap/Render/Types.hpp"
 
 namespace Bubblewrap
 {
 	namespace Render
 	{
-		RePrimitives ReConverts::RePrimitiveFromString( std::string Name )
+		Primitives Converts::PrimitiveFromString( std::string Name )
 		{
 			if ( Name == "Points" )
-				return RePrimitives::Points;
+				return Primitives::Points;
 			else if ( Name == "Lines" )
-				return RePrimitives::Lines;
+				return Primitives::Lines;
 			else if ( Name == "LinesStrip" )
-				return RePrimitives::LinesStrip;
+				return Primitives::LinesStrip;
 			else if ( Name == "Triangles" )
-				return RePrimitives::Triangles;
+				return Primitives::Triangles;
 			else if ( Name == "TrianglesStrip" )
-				return RePrimitives::TrianglesStrip;
+				return Primitives::TrianglesStrip;
 			else if ( Name == "TrianglesFan" )
-				return RePrimitives::TrianglesFan;
+				return Primitives::TrianglesFan;
 			else if ( Name == "LinesStrip" )
-				return RePrimitives::Quads;
+				return Primitives::Quads;
 			
 			throw "Invalid primitive set";
-			return RePrimitives::Points;
+			return Primitives::Points;
 		}
 
 	}

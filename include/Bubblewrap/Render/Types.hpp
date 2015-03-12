@@ -1,21 +1,21 @@
-#ifndef RETYPES_HPP
-#define RETYPES_HPP
+#ifndef Types_HPP
+#define Types_HPP
 
-#include "Bubblewrap/Render/ReColour.hpp"
-#include "Bubblewrap/Math/MaVector.hpp"
+#include "Bubblewrap/Render/Colour.hpp"
+#include "Bubblewrap/Math/Vector.hpp"
 #include <string>
 namespace Bubblewrap
 {
 	namespace Render
 	{
-		struct ReVertex
+		struct Vertex
 		{
 			Math::Vector2f Position_;
-			ReColour Colour_;
+			Colour Colour_;
 			Math::Vector2f TexCoords_;
 		};
 
-		enum class RePrimitives
+		enum class Primitives
 		{
 			Points,
 			Lines,
@@ -31,10 +31,10 @@ namespace Bubblewrap
 
 
 
-		class ReConverts
+		class Converts
 		{
 		public:
-			static RePrimitives RePrimitiveFromString( std::string Name );
+			static Primitives PrimitiveFromString( std::string Name );
 		};
 	}
 }

@@ -1,23 +1,23 @@
-#ifndef RETEXTURE_H
-#define RETEXTURE_H
+#ifndef Texture_H
+#define Texture_H
 
 #include "SFML/Graphics.hpp"
 #include "Bubblewrap/Base/Defines.hpp"
-#include "Bubblewrap/Base/GoComponent.hpp"
+#include "Bubblewrap/Base/Component.hpp"
 
 namespace Bubblewrap
 {
 	namespace Render
 	{
 
-		class ReTexture
-			: public Base::GoComponent
+		class Texture
+			: public Base::Component
 		{
 		public:
-			ReTexture();
+			Texture();
 			void Initialise(Json::Value Params);
 
-			CREATE_REGISTER( ReTexture );
+			CREATE_REGISTER( Texture );
 
 			virtual void Update( float dt );
 

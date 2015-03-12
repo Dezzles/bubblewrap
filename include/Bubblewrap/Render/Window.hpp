@@ -1,5 +1,5 @@
-#ifndef REWINDOW_H
-#define REWINDOW_H
+#ifndef Window_H
+#define Window_H
 
 #include "SFML/Graphics.hpp"
 #include <functional>
@@ -7,7 +7,7 @@ namespace Bubblewrap
 {
 	namespace Render
 	{
-		class ReWindow
+		class Window
 		{
 		public:
 			struct WindowSettings
@@ -18,10 +18,10 @@ namespace Bubblewrap
 				std::string Name_;
 			};
 
-			ReWindow();
-			ReWindow( int Width, int Height );
-			ReWindow( int Width, int Height, std::string Header );
-			ReWindow( WindowSettings Settings );
+			Window();
+			Window( int Width, int Height );
+			Window( int Width, int Height, std::string Header );
+			Window( WindowSettings Settings );
 
 			void Update( float dt );
 			void Display();

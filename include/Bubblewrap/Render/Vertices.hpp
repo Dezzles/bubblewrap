@@ -1,43 +1,43 @@
-#ifndef REVERTICES_HPP
-#define REVERTICES_HPP
+#ifndef Vertices_HPP
+#define Vertices_HPP
 
 #include "Bubblewrap/Base/Defines.hpp"
-#include "Bubblewrap/Render/ReDrawable.hpp"
-#include "Bubblewrap/Render/ReTypes.hpp"
-#include "Bubblewrap/Base/GoBase.hpp"
+#include "Bubblewrap/Render/Drawable.hpp"
+#include "Bubblewrap/Render/Types.hpp"
+#include "Bubblewrap/Base/Base.hpp"
 namespace Bubblewrap
 {
 	namespace Render
 	{
 
-		class ReVertices
-			: public ReDrawable
+		class Vertices
+			: public Drawable
 		{
 		public:
-			ReVertices();
-			~ReVertices();
+			Vertices();
+			~Vertices();
 			void Initialise( Json::Value Params );
 
-			CREATE_REGISTER( ReVertices );
+			CREATE_REGISTER( Vertices );
 
 			virtual void Update( float dt );
 			virtual void OnAttach();
 
-			void AddVertex( ReVertex V );
+			void AddVertex( Vertex V );
 			void Reserve( unsigned int Amount );
-			void SetVertex( unsigned int Idx, ReVertex V );
+			void SetVertex( unsigned int Idx, Vertex V );
 			void Refresh();
-			void SetPrimitiveType( RePrimitives PrimitiveType );
+			void SetPrimitiveType( Primitives PrimitiveType );
 		protected:
 
-			ReVertex* Vertices_;
+			Vertex* Vertices_;
 			sf::Vertex* SFVertices_;
 
 			unsigned int VertexCount_;
 			unsigned int ReservedCount_;
 			unsigned int SFReservedCount_;
 
-			RePrimitives PrimitiveType_;
+			Primitives PrimitiveType_;
 
 			bool Dirty_;
 		};

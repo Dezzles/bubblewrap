@@ -1,7 +1,7 @@
 #ifndef MGRMANAGERS_H
 #define MGRMANAGERS_H
-#include "Bubblewrap/Managers/MgrContainer.hpp"
-#include "Bubblewrap/Render/ReWindow.hpp"
+#include "Bubblewrap/Managers/Container.hpp"
+#include "Bubblewrap/Render/Window.hpp"
 namespace Bubblewrap
 {
 	namespace Managers
@@ -20,7 +20,7 @@ namespace Bubblewrap
 		public:
 			MgrManagers();
 
-			CREATE_MANAGER(Render::ReWindow, Window);
+			CREATE_MANAGER(Render::Window, Window);
 		};
 
 #undef CREATE_MANAGER

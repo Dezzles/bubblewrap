@@ -1,4 +1,4 @@
-#include "Bubblewrap/Base/GoBase.hpp"
+#include "Bubblewrap/Base/Base.hpp"
 #include "Bubblewrap/Base/DType.hpp"
 namespace Bubblewrap
 {
@@ -35,10 +35,10 @@ namespace Bubblewrap
 
 		}
 
-		void GoBase::ReceiveMessage( EvtMessage Message )
+		/*void GoBase::ReceiveMessage( EvtMessage Message )
 		{
 
-		}
+		}/**/
 
 		void GoBase::Initialise( Json::Value Params )
 		{
@@ -46,7 +46,7 @@ namespace Bubblewrap
 				Name_ = Params[ "name" ].asString();
 		}
 
-		GoEntity* GoBase::GetParentEntity()
+		Entity* GoBase::GetParentEntity()
 		{	
 			return Parent_;
 		}

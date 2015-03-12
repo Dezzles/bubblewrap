@@ -1,39 +1,39 @@
-#include "Bubblewrap/Render/ReWindow.hpp"
+#include "Bubblewrap/Render/Window.hpp"
 
 namespace Bubblewrap
 {
 	namespace Render
 	{
-		ReWindow::ReWindow()
+		Window::Window()
 		{
 			Window_ = new sf::RenderWindow( sf::VideoMode( 800, 600 ), "Bubblewrap Window" );
 		}
-		ReWindow::ReWindow( int Width, int Height )
+		Window::Window( int Width, int Height )
 		{
 			Window_ = new sf::RenderWindow( sf::VideoMode( Width, Height ), "Bubblewrap Window" );
 		}
 
-		ReWindow::ReWindow( int Width, int Height, std::string Header )
+		Window::Window( int Width, int Height, std::string Header )
 		{
 			Window_ = new sf::RenderWindow( sf::VideoMode( Width, Height ), Header );
 		}
 
-		ReWindow::ReWindow( WindowSettings Settings )
+		Window::Window( WindowSettings Settings )
 		{
 			Window_ = new sf::RenderWindow( sf::VideoMode( Settings.Width_, Settings.Height_ ), Settings.Title_ );
 		}
 
-		void ReWindow::Update( float dt )
+		void Window::Update( float dt )
 		{
 			Window_->clear();
 		}
 
-		void ReWindow::Display()
+		void Window::Display()
 		{
 			Window_->display();
 		}
 
-		void ReWindow::HandleEvents()
+		void Window::HandleEvents()
 		{
 			sf::Event event;
 			while ( Window_->pollEvent( event ) )
@@ -48,7 +48,7 @@ namespace Bubblewrap
 			}
 
 		}
-		void ReWindow::Do( std::function<void( sf::RenderWindow& Window )> Function )
+		void Window::Do( std::function<void( sf::RenderWindow& Window )> Function )
 		{
 			Function( *Window_ );
 		}

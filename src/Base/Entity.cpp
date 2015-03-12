@@ -1,17 +1,17 @@
-#include "Bubblewrap/Base/GoEntity.hpp"
-#include "Bubblewrap/Base/GoComponent.hpp"
+#include "Bubblewrap/Base/Entity.hpp"
+#include "Bubblewrap/Base/Component.hpp"
 #include "Bubblewrap/Base/ObjectRegister.hpp"
 namespace Bubblewrap
 {
 	namespace Base
 	{
 
-		GoEntity::GoEntity()
+		Entity::Entity()
 		{
 
 		}
 
-		void GoEntity::Initialise( Json::Value Params )
+		void Entity::Initialise( Json::Value Params )
 		{
 			GoBase::Initialise( Params );
 			Name_ = Params[ "name" ].asString();
@@ -33,12 +33,12 @@ namespace Bubblewrap
 			{
 				for ( unsigned int Idx = 0; Idx < Params[ "components" ].size(); ++Idx )
 				{
-					Components_.push_back( static_cast< GoComponent* >( GetRegister().CreateObject( Params[ "components" ][ Idx ], this ) ) );
+					Components_.push_back( static_cast< Component* >( GetRegister().CreateObject( Params[ "components" ][ Idx ], this ) ) );
 				}
 			}
 		}
 
-		void GoEntity::Update( float Dt )
+		void Entity::Update( float Dt )
 		{
 			unsigned int uCount = Components_.size();
 			for ( unsigned int Idx = 0; Idx < uCount; ++Idx )
@@ -53,13 +53,13 @@ namespace Bubblewrap
 			}
 		}
 
-		void GoEntity::Copy( GoEntity* Target, GoEntity* Base )
+		void Entity::Copy( Entity* Target, Entity* Base )
 		{
 			Target->Position_ = Target->Position_;
 			unsigned int uCount = Base->Components_.size();
 			for ( unsigned int Idx = 0; Idx < uCount; ++Idx )
 			{
-				Target->Components_.push_back( static_cast<GoComponent*>( Base->GetRegister().CreateCopy( Base->Components_[ Idx ], Target ) ) );
+				Target->Components_.push_back( static_cast<Component*>( Base->GetRegister().CreateCopy( Base->Components_[ Idx ], Target ) ) );
 			}
 
 			uCount = Base->Children_.size();
@@ -70,7 +70,7 @@ namespace Bubblewrap
 			}
 
 		}
-		Math::Vector2f GoEntity::WorldPosition()
+		Math::Vector2f Entity::WorldPosition()
 		{
 			if ( GetParentEntity() == nullptr )
 			{
@@ -78,12 +78,12 @@ namespace Bubblewrap
 			}
 			return ( GetParentEntity() )->WorldPosition() + LocalPosition();
 		}
-		Math::Vector2f GoEntity::LocalPosition()
+		Math::Vector2f Entity::LocalPosition()
 		{
 			return Position_;
 		}
 
-		void GoEntity::SetLocalPosition( Math::Vector2f Position )
+		void Entity::SetLocalPosition( Math::Vector2f Position )
 		{
 			Position_ = Position;
 		}

@@ -1,33 +1,33 @@
-#ifndef REDRAWABLE_HPP
-#define REDRAWABLE_HPP
+#ifndef Drawable_HPP
+#define Drawable_HPP
 
 #include "Bubblewrap/Base/Defines.hpp"
-#include "Bubblewrap/Base/GoComponent.hpp"
-#include "Bubblewrap/Render/ReWindow.hpp"
+#include "Bubblewrap/Base/Component.hpp"
+#include "Bubblewrap/Render/Window.hpp"
 
 namespace Bubblewrap
 {
 	namespace Render
 	{
 
-		class ReDrawable
-			: public Base::GoComponent
+		class Drawable
+			: public Base::Component
 		{
 		public:
-			ReDrawable();
+			Drawable();
 			void Initialise( Json::Value Params );
 
-			CREATE_REGISTER( ReDrawable );
+			CREATE_REGISTER( Drawable );
 
 			virtual void Update( float dt );
 			virtual void OnAttach();
 
 
 			void SetWindow( std::string Name );
-			void SetWindow( ReWindow* Window );
+			void SetWindow( Window* Window );
 		protected:
 
-			ReWindow* Window_;
+			Window* Window_;
 			std::string WindowName_;
 		};
 	}

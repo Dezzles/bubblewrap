@@ -4,7 +4,7 @@
 #include <string>
 #include <fstream>
 #include <streambuf>
-#include "Bubblewrap/File/FiFile.hpp"
+#include "Bubblewrap/File/File.hpp"
 namespace Bubblewrap
 {
 	namespace File

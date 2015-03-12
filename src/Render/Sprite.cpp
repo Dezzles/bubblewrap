@@ -1,15 +1,15 @@
-#include "Bubblewrap/Render/ReSprite.hpp"
-#include "Bubblewrap/Base/GoEntity.hpp"
-#include "Bubblewrap/Base/GoBase.hpp"
+#include "Bubblewrap/Render/Sprite.hpp"
+#include "Bubblewrap/Base/Entity.hpp"
+#include "Bubblewrap/Base/Base.hpp"
 namespace Bubblewrap
 {
 	namespace Render
 	{
-		ReSprite::ReSprite()
+		Sprite::Sprite()
 		{
 		}
 
-		void ReSprite::Initialise( Json::Value Params )
+		void Sprite::Initialise( Json::Value Params )
 		{
 			SetWindow( Params[ "window" ].asString() );
 			SetSize( Math::Vector2f( Params[ "size" ][ "x" ].asFloat(), Params[ "size" ][ "y" ].asFloat() ) );
@@ -20,9 +20,9 @@ namespace Bubblewrap
 		}
 
 
-		void ReSprite::Copy( ReSprite* Target, ReSprite* Base )
+		void Sprite::Copy( Sprite* Target, Sprite* Base )
 		{
-			ReDrawable::Copy( Target, Base );
+			Drawable::Copy( Target, Base );
 			Target->SetSize( Base->Size_ );
 			Target->TextureName_ = Base->TextureName_;
 			Target->Texture_ = Base->Texture_;
@@ -30,11 +30,11 @@ namespace Bubblewrap
 
 		}
 
-		void ReSprite::OnAttach()
+		void Sprite::OnAttach()
 		{
 			if ( TextureName_ != "" )
 			{
-				auto values = GetParentEntity()->GetComponentsByType<ReTexture>( TextureName_ );
+				auto values = GetParentEntity()->GetComponentsByType<Texture>( TextureName_ );
 				assert( values.size() == 1 );
 				if ( values.size() > 0 )
 				{
@@ -44,30 +44,30 @@ namespace Bubblewrap
 		}
 
 
-		Math::Vector2f ReSprite::GetSize()
+		Math::Vector2f Sprite::GetSize()
 		{
 			return Size_;
 		}
 
-		void ReSprite::SetSize( Math::Vector2f Size )
+		void Sprite::SetSize( Math::Vector2f Size )
 		{
 			Size_ = Size;
 			Shape_.setSize( sf::Vector2f( Size.X(), Size.Y() ) );
 			Shape_.setOrigin( Size.X() * 0.5f, Size.Y() * 0.5f );
 		}
 
-		ReColour ReSprite::GetColour()
+		Colour Sprite::GetColour()
 		{
 			return Colour_;
 		}
 
-		void ReSprite::SetColour( ReColour Colour )
+		void Sprite::SetColour( Colour Colour )
 		{
 			Colour_ = Colour;
 			Shape_.setFillColor( sf::Color( Colour.R(), Colour.G(), Colour.B(), Colour.A() ) );
 		}
 
-		void ReSprite::Update( float dt )
+		void Sprite::Update( float dt )
 		{
 			Math::Vector2f Position = GetParentEntity()->WorldPosition();
 			Shape_.setPosition( Position.X(), Position.Y() );
@@ -78,7 +78,7 @@ namespace Bubblewrap
 			}
 		}
 
-		void ReSprite::SetTexture( ReTexture* Texture )
+		void Sprite::SetTexture( Texture* Texture )
 		{
 			Texture_ = Texture;
 			Shape_.setTexture( Texture->GetTexture() );

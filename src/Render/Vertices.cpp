@@ -1,51 +1,51 @@
-#include "Bubblewrap/Render/ReVertices.hpp"
-#include "Bubblewrap/Base/GoBase.hpp"
-#include "Bubblewrap/Render/ReTypes.hpp"
-#include "Bubblewrap/Math/MaVector.hpp"
+#include "Bubblewrap/Render/Vertices.hpp"
+#include "Bubblewrap/Base/Base.hpp"
+#include "Bubblewrap/Render/Types.hpp"
+#include "Bubblewrap/Math/Vector.hpp"
 namespace Bubblewrap
 {
 	namespace Render
 	{
-		ReVertices::ReVertices()
+		Vertices::Vertices()
 		{
 			VertexCount_ = 0;
 			ReservedCount_ = 0;
 			SFReservedCount_ = 0;
 
-			Vertices_ = new ReVertex[ 0 ];
+			Vertices_ = new Vertex[ 0 ];
 			SFVertices_ = new sf::Vertex[ 0 ];
 			Dirty_ = false;
 		}
 
 
-		ReVertices::~ReVertices()
+		Vertices::~Vertices()
 		{
 			delete Vertices_;
 			delete SFVertices_;
 		}
 
-		void ReVertices::Initialise( Json::Value Params )
+		void Vertices::Initialise( Json::Value Params )
 		{
-			ReDrawable::Initialise( Params );
+			Drawable::Initialise( Params );
 
-			SetPrimitiveType( ReConverts::RePrimitiveFromString( Params[ "primitivetype" ].asString() ) );
+			SetPrimitiveType( Converts::PrimitiveFromString( Params[ "primitivetype" ].asString() ) );
 			Reserve( Params[ "vertices" ].size() );
 			int uCount = Params[ "vertices" ].size();
 			VertexCount_ = uCount;
 			for ( int Idx = 0; Idx < uCount; ++Idx )
 			{
-				Vertices_[ Idx ].Colour_ = ReColour( Params[ "vertices" ][ Idx ][ "colour" ].asString() );
+				Vertices_[ Idx ].Colour_ = Colour( Params[ "vertices" ][ Idx ][ "colour" ].asString() );
 				Vertices_[ Idx ].Position_ = Math::Vector2f( Params[ "vertices" ][ Idx ][ "position" ].asString() );
-				Vertices_[ Idx ].Colour_ = ReColour( Params[ "vertices" ][ Idx ][ "colour" ].asString() );
+				Vertices_[ Idx ].Colour_ = Colour( Params[ "vertices" ][ Idx ][ "colour" ].asString() );
 			}
 		}
 
 
-		void ReVertices::Copy( ReVertices* Target, ReVertices* Base )
+		void Vertices::Copy( Vertices* Target, Vertices* Base )
 		{
-			ReDrawable::Copy( Target, Base );
+			Drawable::Copy( Target, Base );
 			Target->Reserve( Base->VertexCount_ );
-			memcpy( Target->Vertices_, Base->Vertices_, Base->VertexCount_ * sizeof( ReVertex ) );
+			memcpy( Target->Vertices_, Base->Vertices_, Base->VertexCount_ * sizeof( Vertex ) );
 
 			Target->PrimitiveType_ = Base->PrimitiveType_;
 			Target->ReservedCount_ = Base->VertexCount_;
@@ -53,12 +53,12 @@ namespace Bubblewrap
 			Target->Refresh();
 		}
 
-		void ReVertices::OnAttach()
+		void Vertices::OnAttach()
 		{
 
 		}
 
-		void ReVertices::Update( float dt )
+		void Vertices::Update( float dt )
 		{
 			assert( !Dirty_ );
 			if ( ( Window_ == nullptr ) && ( WindowName_ != "" ) )
@@ -72,37 +72,37 @@ namespace Bubblewrap
 			sf::PrimitiveType PrimitiveType;
 			switch ( PrimitiveType_ )
 			{
-			case RePrimitives::Lines:
+			case Primitives::Lines:
 				PrimitiveType = sf::PrimitiveType::Lines;
 				break;
-			case RePrimitives::LinesStrip:
+			case Primitives::LinesStrip:
 				PrimitiveType = sf::PrimitiveType::LinesStrip;
 				break;
-			case RePrimitives::Points:
+			case Primitives::Points:
 				PrimitiveType = sf::PrimitiveType::Points;
 				break;
-			case RePrimitives::Quads:
+			case Primitives::Quads:
 				PrimitiveType = sf::PrimitiveType::Quads;
 				break;
-			case RePrimitives::Triangles:
+			case Primitives::Triangles:
 				PrimitiveType = sf::PrimitiveType::Triangles;
 				break;
-			case RePrimitives::TrianglesStrip:
+			case Primitives::TrianglesStrip:
 				PrimitiveType = sf::PrimitiveType::TrianglesStrip;
 				break;
-			case RePrimitives::TrianglesFan:
+			case Primitives::TrianglesFan:
 				PrimitiveType = sf::PrimitiveType::TrianglesFan;
 				break;
 			}
 			rw->draw( SFVertices_, VertexCount_, PrimitiveType );
 		}
 
-		void ReVertices::SetPrimitiveType( RePrimitives PrimitiveType )
+		void Vertices::SetPrimitiveType( Primitives PrimitiveType )
 		{
 			PrimitiveType_ = PrimitiveType;
 		}
 
-		void ReVertices::AddVertex( ReVertex V )
+		void Vertices::AddVertex( Vertex V )
 		{
 			if ( VertexCount_ == ReservedCount_ )
 			{
@@ -112,25 +112,25 @@ namespace Bubblewrap
 			++VertexCount_;
 			Dirty_ = true;
 		}
-		void ReVertices::Reserve( unsigned int Amount )
+		void Vertices::Reserve( unsigned int Amount )
 		{
 			int CurrentCount = ReservedCount_;
 			int NewCount = ReservedCount_ + Amount;
-			ReVertex* newMem = new ReVertex[ NewCount ];
-			memset( newMem, 0, NewCount * sizeof( ReVertex ) );
-			memcpy( newMem, Vertices_, CurrentCount * sizeof( ReVertex ) );
+			Vertex* newMem = new Vertex[ NewCount ];
+			memset( newMem, 0, NewCount * sizeof( Vertex ) );
+			memcpy( newMem, Vertices_, CurrentCount * sizeof( Vertex ) );
 			delete Vertices_;
 			Vertices_ = newMem;
 			ReservedCount_ = NewCount;
 		}
-		void ReVertices::SetVertex( unsigned int Idx, ReVertex V )
+		void Vertices::SetVertex( unsigned int Idx, Vertex V )
 		{
 			assert( Idx < VertexCount_ );
 			Vertices_[ Idx ] = V;
 			Dirty_ = true;
 		}
 
-		void ReVertices::Refresh()
+		void Vertices::Refresh()
 		{
 			if ( SFReservedCount_ < VertexCount_ )
 			{

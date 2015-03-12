@@ -1,20 +1,20 @@
 #include "Bubblewrap/Base/ObjectRegister.hpp"
-#include "Bubblewrap/Base/GoEntity.hpp"
-#include "Bubblewrap/Base/GoBase.hpp"
-#include "Bubblewrap/Render/ReSprite.hpp"
-#include "Bubblewrap/Render/ReTexture.hpp"
-#include "Bubblewrap/Render/ReVertices.hpp"
-#include "Bubblewrap/File/FiFSFile.hpp"
+#include "Bubblewrap/Base/Entity.hpp"
+#include "Bubblewrap/Base/Base.hpp"
+#include "Bubblewrap/Render/Sprite.hpp"
+#include "Bubblewrap/Render/Texture.hpp"
+#include "Bubblewrap/Render/Vertices.hpp"
+#include "Bubblewrap/File/FSFile.hpp"
 namespace Bubblewrap
 {
 	namespace Base
 	{
 		ObjectRegister::ObjectRegister()
 		{
-			RegisterCreator( "GoEntity", &GoEntity::Create, &GoEntity::CreateJson, &GoEntity::CopyDef );
-			RegisterCreator( "ReSprite", &Render::ReSprite::Create, &Render::ReSprite::CreateJson, &Render::ReSprite::CopyDef );
-			RegisterCreator( "ReTexture", &Render::ReTexture::Create, &Render::ReTexture::CreateJson, &Render::ReTexture::CopyDef );
-			RegisterCreator( "ReVertices", &Render::ReVertices::Create, &Render::ReVertices::CreateJson, &Render::ReVertices::CopyDef );
+			RegisterCreator( "Entity", &Entity::Create, &Entity::CreateJson, &Entity::CopyDef );
+			RegisterCreator( "Sprite", &Render::Sprite::Create, &Render::Sprite::CreateJson, &Render::Sprite::CopyDef );
+			RegisterCreator( "Texture", &Render::Texture::Create, &Render::Texture::CreateJson, &Render::Texture::CopyDef );
+			RegisterCreator( "Vertices", &Render::Vertices::Create, &Render::Vertices::CreateJson, &Render::Vertices::CopyDef );
 			LoadState_ = 0;
 			LoadingPackage_ = false;
 		}
@@ -107,9 +107,9 @@ namespace Bubblewrap
 			{
 				if ( Objects_[ Idx ]->Destroy_ )
 				{
-					EvtMessage DestroyMessage( 0 /* TODO: Add Value*/ );
-					DestroyMessage.Data_ = &Objects_[ Idx ]->Id_;
-					RepeatMessage( DestroyMessage );
+					// EvtMessage DestroyMessage( 0 /* TODO: Add Value*/ );
+					// DestroyMessage.Data_ = &Objects_[ Idx ]->Id_;
+					// RepeatMessage( DestroyMessage );
 					destroyObject = true;
 				}
 			}
@@ -128,7 +128,7 @@ namespace Bubblewrap
 			}
 		}
 
-		void ObjectRegister::RepeatMessage( EvtMessage  Message )
+		/*void ObjectRegister::RepeatMessage( EvtMessage  Message )
 		{
 			for ( unsigned int Idx = 0; Idx < Objects_.size(); ++Idx )
 			{
@@ -143,7 +143,7 @@ namespace Bubblewrap
 		void ObjectRegister::AddReceiver( std::function< void( EvtMessage ) > Function )
 		{
 			CallBacks_.push_back( Function );
-		}
+		}/**/
 
 		void ObjectRegister::RegisterCreator( std::string Class, std::function < GoBase*( ) > Creator, std::function < GoBase*( Json::Value ) > CreatorJson, 
 											  std::function< void( GoBase*, GoBase* ) > Copier )
@@ -153,7 +153,7 @@ namespace Bubblewrap
 			ClassGenerators_[ Class ].ClassCopier_ = Copier;
 		}
 
-		GoBase* ObjectRegister::CreateObject( std::string Type, GoEntity* Parent )
+		GoBase* ObjectRegister::CreateObject( std::string Type, Entity* Parent )
 		{
 			++LoadState_;
 			GoBase* obj = ClassGenerators_[ Type ].ClassGenerator_();
@@ -174,7 +174,7 @@ namespace Bubblewrap
 			return obj;
 		}
 
-		GoBase* ObjectRegister::CreateObject( Json::Value Json, GoEntity* Parent )
+		GoBase* ObjectRegister::CreateObject( Json::Value Json, Entity* Parent )
 		{
 			++LoadState_;
 			std::string Type = Json[ "type" ].asString();
@@ -252,7 +252,7 @@ namespace Bubblewrap
 
 		}
 
-		GoBase* ObjectRegister::LoadObject( std::string Name, GoEntity* Parent )
+		GoBase* ObjectRegister::LoadObject( std::string Name, Entity* Parent )
 		{
 			int split = Name.find_first_of( ':' );
 			std::string package = Name.substr( 0, split );
@@ -260,7 +260,7 @@ namespace Bubblewrap
 			return LoadObject( package, name, Parent );
 		}
 
-		GoBase* ObjectRegister::LoadObject( std::string PackageName, std::string Name, GoEntity* Parent )
+		GoBase* ObjectRegister::LoadObject( std::string PackageName, std::string Name, Entity* Parent )
 		{
 			GoBase* base = PackageObjects_[ PackageName ][ Name ];
 
@@ -270,7 +270,7 @@ namespace Bubblewrap
 			return ret;
 
 		}
-		GoBase* ObjectRegister::CreateCopy( GoBase* Base, GoEntity* Parent )
+		GoBase* ObjectRegister::CreateCopy( GoBase* Base, Entity* Parent )
 		{
 			GoBase* ret = CreateObject( Base->TypeName(), Parent );
 			ClassGenerators_[ Base->TypeName() ].ClassCopier_( ret, Base );

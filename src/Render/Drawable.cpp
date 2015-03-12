@@ -1,45 +1,45 @@
-#include "Bubblewrap/Render/ReDrawable.hpp"
-#include "Bubblewrap/Base/GoBase.hpp"
+#include "Bubblewrap/Render/Drawable.hpp"
+#include "Bubblewrap/Base/Base.hpp"
 namespace Bubblewrap
 {
 	namespace Render
 	{
-		ReDrawable::ReDrawable()
+		Drawable::Drawable()
 		{
 			WindowName_ = "";
 			Window_ = nullptr;
 		}
 
-		void ReDrawable::Initialise( Json::Value Params )
+		void Drawable::Initialise( Json::Value Params )
 		{
 			GoBase::Initialise( Params );
 			SetWindow( Params[ "window" ].asString() );
 		}
 
 
-		void ReDrawable::Copy( ReDrawable* Target, ReDrawable* Base )
+		void Drawable::Copy( Drawable* Target, Drawable* Base )
 		{
 			Target->SetWindow( Base->Window_ );
 			Target->WindowName_ = Base->WindowName_;
 		}
 
-		void ReDrawable::OnAttach()
+		void Drawable::OnAttach()
 		{
 
 		}
 
-		void ReDrawable::SetWindow( std::string Name )
+		void Drawable::SetWindow( std::string Name )
 		{
 			WindowName_ = Name;
 			Window_ = GetManager().GetWindowManager().GetItem( Name );
 		}
 
-		void ReDrawable::SetWindow( ReWindow* Window )
+		void Drawable::SetWindow( Window* Window )
 		{
 			Window_ = Window;
 		}
 
-		void ReDrawable::Update( float dt )
+		void Drawable::Update( float dt )
 		{
 			if ( ( Window_ == nullptr ) && ( WindowName_ != "" ) )
 			{

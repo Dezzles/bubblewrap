@@ -1,5 +1,5 @@
-#ifndef RECOLOUR_HPP
-#define RECOLOUR_HPP
+#ifndef Colour_HPP
+#define Colour_HPP
 
 #include <string>
 
@@ -7,16 +7,16 @@ namespace Bubblewrap
 {
 	namespace Render
 	{
-		class ReColour
+		class Colour
 		{
 		public:
-			ReColour();
-			ReColour( unsigned int ARGB );
-			ReColour( unsigned char R, unsigned char G, unsigned char B );
-			ReColour( unsigned char A, unsigned char R, unsigned char G, unsigned char B );
-			ReColour( float R, float G, float B );
-			ReColour( float A, float R, float G, float B );
-			ReColour::ReColour( std::string Colour );
+			Colour();
+			Colour( unsigned int ARGB );
+			Colour( unsigned char R, unsigned char G, unsigned char B );
+			Colour( unsigned char A, unsigned char R, unsigned char G, unsigned char B );
+			Colour( float R, float G, float B );
+			Colour( float A, float R, float G, float B );
+			Colour::Colour( std::string Colour );
 
 			unsigned char R();
 			unsigned char G();

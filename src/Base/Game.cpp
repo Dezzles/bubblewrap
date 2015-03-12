@@ -1,6 +1,6 @@
-#include "Bubblewrap/Base/GoGame.hpp"
-#include "Bubblewrap/Base/GoEntity.hpp"
-#include "Bubblewrap/File/FiFSFile.hpp"
+#include "Bubblewrap/Base/Game.hpp"
+#include "Bubblewrap/Base/Entity.hpp"
+#include "Bubblewrap/File/FSFile.hpp"
 namespace Bubblewrap
 {
 	namespace Game
@@ -33,7 +33,7 @@ namespace Bubblewrap
 				float CurrentTime = clock.getElapsedTime().asSeconds();
 				float TimeStep = CurrentTime - PrevTime;
 
-				Managers_.GetWindowManager().OnAll( [ TimeStep ]( Render::ReWindow* f )
+				Managers_.GetWindowManager().OnAll( [ TimeStep ]( Render::Window* f )
 				{
 					f->Update( TimeStep );
 					f->HandleEvents();
@@ -45,7 +45,7 @@ namespace Bubblewrap
 
 
 
-				Managers_.GetWindowManager().OnAll( [ TimeStep ]( Render::ReWindow* f )
+				Managers_.GetWindowManager().OnAll( [ TimeStep ]( Render::Window* f )
 				{
 					f->Display();
 				} );

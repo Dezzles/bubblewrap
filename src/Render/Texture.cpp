@@ -1,32 +1,32 @@
-#include "Bubblewrap/Render/ReTexture.hpp"
+#include "Bubblewrap/Render/Texture.hpp"
 
 namespace Bubblewrap
 {
 	namespace Render
 	{
-		ReTexture::ReTexture()
+		Texture::Texture()
 		{
 
 		}
 
-		void ReTexture::Initialise( Json::Value Params )
+		void Texture::Initialise( Json::Value Params )
 		{
 			GoBase::Initialise( Params );
 			Texture_.loadFromFile( Params[ "texture" ].asString() );
 			
 		}
 
-		void ReTexture::Copy( ReTexture* Target, ReTexture* Base )
+		void Texture::Copy( Texture* Target, Texture* Base )
 		{
 			Target->Texture_ = Base->Texture_;
 		}
 
-		void ReTexture::Update( float dt )
+		void Texture::Update( float dt )
 		{
 
 		}
 
-		sf::Texture* ReTexture::GetTexture()
+		sf::Texture* Texture::GetTexture()
 		{
 			return &Texture_;
 		}

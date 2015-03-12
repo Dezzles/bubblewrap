@@ -1,4 +1,4 @@
-#include "Bubblewrap/Managers/MgrManagers.hpp"
+#include "Bubblewrap/Managers/Managers.hpp"
 
 
 namespace Bubblewrap

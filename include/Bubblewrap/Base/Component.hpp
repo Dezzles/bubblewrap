@@ -1,15 +1,15 @@
-#ifndef GOCOMPONENT_H
-#define GOCOMPONENT_H
+#ifndef Component_H
+#define Component_H
 
-#include "Bubblewrap/Base/GoBase.hpp"
+#include "Bubblewrap/Base/Base.hpp"
 
 namespace Bubblewrap
 {
 	namespace Base
 	{
-		class GoEntity;
+		class Entity;
 		class ObjectRegister;
-		class GoComponent
+		class Component
 			: public GoBase
 		{
 			friend ObjectRegister;

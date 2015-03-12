@@ -1,16 +1,16 @@
-#include "Bubblewrap/Render/ReColour.hpp"
+#include "Bubblewrap/Render/Colour.hpp"
 
 namespace Bubblewrap
 {
 	namespace Render
 	{
-		ReColour::ReColour( )
+		Colour::Colour( )
 			: A_( ( unsigned char ) 0xFF ), R_( ( unsigned char ) 0xFF ), G_( ( unsigned char ) 0xFF ), B_( ( unsigned char ) 0xFF )
 		{
 
 		}
 
-		ReColour::ReColour( std::string Colour )
+		Colour::Colour( std::string Colour )
 		{
 			int R, G, B, A;
 			A = 255;
@@ -38,7 +38,7 @@ namespace Bubblewrap
 			R_ = ( unsigned char ) R;
 		}
 
-		ReColour::ReColour( unsigned int ARGB )
+		Colour::Colour( unsigned int ARGB )
 		{
 			unsigned int A = ( 0xFF000000 & ARGB ) >> 24;
 			unsigned int R = ( 0x00FF0000 & ARGB ) >> 16;
@@ -50,43 +50,43 @@ namespace Bubblewrap
 			A_ = ( unsigned char ) A;
 		}
 
-		ReColour::ReColour( unsigned char R, unsigned char G, unsigned char B )
+		Colour::Colour( unsigned char R, unsigned char G, unsigned char B )
 			: A_( (unsigned char)0xFF ), R_( R ), G_( G ), B_( B )
 		{
 
 		}
 
-		ReColour::ReColour( unsigned char A, unsigned char R, unsigned char G, unsigned char B )
+		Colour::Colour( unsigned char A, unsigned char R, unsigned char G, unsigned char B )
 			: A_( A ), R_( R ), G_( G ), B_( B )
 		{
 
 		}
 
-		ReColour::ReColour( float R, float G, float B )
+		Colour::Colour( float R, float G, float B )
 			: A_( (unsigned char)0xFF ), R_( ( unsigned char ) ( R*255.0f ) ), G_( ( unsigned char ) ( G * 255.0f ) ), B_( ( unsigned char ) ( B * 255.0f ) )
 		{
 
 		}
 
-		ReColour::ReColour( float A, float R, float G, float B )
+		Colour::Colour( float A, float R, float G, float B )
 			: A_( (unsigned char) (A * 255.0f) ), R_( ( unsigned char ) ( R*255.0f ) ), G_( ( unsigned char ) ( G * 255.0f ) ), B_( ( unsigned char ) ( B * 255.0f ) )
 		{
 
 		}
-		unsigned char ReColour::R()
+		unsigned char Colour::R()
 		{
 			return R_;
 		}
 
-		unsigned char ReColour::G()
+		unsigned char Colour::G()
 		{
 			return G_;
 		}
-		unsigned char ReColour::B()
+		unsigned char Colour::B()
 		{
 			return B_;
 		}
-		unsigned char ReColour::A()
+		unsigned char Colour::A()
 		{
 			return A_;
 		}

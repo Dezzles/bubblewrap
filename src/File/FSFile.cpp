@@ -1,4 +1,4 @@
-#include "Bubblewrap/File/FiFSFile.hpp"
+#include "Bubblewrap/File/FSFile.hpp"
 
 namespace Bubblewrap
 {
