@@ -2,6 +2,7 @@
 #define MGRMANAGERS_H
 #include "Bubblewrap/Managers/Container.hpp"
 #include "Bubblewrap/Render/Window.hpp"
+#include "Bubblewrap/Events/EventManager.hpp"
 namespace Bubblewrap
 {
 	namespace Managers
