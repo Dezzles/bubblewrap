@@ -2,6 +2,7 @@
 #define MAVECTOR_H
 
 #include <math.h>
+#include <string>
 namespace Bubblewrap
 {
 	namespace Math
@@ -22,6 +23,19 @@ namespace Bubblewrap
 			Vector2( T_ X, T_ Y )
 				: X_( X ), Y_( Y )
 			{
+
+			}
+
+			Vector2( std::string Vec )
+			{
+				int Idx1 = Vec.find_first_of( ' ' );
+					
+				std::string sX = Vec.substr( 0, Idx1 );
+				std::string sY = Vec.substr( Idx1 + 1 );
+
+				
+				X_ = (T_)atof( sX.c_str() );
+				Y_ = (T_)atof( sY.c_str() );
 
 			}
 

@@ -3,7 +3,7 @@
 
 #include "SFML/Graphics.hpp"
 #include "Bubblewrap/Base/Defines.hpp"
-#include "Bubblewrap/Base/GoComponent.hpp"
+#include "Bubblewrap/Render/ReDrawable.hpp"
 #include "Bubblewrap/Math/MaVector.hpp"
 #include "Bubblewrap/Render/ReColour.hpp"
 #include "Bubblewrap/Render/ReWindow.hpp"
@@ -15,7 +15,7 @@ namespace Bubblewrap
 	{
 
 		class ReSprite
-			: public Base::GoComponent
+			: public ReDrawable
 		{
 		public:
 			ReSprite();
@@ -33,16 +33,12 @@ namespace Bubblewrap
 			Math::Vector2f GetSize();
 			void SetSize( Math::Vector2f Size );
 
-			void SetWindow( std::string Name );
-			void SetWindow( ReWindow* Window );
-
 			void SetTexture( ReTexture* Texture );
 		private:
 
 			sf::RectangleShape Shape_;
 			Math::Vector2f Size_;
 			ReColour Colour_;
-			ReWindow* Window_;
 
 			ReTexture* Texture_;
 

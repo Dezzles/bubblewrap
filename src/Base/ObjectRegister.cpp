@@ -3,6 +3,7 @@
 #include "Bubblewrap/Base/GoBase.hpp"
 #include "Bubblewrap/Render/ReSprite.hpp"
 #include "Bubblewrap/Render/ReTexture.hpp"
+#include "Bubblewrap/Render/ReVertices.hpp"
 #include "Bubblewrap/File/FiFSFile.hpp"
 namespace Bubblewrap
 {
@@ -13,6 +14,7 @@ namespace Bubblewrap
 			RegisterCreator( "GoEntity", &GoEntity::Create, &GoEntity::CreateJson, &GoEntity::CopyDef );
 			RegisterCreator( "ReSprite", &Render::ReSprite::Create, &Render::ReSprite::CreateJson, &Render::ReSprite::CopyDef );
 			RegisterCreator( "ReTexture", &Render::ReTexture::Create, &Render::ReTexture::CreateJson, &Render::ReTexture::CopyDef );
+			RegisterCreator( "ReVertices", &Render::ReVertices::Create, &Render::ReVertices::CreateJson, &Render::ReVertices::CopyDef );
 			LoadState_ = 0;
 			LoadingPackage_ = false;
 		}

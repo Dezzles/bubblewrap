@@ -7,7 +7,6 @@ namespace Bubblewrap
 	{
 		ReSprite::ReSprite()
 		{
-			Window_ = nullptr;
 		}
 
 		void ReSprite::Initialise( Json::Value Params )
@@ -23,8 +22,8 @@ namespace Bubblewrap
 
 		void ReSprite::Copy( ReSprite* Target, ReSprite* Base )
 		{
+			ReDrawable::Copy( Target, Base );
 			Target->SetSize( Base->Size_ );
-			Target->SetWindow( Base->Window_ );
 			Target->TextureName_ = Base->TextureName_;
 			Target->Texture_ = Base->Texture_;
 			Target->SetColour( Base->Colour_ );
@@ -54,6 +53,7 @@ namespace Bubblewrap
 		{
 			Size_ = Size;
 			Shape_.setSize( sf::Vector2f( Size.X(), Size.Y() ) );
+			Shape_.setOrigin( Size.X() * 0.5f, Size.Y() * 0.5f );
 		}
 
 		ReColour ReSprite::GetColour()
@@ -65,16 +65,6 @@ namespace Bubblewrap
 		{
 			Colour_ = Colour;
 			Shape_.setFillColor( sf::Color( Colour.R(), Colour.G(), Colour.B(), Colour.A() ) );
-		}
-
-		void ReSprite::SetWindow( std::string Name )
-		{
-			Window_ = GetManager().GetWindowManager().GetItem( Name );
-		}
-
-		void ReSprite::SetWindow( ReWindow* Window )
-		{
-			Window_ = Window;
 		}
 
 		void ReSprite::Update( float dt )
