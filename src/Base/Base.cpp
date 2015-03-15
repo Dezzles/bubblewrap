@@ -10,6 +10,11 @@ namespace Bubblewrap
 
 		}
 
+		void GoBase::Copy( GoBase* Target, GoBase* Base )
+		{
+			Target->Name_ = Base->Name_;
+		}
+
 		int GoBase::Id()
 		{
 			return Id_;
@@ -51,7 +56,7 @@ namespace Bubblewrap
 			return Parent_;
 		}
 
-		Managers::MgrManagers& GoBase::GetManager()
+		Managers::Managers& GoBase::GetManager()
 		{
 			return *Manager_;
 		}

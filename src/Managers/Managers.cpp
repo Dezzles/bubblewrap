@@ -5,7 +5,7 @@ namespace Bubblewrap
 {
 	namespace Managers
 	{
-		MgrManagers::MgrManagers()
+		Managers::Managers()
 		{
 
 		}

@@ -15,14 +15,14 @@ namespace Bubblewrap
 			friend ObjectRegister;
 		public:
 			GoBase( );
-
+			static void Copy( GoBase* Target, GoBase* Base );
 			virtual void Update( float dt ) = 0;
 			void Destroy();
 			int Id();
 
 			ObjectRegister & GetRegister();
 
-			Managers::MgrManagers& GetManager();
+			Managers::Managers& GetManager();
 			virtual void OnAttach();
 			virtual void OnDetach();
 
@@ -40,7 +40,7 @@ namespace Bubblewrap
 			ObjectRegister* ObjectRegister_;
 			GoBase* Basis_;
 
-			Managers::MgrManagers* Manager_;
+			Managers::Managers* Manager_;
 
 			std::string Name_;
 		};

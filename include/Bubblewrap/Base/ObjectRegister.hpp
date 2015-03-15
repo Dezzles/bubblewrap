@@ -9,10 +9,16 @@
 #include "json/json.h"
 namespace Bubblewrap
 {
+	namespace Game
+	{
+		class Game;
+
+	}
 	namespace Base
 	{
 		class ObjectRegister
 		{
+			friend Game::Game;
 		public:
 			ObjectRegister();
 			~ObjectRegister();
@@ -46,13 +52,15 @@ namespace Bubblewrap
 			void RegisterCreator( std::string Class, std::function < GoBase*( ) > Creator, std::function < GoBase*( Json::Value ) > CreatorJson,
 								  std::function< void( GoBase*, GoBase* ) > Copier );
 			// void RepeatMessage( EvtMessage Message );
-			void SetManager( Managers::MgrManagers* Manager );
+			void SetManager( Managers::Managers* Manager );
 
 			void LoadPackage( std::string PackageFile );
 			GoBase* LoadObject( std::string Package_, std::string Name, Entity* Parent );
 			GoBase* LoadObject( std::string Name, Entity* Parent );
 
 			GoBase* CreateCopy( GoBase* Obj, Entity* Parent );
+
+			void LogHierarchy();
 		private:
 			struct OrGenerators
 			{
@@ -73,7 +81,7 @@ namespace Bubblewrap
 
 			std::vector< GoBase* > ParentlessItems_;
 			
-			Managers::MgrManagers* Managers_ = nullptr;
+			Managers::Managers* Managers_ = nullptr;
 
 			std::vector<GoBase*> ToAttach_;
 
@@ -84,6 +92,7 @@ namespace Bubblewrap
 			std::map<std::string, std::map<std::string, GoBase*>> PackageObjects_;
 			std::string CurrentPackage_;
 			bool LoadingPackage_;
+			void RegisterClasses();
 		};
 	}
 }

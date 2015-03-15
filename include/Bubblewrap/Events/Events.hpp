@@ -1,30 +1,27 @@
 #ifndef MESSAGES_HPP
 #define MESSAGES_HPP
 
-#include "Message.hpp"
-
+#include "Bubblewrap/Events/Event.hpp"
+#include "Bubblewrap/Events/EventKeyInput.hpp"
 namespace Bubblewrap
 {
 	namespace Events
 	{
-		namespace MessageTypes
+		class InputData
+			: public EventData
 		{
-			enum MessageTypes : unsigned int
-			{
-				Input
-			};
-		}
-
-		class InputMessage
-			: MessageData
-		{
-			enum InputType
+		public:
+			enum class InputType
 			{
 				KeyDown,
 				KeyUp
 			};
 
 			InputType InputType_;
+			Key Key_;
+			bool Alt_;
+			bool Shift_;
+			bool Control_;
 		};
 	}
 }

@@ -29,7 +29,7 @@ class JSON_API Writer {
 public:
   virtual ~Writer();
 
-  virtual std::string write(const Value &root) = 0;
+  virtual std::string WriteLine(const Value &root) = 0;
 };
 
 /** \brief Outputs a Value in <a HREF="http://www.json.org">JSON</a> format
@@ -55,7 +55,7 @@ public:
   void dropNullPlaceholders();
 
 public: // overridden from Writer
-  virtual std::string write(const Value &root);
+  virtual std::string WriteLine(const Value &root);
 
 private:
   void writeValue(const Value &value);
@@ -98,7 +98,7 @@ public: // overridden from Writer
    * \param root Value to serialize.
    * \return String containing the JSON document that represents the root value.
    */
-  virtual std::string write(const Value &root);
+  virtual std::string WriteLine(const Value &root);
 
 private:
   void writeValue(const Value &value);
@@ -158,10 +158,10 @@ public:
   /** \brief Serialize a Value in <a HREF="http://www.json.org">JSON</a> format.
    * \param out Stream to write to. (Can be ostringstream, e.g.)
    * \param root Value to serialize.
-   * \note There is no point in deriving from Writer, since write() should not
+   * \note There is no point in deriving from Writer, since WriteLine() should not
    * return a value.
    */
-  void write(std::ostream &out, const Value &root);
+  void WriteLine(std::ostream &out, const Value &root);
 
 private:
   void writeValue(const Value &value);

@@ -16,15 +16,15 @@ namespace Bubblewrap
 			std::function<void( Base::ObjectRegister* )> TypeRegistration_;
 			std::string BaseObject_;
 		};
-		class GoGame
+		class Game
 		{
 		public:
-			GoGame();
+			Game();
 			void Run( GoGameSettings Settings );
 		private:
 			Base::ObjectRegister Register_;
 
-			Managers::MgrManagers Managers_;
+			Managers::Managers Managers_;
 		};
 	}
 }

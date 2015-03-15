@@ -10,6 +10,10 @@
 
 namespace Bubblewrap
 {
+	namespace Events
+	{
+		class EventManager;
+	}
 	namespace Base
 	{
 
@@ -18,6 +22,7 @@ namespace Bubblewrap
 		class Entity
 			: public GoBase
 		{
+			friend Events::EventManager;
 			Entity();
 			void Initialise( Json::Value Params );
 
@@ -26,7 +31,6 @@ namespace Bubblewrap
 
 			Math::Vector2f Position_;
 
-			std::string Name_;
 		public:
 			CREATE_REGISTER( Entity );
 
@@ -68,6 +72,8 @@ namespace Bubblewrap
 			void SetLocalPosition( Math::Vector2f Position );
 			Math::Vector2f WorldPosition();
 			Math::Vector2f LocalPosition();
+
+			void LogHierarchy();
 		};
 	}
 }

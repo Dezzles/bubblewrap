@@ -1,4 +1,8 @@
 #include "Bubblewrap/Render/Window.hpp"
+#include "Bubblewrap/Managers/Managers.hpp"
+
+#include "Bubblewrap/Events/Events.hpp"
+#include "Bubblewrap/Events/EventManager.hpp"
 
 namespace Bubblewrap
 {
@@ -41,9 +45,31 @@ namespace Bubblewrap
 				// sm->Input( event );
 				//if ( event.type == sf::Event::Closed )
 				//window.close();
-				if ( ( event.type == sf::Event::KeyPressed ) && ( event.key.code == sf::Keyboard::Escape ) )
+				if ( ( event.type == sf::Event::KeyPressed ) )
 				{
-
+					auto code = Bubblewrap::Events::TranslateKey( event.key.code );
+					printf( "sf::KeyDown\n" );
+					Events::InputData* newEvent = new Events::InputData();
+					newEvent->InputType_ = Events::InputData::InputType::KeyDown;
+					newEvent->Key_ = Bubblewrap::Events::TranslateKey( event.key.code );
+					newEvent->Alt_ = event.key.alt;
+					newEvent->Control_ = event.key.control;
+					newEvent->Shift_ = event.key.shift;
+					Events::Event evt = Events::Event( Events::EventTypes::Input, newEvent );
+					GetManagers().GetEventManager().SendMessage( evt );
+				}
+				else if ( ( event.type == sf::Event::KeyReleased ) )
+				{
+					auto code = Bubblewrap::Events::TranslateKey( event.key.code );
+					printf( "sf::KeyUp\n" );
+					Events::InputData* newEvent = new Events::InputData();
+					newEvent->InputType_ = Events::InputData::InputType::KeyUp;
+					newEvent->Key_ = Bubblewrap::Events::TranslateKey( event.key.code );
+					newEvent->Alt_ = event.key.alt;
+					newEvent->Control_ = event.key.control;
+					newEvent->Shift_ = event.key.shift;
+					Events::Event evt = Events::Event( Events::EventTypes::Input, newEvent );
+					GetManagers().GetEventManager().SendMessage( evt );
 				}
 			}
 

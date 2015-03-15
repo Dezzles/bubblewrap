@@ -1,13 +1,16 @@
 #ifndef Window_H
 #define Window_H
 
+
+#include "Bubblewrap/Managers/BaseManager.hpp"
 #include "SFML/Graphics.hpp"
 #include <functional>
 namespace Bubblewrap
 {
 	namespace Render
 	{
-		class Window
+		class Window 
+			: public Managers::BaseManager
 		{
 		public:
 			struct WindowSettings

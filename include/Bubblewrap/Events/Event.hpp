@@ -5,26 +5,34 @@ namespace Bubblewrap
 {
 	namespace Events
 	{
-		class Manager;
+		namespace EventTypes
+		{
+			enum EventTypes : unsigned int
+			{
+				Input,
+
+
+				LastEvent
+			};
+		}
+
+		class EventManager;
 		class EventData
 		{ };
 
 		class Event
 		{
-			friend Manager;
+			friend EventManager;
 		public:
-			Event( int EventType, EventData* Data );
+			Event( EventTypes::EventTypes EventType, EventData* Data );
 
-
-			int GetEventType() const;
+			EventTypes::EventTypes GetEventType() const;
 			EventData* GetData() const;
+			~Event();
 		private:
-			int EventType_;
+			EventTypes::EventTypes EventType_;
 			EventData* Data_;
 
-			Event( const Event& Other )
-			{
-			}
 		};
 	}
 }

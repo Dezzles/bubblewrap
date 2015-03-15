@@ -35,7 +35,7 @@ namespace Bubblewrap
 			if ( TextureName_ != "" )
 			{
 				auto values = GetParentEntity()->GetComponentsByType<Texture>( TextureName_ );
-				assert( values.size() == 1 );
+
 				if ( values.size() > 0 )
 				{
 					SetTexture( values[ 0 ] );

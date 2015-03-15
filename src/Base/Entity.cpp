@@ -1,6 +1,7 @@
 #include "Bubblewrap/Base/Entity.hpp"
 #include "Bubblewrap/Base/Component.hpp"
 #include "Bubblewrap/Base/ObjectRegister.hpp"
+#include "Bubblewrap/Logs/Log.hpp"
 namespace Bubblewrap
 {
 	namespace Base
@@ -13,8 +14,9 @@ namespace Bubblewrap
 
 		void Entity::Initialise( Json::Value Params )
 		{
+			Logs::Log log( "Entity::Initialise" + Params[ "name"].asString() );
+
 			GoBase::Initialise( Params );
-			Name_ = Params[ "name" ].asString();
 			if ( Params[ "position" ].isObject() )
 			{
 				float x = Params[ "position" ][ "x" ].asFloat();
@@ -24,17 +26,21 @@ namespace Bubblewrap
 			}
 			if ( Params[ "children" ].isArray() )
 			{
+				log.WriteLine( "Loading children" );
 				for ( unsigned int Idx = 0; Idx < Params[ "children" ].size(); ++Idx )
 				{
 					Children_.push_back( GetRegister().CreateObject( Params[ "children" ][ Idx ], this ) );
 				}
+				log.WriteLine( "Loaded children" );
 			}
 			if ( Params[ "components" ].isArray() )
 			{
+				log.WriteLine( "Loading components" );
 				for ( unsigned int Idx = 0; Idx < Params[ "components" ].size(); ++Idx )
 				{
 					Components_.push_back( static_cast< Component* >( GetRegister().CreateObject( Params[ "components" ][ Idx ], this ) ) );
 				}
+				log.WriteLine( "Loaded components" );
 			}
 		}
 
@@ -55,7 +61,9 @@ namespace Bubblewrap
 
 		void Entity::Copy( Entity* Target, Entity* Base )
 		{
-			Target->Position_ = Target->Position_;
+			GoBase::Copy( Target, Base );
+			Logs::Log log( "Entity::Copy" );
+			Target->Position_ = Base->Position_;
 			unsigned int uCount = Base->Components_.size();
 			for ( unsigned int Idx = 0; Idx < uCount; ++Idx )
 			{
@@ -86,6 +94,28 @@ namespace Bubblewrap
 		void Entity::SetLocalPosition( Math::Vector2f Position )
 		{
 			Position_ = Position;
+		}
+
+		void Entity::LogHierarchy()
+		{
+			Logs::Log log;
+			log.WriteLine( GetName() + "{Entity}" );
+			{
+				Logs::Log log2;
+
+				for ( unsigned int Idx = 0; Idx < Components_.size(); ++Idx )
+				{
+					try
+					{
+						log2.WriteLine( Components_[ Idx ]->GetName() + "{" + Components_[ Idx ]->TypeName() + "}" );
+					}
+					catch (int)
+					{
+					}
+				}
+				for ( unsigned int Idx = 0; Idx < Children_.size(); ++Idx )
+					( ( Entity* ) Children_[ Idx ] )->LogHierarchy();
+			}
 		}
 	}
 }

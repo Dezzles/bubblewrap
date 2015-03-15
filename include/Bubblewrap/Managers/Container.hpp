@@ -8,6 +8,7 @@ namespace Bubblewrap
 {
 	namespace Managers
 	{
+		class Managers;
 
 		template <class T_>
 		class MgrContainer
@@ -24,10 +25,16 @@ namespace Bubblewrap
 				int Index_;
 				std::string Name_;
 			};
+			Managers* Owner_;
 		public:
 			MgrContainer()
 			{
 
+			}
+
+			void SetManager( Managers* Owner)
+			{
+				Owner_ = Owner;
 			}
 
 			T_* GetItem( unsigned int Idx )
@@ -55,6 +62,7 @@ namespace Bubblewrap
 			{
 				int ret = Items_.size();
 				Items_.push_back( MgrWrapper( new T_( args... ), ret, Name ) );
+				Items_[ ret ].Manager_->SetManager( Owner_ );
 				return ret;
 			}
 
