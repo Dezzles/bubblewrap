@@ -6,7 +6,6 @@
 #include "Bubblewrap/Render/Vertices.hpp"
 #include "Bubblewrap/File/FSFile.hpp"
 #include "Bubblewrap/Logs/Log.hpp"
-
 namespace Bubblewrap
 {
 	namespace Base
@@ -39,6 +38,7 @@ namespace Bubblewrap
 		int ObjectRegister::RegisterObject( GoBase* Object )
 		{
 			Object->Id_ = NextId_++;
+			
 			Object->ObjectRegister_ = this;	
 			Object->Manager_ = Managers_;
 			Objects_.push_back( Object );
@@ -166,37 +166,37 @@ namespace Bubblewrap
 		{
 			Logs::Log log("ObjectRegister::CreateObject");
 			log.WriteLine( "CreateObject: " + Type + " (TYPE)");
-			++LoadState_;
+			IncLoad();
+
 			GoBase* obj = ClassGenerators_[ Type ].ClassGenerator_();
 			obj->Parent_ = Parent;
 			RegisterObject( obj );
 			if ( !LoadingPackage_ )
 			{
 				log.WriteLine( "Sending to Attach" );
+				char buffer[ 256 ];
+				sprintf( buffer, "Id: %d", obj->Id() );
+				log.WriteLine( buffer );
 				ToAttach_.push_back( obj );
 			}
 			if ( Parent == nullptr )
 			{
 				ParentlessItems_.push_back( obj );
 			}
-			--LoadState_;
-			if ( LoadState_ == 0 )
-			{
-				log.WriteLine( "Calling attach items" );
-				AttachItems();
-			}
+			DecLoad();
 
 			return obj;
 		}
 
 		GoBase* ObjectRegister::CreateObject( Json::Value Json, Entity* Parent )
 		{
+			IncLoad();
 			Logs::Log log("ObjectRegister::CreateObject");
 			log.WriteLine( "CreateObject: " + Json["type"].asString() + " (JSON)" );
-			++LoadState_;
 			std::string Type = Json[ "type" ].asString();
 			GoBase* obj = ClassGenerators_[ Type ].ClassGeneratorJson_( Json );
-			ToAttach_.push_back( obj );
+			if ( !LoadingPackage_ )
+				ToAttach_.push_back( obj );
 			obj->Parent_ = Parent;
 			RegisterObject( obj );
 			if ( Parent == nullptr )
@@ -214,7 +214,7 @@ namespace Bubblewrap
 			{
 				PackageObjects_[ CurrentPackage_ ][ obj->GetName() ] = obj;
 			}
-			--LoadState_;
+			DecLoad();
 			return obj;
 
 		}
@@ -235,7 +235,7 @@ namespace Bubblewrap
 			log.WriteLine( "Calling attach" );
 			if ( LoadingPackage_ )
 			{
-				return;
+				assert( false );
 			}
 			unsigned int uCount = ToAttach_.size();
 			for ( unsigned int Idx = 0; Idx < uCount; ++Idx )
@@ -283,18 +283,15 @@ namespace Bubblewrap
 
 		GoBase* ObjectRegister::LoadObject( std::string PackageName, std::string Name, Entity* Parent )
 		{
-			++LoadState_;
+			IncLoad();
+
 			Logs::Log log( "ObjectRegister::LoadObject {" + PackageName + ":" + Name + "}" );
 			GoBase* base = PackageObjects_[ PackageName ][ Name ];
 
 			GoBase* ret = CreateObject( base->TypeName(), Parent );
 			ClassGenerators_[ base->TypeName() ].ClassCopier_( ret, base );
 
-			--LoadState_;
-			if ( LoadState_ == 0 )
-			{
-				AttachItems();
-			}
+			DecLoad();
 
 			return ret;
 
@@ -312,6 +309,20 @@ namespace Bubblewrap
 			for ( unsigned int Idx = 0; Idx < ParentlessItems_.size(); ++Idx )
 			{
 				( ( Entity* ) ParentlessItems_[ Idx ] )->LogHierarchy();
+			}
+		}
+
+		void ObjectRegister::IncLoad()
+		{
+			++LoadState_;
+		}
+
+		void ObjectRegister::DecLoad()
+		{
+			--LoadState_;
+			if ( ( LoadState_ == 0 ) && ( !LoadingPackage_ ) )
+			{
+				AttachItems();
 			}
 		}
 	}

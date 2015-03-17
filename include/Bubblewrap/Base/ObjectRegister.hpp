@@ -93,6 +93,9 @@ namespace Bubblewrap
 			std::string CurrentPackage_;
 			bool LoadingPackage_;
 			void RegisterClasses();
+
+			void IncLoad();
+			void DecLoad();
 		};
 	}
 }
