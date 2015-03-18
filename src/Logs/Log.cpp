@@ -25,7 +25,8 @@ namespace Bubblewrap
 		Log::~Log()
 		{
 			StaticLog::Instance()->Undent();
-			WriteLine( "Exiting: " + Grouping_ );
+			if ( GroupingSet_ )
+				WriteLine( "Exiting: " + Grouping_ );
 		}
 
 		void Log::Write( std::string Log )

@@ -105,7 +105,7 @@ namespace Bubblewrap
 
 				for ( unsigned int Idx = 0; Idx < Components_.size(); ++Idx )
 				{
-					/*try
+					try
 					{
 						log2.WriteLine( Components_[ Idx ]->GetName() + "{" + Components_[ Idx ]->TypeName() + "}" );
 					}

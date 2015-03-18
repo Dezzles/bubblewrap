@@ -38,7 +38,7 @@ namespace Bubblewrap
 			sf::Clock clock;
 			float PrevTime = clock.getElapsedTime().asSeconds();
 			bool running = true;
-			// Register_.LogHierarchy();
+			Register_.LogHierarchy();
 			while ( running )
 			{
 				float CurrentTime = clock.getElapsedTime().asSeconds();
