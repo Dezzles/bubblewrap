@@ -3,7 +3,6 @@
 
 #include "Bubblewrap/Base/Base.hpp"
 #include "Bubblewrap/Base/DType.hpp"
-#include "Bubblewrap/Managers/Managers.hpp"
 #include <vector>
 #include <functional>
 #include "json/json.h"
@@ -13,6 +12,10 @@ namespace Bubblewrap
 	{
 		class Game;
 
+	}
+	namespace Managers
+	{
+		class Managers;
 	}
 	namespace Base
 	{
@@ -92,7 +95,6 @@ namespace Bubblewrap
 			std::map<std::string, std::map<std::string, GoBase*>> PackageObjects_;
 			std::string CurrentPackage_;
 			bool LoadingPackage_;
-			void RegisterClasses();
 
 			void IncLoad();
 			void DecLoad();

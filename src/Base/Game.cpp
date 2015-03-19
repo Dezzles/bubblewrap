@@ -2,7 +2,7 @@
 #include "Bubblewrap/Base/Entity.hpp"
 #include "Bubblewrap/File/FSFile.hpp"
 #include "Bubblewrap/Logs/Log.hpp"
-
+#include "Bubblewrap/Registers/BubblewrapRegister.hpp"
 namespace Bubblewrap
 {
 	namespace Game
@@ -23,7 +23,11 @@ namespace Bubblewrap
 			}
 
 			log.WriteLine( "Types: Registering" );
-			Register_.RegisterClasses();
+			Registers::BaseRegister::Register( &Register_ );
+			for ( unsigned int Idx = 0; Idx < Settings.Registers_.size(); ++Idx )
+			{
+				Settings.Registers_[ Idx ]( &Register_ );
+			}
 			Settings.TypeRegistration_( &Register_ );
 			log.WriteLine( "Types: Registered" );
 			for ( unsigned int Idx = 0; Idx < Settings.Packages_.size(); ++Idx )

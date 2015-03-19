@@ -1,11 +1,9 @@
 #include "Bubblewrap/Base/ObjectRegister.hpp"
 #include "Bubblewrap/Base/Entity.hpp"
 #include "Bubblewrap/Base/Base.hpp"
-#include "Bubblewrap/Render/Sprite.hpp"
-#include "Bubblewrap/Render/Texture.hpp"
-#include "Bubblewrap/Render/Vertices.hpp"
 #include "Bubblewrap/File/FSFile.hpp"
 #include "Bubblewrap/Logs/Log.hpp"
+#include "Bubblewrap/Managers/Managers.hpp"
 namespace Bubblewrap
 {
 	namespace Base
@@ -14,15 +12,6 @@ namespace Bubblewrap
 		{
 			LoadState_ = 0;
 			LoadingPackage_ = false;
-		}
-
-		void ObjectRegister::RegisterClasses()
-		{
-			RegisterCreator( "Entity", &Entity::Create, &Entity::CreateJson, &Entity::CopyDef );
-			RegisterCreator( "Sprite", &Render::Sprite::Create, &Render::Sprite::CreateJson, &Render::Sprite::CopyDef );
-			RegisterCreator( "Texture", &Render::Texture::Create, &Render::Texture::CreateJson, &Render::Texture::CopyDef );
-			RegisterCreator( "Vertices", &Render::Vertices::Create, &Render::Vertices::CreateJson, &Render::Vertices::CopyDef );
-
 		}
 
 		ObjectRegister::~ObjectRegister()

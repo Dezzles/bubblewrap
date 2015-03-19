@@ -3,7 +3,8 @@
 
 #include "Bubblewrap/Base/ObjectRegister.hpp"
 #include "Bubblewrap/Managers/Managers.hpp"
-
+#include <functional>
+#include <vector>
 namespace Bubblewrap
 {
 	namespace Game
@@ -13,6 +14,7 @@ namespace Bubblewrap
 			int WindowCount_ = 0;
 			Render::Window::WindowSettings* WindowSettings_ = nullptr;
 			std::vector<std::string> Packages_;
+			std::vector<std::function<void(void*)>> Registers_;
 			std::function<void( Base::ObjectRegister* )> TypeRegistration_;
 			std::string BaseObject_;
 		};
