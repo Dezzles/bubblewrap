@@ -1,3 +1,4 @@
+#include "Bubblewrap/Managers/Managers.hpp"
 #include "Bubblewrap/Render/Vertices.hpp"
 #include "Bubblewrap/Base/Base.hpp"
 #include "Bubblewrap/Render/Types.hpp"

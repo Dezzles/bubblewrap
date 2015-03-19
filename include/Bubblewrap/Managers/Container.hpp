@@ -52,7 +52,7 @@ namespace Bubblewrap
 				{
 					return Item.Valid_ && ( Item.Name_ == Name );
 				} );
-				assert( ret != Items_.end() );
+				/*assert( ret != Items_.end() );/**/
 				return ( *ret ).Manager_;
 					
 			}

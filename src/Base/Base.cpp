@@ -1,5 +1,6 @@
 #include "Bubblewrap/Base/Base.hpp"
 #include "Bubblewrap/Base/DType.hpp"
+#include "Bubblewrap/Managers/Managers.hpp"
 namespace Bubblewrap
 {
 	namespace Base

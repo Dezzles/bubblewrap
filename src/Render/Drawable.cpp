@@ -1,5 +1,6 @@
 #include "Bubblewrap/Render/Drawable.hpp"
 #include "Bubblewrap/Base/Base.hpp"
+#include "Bubblewrap/Managers/Managers.hpp"
 namespace Bubblewrap
 {
 	namespace Render

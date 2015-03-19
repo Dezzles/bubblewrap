@@ -1,10 +1,13 @@
 #ifndef GoBase_H
 #define GoBase_H
 
-#include "Bubblewrap/Managers/Managers.hpp"
 #include "Json/Json.h"
 namespace Bubblewrap
 {
+	namespace Managers
+	{
+		class Managers;
+	}
 	namespace Base
 	{
 		class ObjectRegister;
