@@ -1,9 +1,8 @@
-#ifndef Window_H
-#define Window_H
+#ifndef WINDOW_HPP
+#define WINDOW_HPP
 
 
 #include "Bubblewrap/Managers/BaseManager.hpp"
-#include "SFML/Graphics.hpp"
 #include <functional>
 namespace Bubblewrap
 {
@@ -26,19 +25,17 @@ namespace Bubblewrap
 			Window( int Width, int Height, std::string Header );
 			Window( WindowSettings Settings );
 
-			void Update( float dt );
-			void Display();
-			void HandleEvents();
-			void Do( std::function<void( sf::RenderWindow& Window )> Function );
+			virtual void Update( float dt );
+			virtual void Display();
+			virtual void HandleEvents();
 
 			template <typename T>
 			T* GetWindow()
 			{
-				return dynamic_cast< T* >( Window_ );
+				return static_cast< T* >( Window_ );
 			}
-		private:
-
-			sf::RenderWindow* Window_;
+		protected:
+			void* Window_;
 
 		};
 

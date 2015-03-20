@@ -1,7 +1,6 @@
-#ifndef Sprite_H
-#define Sprite_H
+#ifndef SPRITE_HPP
+#define SPRITE_HPP
 
-#include "SFML/Graphics.hpp"
 #include "Bubblewrap/Base/Defines.hpp"
 #include "Bubblewrap/Render/Drawable.hpp"
 #include "Bubblewrap/Math/Vector.hpp"
@@ -34,15 +33,16 @@ namespace Bubblewrap
 			void SetSize( Math::Vector2f Size );
 
 			void SetTexture( Texture* Texture );
-		private:
+		protected:
 
-			sf::RectangleShape Shape_;
 			Math::Vector2f Size_;
 			Colour Colour_;
 
 			Texture* Texture_;
 
 			std::string TextureName_;
+
+			bool IsDirty_;
 		};
 	}
 }

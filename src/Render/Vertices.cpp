@@ -11,10 +11,8 @@ namespace Bubblewrap
 		{
 			VertexCount_ = 0;
 			ReservedCount_ = 0;
-			SFReservedCount_ = 0;
 
 			Vertices_ = new Vertex[ 0 ];
-			SFVertices_ = new sf::Vertex[ 0 ];
 			Dirty_ = false;
 		}
 
@@ -22,7 +20,6 @@ namespace Bubblewrap
 		Vertices::~Vertices()
 		{
 			delete Vertices_;
-			delete SFVertices_;
 		}
 
 		void Vertices::Initialise( Json::Value Params )
@@ -69,33 +66,6 @@ namespace Bubblewrap
 			if ( Window_ == nullptr )
 				return;
 
-			sf::RenderWindow* rw = Window_->GetWindow<sf::RenderWindow>();
-			sf::PrimitiveType PrimitiveType;
-			switch ( PrimitiveType_ )
-			{
-			case Primitives::Lines:
-				PrimitiveType = sf::PrimitiveType::Lines;
-				break;
-			case Primitives::LinesStrip:
-				PrimitiveType = sf::PrimitiveType::LinesStrip;
-				break;
-			case Primitives::Points:
-				PrimitiveType = sf::PrimitiveType::Points;
-				break;
-			case Primitives::Quads:
-				PrimitiveType = sf::PrimitiveType::Quads;
-				break;
-			case Primitives::Triangles:
-				PrimitiveType = sf::PrimitiveType::Triangles;
-				break;
-			case Primitives::TrianglesStrip:
-				PrimitiveType = sf::PrimitiveType::TrianglesStrip;
-				break;
-			case Primitives::TrianglesFan:
-				PrimitiveType = sf::PrimitiveType::TrianglesFan;
-				break;
-			}
-			rw->draw( SFVertices_, VertexCount_, PrimitiveType );
 		}
 
 		void Vertices::SetPrimitiveType( Primitives PrimitiveType )
@@ -133,19 +103,7 @@ namespace Bubblewrap
 
 		void Vertices::Refresh()
 		{
-			if ( SFReservedCount_ < VertexCount_ )
-			{
-				delete SFVertices_;
-				SFVertices_ = new sf::Vertex[ VertexCount_ ];
-				SFReservedCount_ = VertexCount_;
-			}
-			for ( unsigned int Idx = 0; Idx < VertexCount_; ++Idx )
-			{
-				SFVertices_[ Idx ].color = sf::Color( Vertices_[ Idx ].Colour_.R(), Vertices_[ Idx ].Colour_.G(), Vertices_[ Idx ].Colour_.B(), Vertices_[ Idx ].Colour_.A() );
-				SFVertices_[ Idx ].position = sf::Vector2f( Vertices_[ Idx ].Position_.X(), Vertices_[ Idx ].Position_.Y() );
-				SFVertices_[ Idx ].texCoords = sf::Vector2f( Vertices_[ Idx ].TexCoords_.X(), Vertices_[ Idx ].TexCoords_.Y() );
-			}
-			Dirty_ = false;
+
 		}
 	}
 }

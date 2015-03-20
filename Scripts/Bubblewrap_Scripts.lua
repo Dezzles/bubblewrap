@@ -1,11 +1,9 @@
-additionalIncludes = ""
-additionalLibraries = ""
 
 
 loadLibrary = function ( lib )
 	genieFile = lib .. "/" .. lib .. "_genie.lua"
 	dofile(genieFile)
-	additionalIncludes = additionalIncludes .. ", " .. lib .. "/include"
-	additionalLibraries = additionalLibraries .. ", " .. lib
+	table.insert(additionalIncludes, "../" .. lib .. "/include")
+	table.insert(additionalLibraries, lib )
 end
 

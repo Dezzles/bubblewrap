@@ -27,8 +27,8 @@ namespace Bubblewrap
 		int ObjectRegister::RegisterObject( GoBase* Object )
 		{
 			Object->Id_ = NextId_++;
-			
-			Object->ObjectRegister_ = this;	
+
+			Object->ObjectRegister_ = this;
 			Object->Manager_ = Managers_;
 			Objects_.push_back( Object );
 
@@ -61,39 +61,39 @@ namespace Bubblewrap
 		void ObjectRegister::CheckCollisions()
 		{
 			/*		for ( unsigned int Idx0 = 0; Idx0 < Objects_.size(); ++Idx0 )
-					{
-					for ( unsigned int Idx1 = Idx0 + 1; Idx1 < Objects_.size(); ++Idx1 )
-					{
-					GoBase* objA = Objects_[ Idx0 ];
-					GoBase* objB = Objects_[ Idx1 ];
-					if ( !objA->Collidable_ || !objB->Collidable_ )
-					continue;
-					if ( objA->Id() > objB->Id() )
-					{
-					objA = Objects_[ Idx1 ];
-					objB = Objects_[ Idx0 ];
-					}
-					bool Colliding = CollisionSystem::DoCollide( objA, objB );
+			{
+			for ( unsigned int Idx1 = Idx0 + 1; Idx1 < Objects_.size(); ++Idx1 )
+			{
+			GoBase* objA = Objects_[ Idx0 ];
+			GoBase* objB = Objects_[ Idx1 ];
+			if ( !objA->Collidable_ || !objB->Collidable_ )
+			continue;
+			if ( objA->Id() > objB->Id() )
+			{
+			objA = Objects_[ Idx1 ];
+			objB = Objects_[ Idx0 ];
+			}
+			bool Colliding = CollisionSystem::DoCollide( objA, objB );
 
-					if ( Colliding )
-					{
-					// Yay Colliding
-					if ( !CollisionMap[ objA ][ objB ] )
-					{
-					CollisionMap[ objA ][ objB ] = true;
-					objA->BeginCollision( objB );
-					objB->BeginCollision( objA );
-					}
-					}
-					else if ( CollisionMap[ objA ][ objB ] )
-					{
-					CollisionMap[ objA ][ objB ] = false;
-					objA->EndCollision( objB );
-					objB->EndCollision( objA );
-					}
-					}
+			if ( Colliding )
+			{
+			// Yay Colliding
+			if ( !CollisionMap[ objA ][ objB ] )
+			{
+			CollisionMap[ objA ][ objB ] = true;
+			objA->BeginCollision( objB );
+			objB->BeginCollision( objA );
+			}
+			}
+			else if ( CollisionMap[ objA ][ objB ] )
+			{
+			CollisionMap[ objA ][ objB ] = false;
+			objA->EndCollision( objB );
+			objB->EndCollision( objA );
+			}
+			}
 
-					}/**/
+			}/**/
 		}
 
 		void ObjectRegister::DestroyPhase()
@@ -126,26 +126,30 @@ namespace Bubblewrap
 
 		/*void ObjectRegister::RepeatMessage( EvtMessage  Message )
 		{
-			for ( unsigned int Idx = 0; Idx < Objects_.size(); ++Idx )
-			{
-				Objects_[ Idx ]->ReceiveMessage( Message );
-			}
-			for ( unsigned int Idx = 0; Idx < CallBacks_.size(); ++Idx )
-			{
-				CallBacks_[ Idx ]( Message );
-			}
+		for ( unsigned int Idx = 0; Idx < Objects_.size(); ++Idx )
+		{
+		Objects_[ Idx ]->ReceiveMessage( Message );
+		}
+		for ( unsigned int Idx = 0; Idx < CallBacks_.size(); ++Idx )
+		{
+		CallBacks_[ Idx ]( Message );
+		}
 		}
 
 		void ObjectRegister::AddReceiver( std::function< void( EvtMessage ) > Function )
 		{
-			CallBacks_.push_back( Function );
+		CallBacks_.push_back( Function );
 		}/**/
 
-		void ObjectRegister::RegisterCreator( std::string Class, std::function < GoBase*( ) > Creator, std::function < GoBase*( Json::Value ) > CreatorJson, 
-											  std::function< void( GoBase*, GoBase* ) > Copier )
+		void ObjectRegister::RegisterCreator( std::string Class, std::function < GoBase*( ) > Creator, std::function < GoBase*( Json::Value ) > CreatorJson,
+			std::function< void( GoBase*, GoBase* ) > Copier, bool Override )
 		{
-			Logs::Log log("ObjectRegister::RegisterCreator");
+			Logs::Log log( "ObjectRegister::RegisterCreator" );
 			log.WriteLine( "Registering class: " + Class );
+			if ( ( ClassGenerators_.find( Class ) != ClassGenerators_.end() ) && !Override )
+			{
+				log.WriteLine( "Overriding class: " + Class );
+			}
 			ClassGenerators_[ Class ].ClassGenerator_ = Creator;
 			ClassGenerators_[ Class ].ClassGeneratorJson_ = CreatorJson;
 			ClassGenerators_[ Class ].ClassCopier_ = Copier;
@@ -153,8 +157,8 @@ namespace Bubblewrap
 
 		GoBase* ObjectRegister::CreateObject( std::string Type, Entity* Parent )
 		{
-			Logs::Log log("ObjectRegister::CreateObject");
-			log.WriteLine( "CreateObject: " + Type + " (TYPE)");
+			Logs::Log log( "ObjectRegister::CreateObject" );
+			log.WriteLine( "CreateObject: " + Type + " (TYPE)" );
 			IncLoad();
 
 			GoBase* obj = ClassGenerators_[ Type ].ClassGenerator_();
@@ -180,8 +184,8 @@ namespace Bubblewrap
 		GoBase* ObjectRegister::CreateObject( Json::Value Json, Entity* Parent )
 		{
 			IncLoad();
-			Logs::Log log("ObjectRegister::CreateObject");
-			log.WriteLine( "CreateObject: " + Json["type"].asString() + " (JSON)" );
+			Logs::Log log( "ObjectRegister::CreateObject" );
+			log.WriteLine( "CreateObject: " + Json[ "type" ].asString() + " (JSON)" );
 			std::string Type = Json[ "type" ].asString();
 			GoBase* obj = ClassGenerators_[ Type ].ClassGeneratorJson_( Json );
 			if ( !LoadingPackage_ )
@@ -199,7 +203,7 @@ namespace Bubblewrap
 				}
 			}
 			obj->Initialise( Json );
-			if ( LoadingPackage_ && (Parent == nullptr) )
+			if ( LoadingPackage_ && ( Parent == nullptr ) )
 			{
 				PackageObjects_[ CurrentPackage_ ][ obj->GetName() ] = obj;
 			}
@@ -212,7 +216,7 @@ namespace Bubblewrap
 		{
 			if ( Managers_ != nullptr )
 			{
-				assert( false &&  "DONT BE A DUMBASS" );
+				assert( false && "DONT BE A DUMBASS" );
 				return;
 			}
 			Managers_ = Manager;
@@ -236,7 +240,7 @@ namespace Bubblewrap
 
 		void ObjectRegister::LoadPackage( std::string PackageFile )
 		{
-			Logs::Log log("ObjectRegiser::LoadPackage (" + PackageFile + ")");
+			Logs::Log log( "ObjectRegiser::LoadPackage (" + PackageFile + ")" );
 			log.WriteLine( "Package Name: " + PackageFile );
 			LoadingPackage_ = true;
 			File::FiFSFile file( PackageFile );
@@ -297,7 +301,11 @@ namespace Bubblewrap
 			Logs::Log log( "LogHierarchy" );
 			for ( unsigned int Idx = 0; Idx < ParentlessItems_.size(); ++Idx )
 			{
-				( ( Entity* ) ParentlessItems_[ Idx ] )->LogHierarchy();
+				Entity* ent = dynamic_cast<Entity*>( ParentlessItems_[ Idx ] );
+				if ( ent != nullptr )
+					ent->LogHierarchy();
+				else
+					log.WriteLine( ParentlessItems_[ Idx ]->GetName() + "{" + ParentlessItems_[ Idx ]->TypeName() + "}" );
 			}
 		}
 
@@ -313,6 +321,11 @@ namespace Bubblewrap
 			{
 				AttachItems();
 			}
+		}
+
+		Managers::Managers* ObjectRegister::GetManager()
+		{
+			return Managers_;
 		}
 	}
 }

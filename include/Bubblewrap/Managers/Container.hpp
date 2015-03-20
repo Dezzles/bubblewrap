@@ -57,11 +57,10 @@ namespace Bubblewrap
 					
 			}
 
-			template<typename... Args >
-			int Create(std::string Name, Args... args)
+			int Create(std::string Name, void* Params )
 			{
 				int ret = Items_.size();
-				Items_.push_back( MgrWrapper( new T_( args... ), ret, Name ) );
+				Items_.push_back( MgrWrapper( Creator_(Params) , ret, Name ) );
 				Items_[ ret ].Manager_->SetManager( Owner_ );
 				return ret;
 			}
@@ -94,8 +93,15 @@ namespace Bubblewrap
 				}
 			}
 
+			void SetCreate( std::function<T_* ( void* )> Fn )
+			{
+				Creator_ = Fn;
+			}
+
 		private:
 			std::vector<MgrWrapper> Items_;
+
+			std::function<T_*( void* )> Creator_;
 		};
 
 	}

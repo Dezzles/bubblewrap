@@ -53,9 +53,10 @@ namespace Bubblewrap
 			GoBase* CreateObject( std::string Type, Entity* Parent );
 			GoBase* CreateObject( Json::Value Json, Entity* Parent );
 			void RegisterCreator( std::string Class, std::function < GoBase*( ) > Creator, std::function < GoBase*( Json::Value ) > CreatorJson,
-								  std::function< void( GoBase*, GoBase* ) > Copier );
+								  std::function< void( GoBase*, GoBase* ) > Copier, bool Override = false );
 			// void RepeatMessage( EvtMessage Message );
 			void SetManager( Managers::Managers* Manager );
+			Managers::Managers* GetManager();
 
 			void LoadPackage( std::string PackageFile );
 			GoBase* LoadObject( std::string Package_, std::string Name, Entity* Parent );

@@ -7,13 +7,13 @@ namespace Bubblewrap
 	{
 		Sprite::Sprite()
 		{
+			IsDirty_ = false;
 		}
 
 		void Sprite::Initialise( Json::Value Params )
 		{
 			SetWindow( Params[ "window" ].asString() );
 			SetSize( Math::Vector2f( Params[ "size" ][ "x" ].asFloat(), Params[ "size" ][ "y" ].asFloat() ) );
-			Shape_.setFillColor( sf::Color::White );
 			TextureName_ = "";
 			if ( !Params[ "texture" ].isNull() )
 				TextureName_ = Params[ "texture" ].asString();
@@ -52,8 +52,7 @@ namespace Bubblewrap
 		void Sprite::SetSize( Math::Vector2f Size )
 		{
 			Size_ = Size;
-			Shape_.setSize( sf::Vector2f( Size.X(), Size.Y() ) );
-			Shape_.setOrigin( Size.X() * 0.5f, Size.Y() * 0.5f );
+			IsDirty_ = true;
 		}
 
 		Colour Sprite::GetColour()
@@ -64,24 +63,17 @@ namespace Bubblewrap
 		void Sprite::SetColour( Colour Colour )
 		{
 			Colour_ = Colour;
-			Shape_.setFillColor( sf::Color( Colour.R(), Colour.G(), Colour.B(), Colour.A() ) );
+			IsDirty_ = true;
 		}
 
 		void Sprite::Update( float dt )
 		{
 			Math::Vector2f Position = GetParentEntity()->WorldPosition();
-			Shape_.setPosition( Position.X(), Position.Y() );
-			sf::RectangleShape* shape = &Shape_;
-			if ( Window_ != nullptr )
-			{
-				Window_->GetWindow<sf::RenderWindow>()->draw( Shape_ );
-			}
 		}
 
 		void Sprite::SetTexture( Texture* Texture )
 		{
 			Texture_ = Texture;
-			Shape_.setTexture( Texture->GetTexture() );
 		}
 	}
 }

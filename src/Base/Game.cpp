@@ -3,6 +3,7 @@
 #include "Bubblewrap/File/FSFile.hpp"
 #include "Bubblewrap/Logs/Log.hpp"
 #include "Bubblewrap/Registers/BubblewrapRegister.hpp"
+#include "Bubblewrap/Base/Clock.hpp"
 namespace Bubblewrap
 {
 	namespace Game
@@ -16,11 +17,6 @@ namespace Bubblewrap
 		{
 			Logs::Log log("Game::Run");
 			log.WriteLine( "Starting game" );
-			for ( int Idx = 0; Idx < Settings.WindowCount_; ++Idx )
-			{
-				log.WriteLine( "Creating window" );
-				Managers_.GetWindowManager().Create( Settings.WindowSettings_[ Idx ].Name_, Settings.WindowSettings_[ Idx ] );
-			}
 
 			log.WriteLine( "Types: Registering" );
 			Registers::BaseRegister::Register( &Register_ );
@@ -29,6 +25,14 @@ namespace Bubblewrap
 				Settings.Registers_[ Idx ]( &Register_ );
 			}
 			Settings.TypeRegistration_( &Register_ );
+
+			for ( int Idx = 0; Idx < Settings.WindowCount_; ++Idx )
+			{
+				log.WriteLine( "Creating window" );
+				Managers_.GetWindowManager().Create( Settings.WindowSettings_[ Idx ].Name_, &Settings.WindowSettings_[ Idx ] );
+			}
+
+
 			log.WriteLine( "Types: Registered" );
 			for ( unsigned int Idx = 0; Idx < Settings.Packages_.size(); ++Idx )
 			{
@@ -39,13 +43,13 @@ namespace Bubblewrap
 			log.WriteLine( "Base object: Loading" );
 			Register_.LoadObject( Settings.BaseObject_, nullptr );
 			log.WriteLine( "Base object: Loaded" );
-			sf::Clock clock;
-			float PrevTime = clock.getElapsedTime().asSeconds();
+			Base::Clock* clock = (Base::Clock*)Register_.CreateObject(std::string("Clock"), nullptr);
+			float PrevTime = clock->GetElapsedTime().AsSeconds();
 			bool running = true;
 			Register_.LogHierarchy();
 			while ( running )
 			{
-				float CurrentTime = clock.getElapsedTime().asSeconds();
+				float CurrentTime = clock->GetElapsedTime().AsSeconds();
 				float TimeStep = CurrentTime - PrevTime;
 
 				Managers_.GetWindowManager().OnAll( [ TimeStep ]( Render::Window* f )

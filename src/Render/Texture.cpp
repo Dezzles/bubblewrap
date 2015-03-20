@@ -1,4 +1,5 @@
 #include "Bubblewrap/Render/Texture.hpp"
+#include "Bubblewrap/Base/Component.hpp"
 
 namespace Bubblewrap
 {
@@ -12,13 +13,12 @@ namespace Bubblewrap
 		void Texture::Initialise( Json::Value Params )
 		{
 			GoBase::Initialise( Params );
-			Texture_.loadFromFile( Params[ "texture" ].asString() );
 			
 		}
 
 		void Texture::Copy( Texture* Target, Texture* Base )
 		{
-			Target->Texture_ = Base->Texture_;
+			Component::Copy( Target, Base );
 		}
 
 		void Texture::Update( float dt )
@@ -26,9 +26,5 @@ namespace Bubblewrap
 
 		}
 
-		sf::Texture* Texture::GetTexture()
-		{
-			return &Texture_;
-		}
 	}
 }

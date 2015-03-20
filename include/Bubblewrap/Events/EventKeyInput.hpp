@@ -1,6 +1,6 @@
 #ifndef EVENTKEYINPUT_HPP
 #define EVENTKEYINPUT_HPP
-#include "SFML/Window/Keyboard.hpp"
+
 namespace Bubblewrap
 {
 	namespace Events
@@ -111,7 +111,7 @@ namespace Bubblewrap
 			KeyCount      ///< Keep last -- the total number of keyboard keys
 		};
 
-		Key TranslateKey( sf::Keyboard::Key key );
+
 	}
 }
 

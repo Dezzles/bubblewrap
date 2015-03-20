@@ -1,7 +1,6 @@
 #ifndef Texture_H
 #define Texture_H
 
-#include "SFML/Graphics.hpp"
 #include "Bubblewrap/Base/Defines.hpp"
 #include "Bubblewrap/Base/Component.hpp"
 
@@ -21,10 +20,7 @@ namespace Bubblewrap
 
 			virtual void Update( float dt );
 
-			sf::Texture* GetTexture();
 		private:
-
-			sf::Texture Texture_;
 
 		};
 	}
