@@ -3,7 +3,7 @@
 
 #include "Bubblewrap/Base/Defines.hpp"
 #include "Bubblewrap/Render/Drawable.hpp"
-#include "Bubblewrap/Math/Vector.hpp"
+#include "Bubblewrap/Math/Vector2.hpp"
 #include "Bubblewrap/Render/Colour.hpp"
 #include "Bubblewrap/Render/Window.hpp"
 #include "Bubblewrap/Render/Texture.hpp"

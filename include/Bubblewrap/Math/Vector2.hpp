@@ -1,5 +1,5 @@
-#ifndef MAVECTOR_H
-#define MAVECTOR_H
+#ifndef MAVECTOR2_H
+#define MAVECTOR2_H
 
 #include <math.h>
 #include <string>

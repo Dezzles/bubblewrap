@@ -2,7 +2,8 @@
 #define Types_HPP
 
 #include "Bubblewrap/Render/Colour.hpp"
-#include "Bubblewrap/Math/Vector.hpp"
+#include "Bubblewrap/Math/Vector2.hpp"
+#include "Bubblewrap/Math/Vector3.hpp"
 #include <string>
 namespace Bubblewrap
 {
@@ -10,7 +11,7 @@ namespace Bubblewrap
 	{
 		struct Vertex
 		{
-			Math::Vector2f Position_;
+			Math::Vector3f Position_;
 			Colour Colour_;
 			Math::Vector2f TexCoords_;
 		};

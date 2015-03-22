@@ -3,7 +3,7 @@
 
 #include "Bubblewrap/Base/Base.hpp"
 #include "Bubblewrap/Base/Defines.hpp"
-#include "Bubblewrap/Math/Vector.hpp"
+#include "Bubblewrap/Math/Vector2.hpp"
 #include "Json/Json.h"
 
 
