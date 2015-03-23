@@ -4,10 +4,13 @@
 
 #include "Bubblewrap/Managers/BaseManager.hpp"
 #include <functional>
+#include <vector>
+
 namespace Bubblewrap
 {
 	namespace Render
 	{
+		class Drawable;
 		class Window 
 			: public Managers::BaseManager
 		{
@@ -28,7 +31,7 @@ namespace Bubblewrap
 			virtual void Update( float dt );
 			virtual void Display();
 			virtual void HandleEvents();
-
+			void AddToQueue( Render::Drawable* Draw );
 			template <typename T>
 			T* GetWindow()
 			{
@@ -36,7 +39,7 @@ namespace Bubblewrap
 			}
 		protected:
 			void* Window_;
-
+			std::vector<Render::Drawable*> RenderQueue_;
 		};
 
 	}

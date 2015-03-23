@@ -59,6 +59,7 @@ namespace Bubblewrap
 
 		void Vertices::Update( float dt )
 		{
+			Drawable::Update( dt );
 			assert( !Dirty_ );
 			if ( ( Window_ == nullptr ) && ( WindowName_ != "" ) )
 			{
@@ -66,6 +67,7 @@ namespace Bubblewrap
 			}
 			if ( Window_ == nullptr )
 				return;
+
 
 		}
 

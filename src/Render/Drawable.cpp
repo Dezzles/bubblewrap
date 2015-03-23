@@ -15,6 +15,7 @@ namespace Bubblewrap
 		{
 			GoBase::Initialise( Params );
 			SetWindow( Params[ "window" ].asString() );
+			DrawOrder_ = Params[ "draworder" ].asInt();
 		}
 
 
@@ -22,6 +23,7 @@ namespace Bubblewrap
 		{
 			Target->SetWindow( Base->Window_ );
 			Target->WindowName_ = Base->WindowName_;
+			Target->DrawOrder_ = Base->DrawOrder_;
 		}
 
 		void Drawable::OnAttach()
@@ -46,6 +48,22 @@ namespace Bubblewrap
 			{
 				Window_ = GetManager().GetWindowManager().GetItem( WindowName_ );
 			}
+			Window_->AddToQueue(this);
+		}
+
+		int Drawable::GetDrawOrder()
+		{
+			return DrawOrder_;
+		}
+
+		void Drawable::SetDrawOrder( int DrawOrder )
+		{
+			DrawOrder_ = DrawOrder;
+		}
+
+		void Drawable::Draw()
+		{
+
 		}
 
 	}

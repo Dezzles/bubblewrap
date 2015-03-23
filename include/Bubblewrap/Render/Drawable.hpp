@@ -25,8 +25,13 @@ namespace Bubblewrap
 
 			void SetWindow( std::string Name );
 			void SetWindow( Window* Window );
-		protected:
 
+			int GetDrawOrder();
+			void SetDrawOrder( int DrawOrder );
+
+			virtual void Draw();
+		protected:
+			int DrawOrder_;
 			Window* Window_;
 			std::string WindowName_;
 		};

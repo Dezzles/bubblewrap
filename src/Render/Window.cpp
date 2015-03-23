@@ -3,6 +3,7 @@
 
 #include "Bubblewrap/Events/Events.hpp"
 #include "Bubblewrap/Events/EventManager.hpp"
+#include "Bubblewrap/Render/Drawable.hpp"
 
 namespace Bubblewrap
 {
@@ -38,13 +39,28 @@ namespace Bubblewrap
 
 		void Window::Display()
 		{
+			std::sort( RenderQueue_.begin(), RenderQueue_.end(), 
+				[ ]( Render::Drawable* objA, Render::Drawable* objB )
+			{
+				return objA->GetDrawOrder() < objB->GetDrawOrder();
+			} );
 
+			unsigned int uCount = RenderQueue_.size();
+			for ( unsigned int Idx = 0; Idx < uCount; ++Idx )
+				RenderQueue_[ Idx ]->Draw();
+
+			RenderQueue_.clear();
 		}
 
 		void Window::HandleEvents()
 		{
 
 
+		}
+
+		void Window::AddToQueue( Render::Drawable* Draw )
+		{
+			RenderQueue_.push_back( Draw );
 		}
 	}
 }

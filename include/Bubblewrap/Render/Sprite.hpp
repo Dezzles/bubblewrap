@@ -33,6 +33,7 @@ namespace Bubblewrap
 			void SetSize( Math::Vector2f Size );
 
 			void SetTexture( Texture* Texture );
+
 		protected:
 
 			Math::Vector2f Size_;

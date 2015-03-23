@@ -12,6 +12,7 @@ namespace Bubblewrap
 
 		void Sprite::Initialise( Json::Value Params )
 		{
+			Drawable::Initialise( Params );
 			SetWindow( Params[ "window" ].asString() );
 			SetSize( Math::Vector2f( Params[ "size" ][ "x" ].asFloat(), Params[ "size" ][ "y" ].asFloat() ) );
 			TextureName_ = "";
@@ -27,7 +28,6 @@ namespace Bubblewrap
 			Target->TextureName_ = Base->TextureName_;
 			Target->Texture_ = Base->Texture_;
 			Target->SetColour( Base->Colour_ );
-
 		}
 
 		void Sprite::OnAttach()
@@ -68,6 +68,7 @@ namespace Bubblewrap
 
 		void Sprite::Update( float dt )
 		{
+			Drawable::Update( dt );
 			Math::Vector2f Position = GetParentEntity()->WorldPosition();
 		}
 
