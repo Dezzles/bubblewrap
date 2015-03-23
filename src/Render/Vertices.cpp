@@ -27,7 +27,7 @@ namespace Bubblewrap
 		{
 			Drawable::Initialise( Params );
 
-			SetPrimitiveType( Converts::PrimitiveFromString( Params[ "primitivetype" ].asString() ) );
+			SetPrimitiveType( Converts::PrimitiveFromString( Params[ "primitiveType" ].asString() ) );
 			Reserve( Params[ "vertices" ].size() );
 			int uCount = Params[ "vertices" ].size();
 			VertexCount_ = uCount;
@@ -35,14 +35,14 @@ namespace Bubblewrap
 			{
 				Vertices_[ Idx ].Colour_ = Colour( Params[ "vertices" ][ Idx ][ "colour" ].asString() );
 				Vertices_[ Idx ].Position_ = Math::Vector3f( Params[ "vertices" ][ Idx ][ "position" ].asString() );
-				Vertices_[ Idx ].Colour_ = Colour( Params[ "vertices" ][ Idx ][ "colour" ].asString() );
+				Vertices_[ Idx ].TexCoords_ = Math::Vector2f( Params[ "vertices" ][ Idx ][ "textCoords" ].asString() );
 			}
 		}
 
 
 		void Vertices::Copy( Vertices* Target, Vertices* Base )
 		{
-			Drawable::Copy( Target, Base );
+			Drawable::Copy( Target, Base ); 
 			Target->Reserve( Base->VertexCount_ );
 			memcpy( Target->Vertices_, Base->Vertices_, Base->VertexCount_ * sizeof( Vertex ) );
 

@@ -72,7 +72,7 @@ namespace Bubblewrap
 			void SetLocalPosition( Math::Vector2f Position );
 			Math::Vector2f WorldPosition();
 			Math::Vector2f LocalPosition();
-
+			Entity* GetRootEntity();
 			void LogHierarchy();
 		};
 	}

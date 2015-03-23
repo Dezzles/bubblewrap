@@ -117,5 +117,13 @@ namespace Bubblewrap
 					( ( Entity* ) Children_[ Idx ] )->LogHierarchy();
 			}
 		}
+
+		Entity* Entity::GetRootEntity()
+		{
+			if ( GetParentEntity() == nullptr )
+				return this;
+			else
+				return GetParentEntity()->GetRootEntity();
+		}
 	}
 }
