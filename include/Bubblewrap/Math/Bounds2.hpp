@@ -15,12 +15,12 @@ namespace Bubblewrap
 			Bounds1< T_ > BoundsD2;
 
 		public:
-			Bounds2( T_ D1Min, T_ D1Max, T_ D2Min, T_ D2Max )
-				: BoundsD1( D1Min, D1Max ), BoundsD2( D2Min, D2Max )
+			Bounds2( T_ D1Lower, T_ D1Upper, T_ D2Lower, T_ D2Upper )
+				: BoundsD1( D1Lower, D1Upper ), BoundsD2( D2Lower, D2Upper )
 			{
 			}
-			Bounds2( Vector2<T_> Min, Vector2<T_> Max )
-				: BoundsD1( Min.X(), Max.X() ), BoundsD2( Min.Y(), Max.Y() )
+			Bounds2( Vector2<T_> Lower, Vector2<T_> Upper )
+				: BoundsD1( Lower.X(), Upper.X() ), BoundsD2( Lower.Y(), Upper.Y() )
 			{
 			}
 
@@ -29,20 +29,22 @@ namespace Bubblewrap
 				return Vector2<T_>( BoundsD1.Range(), BoundsD2.Range );
 			}
 
-			Vector2<T_> Min()
+			Vector2<T_> Lower()
 			{
-				return Vector2<T_>( BoundsD1.Min(), BoundsD2.Min() );
+				return Vector2<T_>( BoundsD1.Lower(), BoundsD2.Lower() );
 			}
 
-			Vector2<T_> Max()
+			Vector2<T_> Upper()
 			{
-				return Vector2<T_>( BoundsD1.Max(), BoundsD2.Max() );
+				return Vector2<T_>( BoundsD1.Upper(), BoundsD2.Upper() );
 			}
 
 			Vector2<T_> Restrict( Vector2<T_> Val )
 			{
 				return Vector2<T_>( BoundsD1.Restrict( Val.X() ), BoundsD2.Restrict( Val.Y() ) );
 			}
+
+			
 		};
 
 		typedef Bounds2<float> Bounds2f;

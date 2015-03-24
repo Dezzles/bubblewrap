@@ -16,12 +16,12 @@ namespace Bubblewrap
 			Bounds1< T_ > BoundsD3;
 
 		public:
-			Bounds3( T_ D1Min, T_ D1Max, T_ D2Min, T_ D2Max, T_ D3Min, T_ D3Max )
-				: BoundsD1( D1Min, D1Max ), BoundsD2( D2Min, D2Max ), BoundsD3( D3Min, D3Max )
+			Bounds3( T_ D1Lower, T_ D1Upper, T_ D2Lower, T_ D2Upper, T_ D3Lower, T_ D3Upper )
+				: BoundsD1( D1Lower, D1Upper ), BoundsD2( D2Lower, D2Upper ), BoundsD3( D3Lower, D3Upper )
 			{
 			}
-			Bounds3( Vector3<T_> Min, Vector3<T_> Max )
-				: BoundsD1( Min.X(), Max.X() ), BoundsD2( Min.Y(), Max.Y() ), BoundsD3( Min.Z(), Max.Z() )
+			Bounds3( Vector3<T_> Lower, Vector3<T_> Upper )
+				: BoundsD1( Lower.X(), Upper.X() ), BoundsD2( Lower.Y(), Upper.Y() ), BoundsD3( Lower.Z(), Upper.Z() )
 			{
 			}
 
@@ -30,14 +30,14 @@ namespace Bubblewrap
 				return Vector3<T_>( BoundsD1.Range(), BoundsD2.Range, BoundsD3.Range );
 			}
 
-			Vector3<T_> Min()
+			Vector3<T_> Lower()
 			{
-				return Vector3<T_>( BoundsD1.Min(), BoundsD2.Min(), BoundsD3.Min() );
+				return Vector3<T_>( BoundsD1.Lower(), BoundsD2.Lower(), BoundsD3.Lower() );
 			}
 
-			Vector3<T_> Max()
+			Vector3<T_> Upper()
 			{
-				return Vector3<T_>( BoundsD1.Max(), BoundsD2.Max(), BoundsD3.Max() );
+				return Vector3<T_>( BoundsD1.Upper(), BoundsD2.Upper(), BoundsD3.Upper() );
 			}
 
 			Vector3<T_> Restrict( Vector3<T_> Val )

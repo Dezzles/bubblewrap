@@ -68,6 +68,31 @@ namespace Bubblewrap
 				return ret;
 			}
 
+			template <class T>
+			std::vector<T*> GetComponentsByTypeAnyChild( )
+			{
+				std::vector<T*> ret;
+				unsigned int cCount = Components_.size();
+				for ( unsigned int Idx = 0; Idx < cCount; ++Idx )
+				{
+					T* test = dynamic_cast< T* >( Components_[ Idx ] );
+					if ( test != nullptr )
+					{
+						ret.push_back( test );
+					}
+				}
+				cCount = Children_.size();
+				for ( unsigned int Idx = 0; Idx < cCount; ++Idx )
+				{
+					auto result = ( ( Entity* ) Children_[ Idx ] )->GetComponentsByTypeAnyChild<T>();
+					for ( unsigned int Idx = 0; Idx < result.size(); ++Idx )
+					{
+						ret.push_back( result[ Idx ] );
+					}
+				}
+				return ret;
+			}
+
 
 			void SetLocalPosition( Math::Vector2f Position );
 			Math::Vector2f WorldPosition();

@@ -26,8 +26,10 @@ namespace Bubblewrap
 			void AddVertex( Vertex V );
 			void Reserve( unsigned int Amount );
 			void SetVertex( unsigned int Idx, Vertex V );
-			void Refresh();
+			virtual void Refresh();
 			void SetPrimitiveType( Primitives PrimitiveType );
+			Vertex GetVertex( int Idx );
+			Vertex &EditVertex( int Idx );
 		protected:
 
 			Vertex* Vertices_;

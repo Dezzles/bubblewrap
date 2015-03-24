@@ -49,6 +49,16 @@ namespace Bubblewrap
 				return Y_;
 			}
 
+			void SetX( float Y )
+			{
+				X_ = Y;
+			}
+
+			void SetY( float Y )
+			{
+				Y_ = Y;
+			}
+
 			static Vector2 FromPolarCoords( T_ Theta, T_ Radius )
 			{
 				return Vector2( cosf( Theta ) * Radius, sinf( Theta ) * Radius );
@@ -116,6 +126,17 @@ namespace Bubblewrap
 			Vector2 operator/=( const float &RHS )
 			{
 				return Vector2( X_ / RHS, Y_ / RHS );
+			}
+
+			T_ Length()
+			{
+				return ( T_ ) ( sqrt( X_ * X_ ) + sqrt( Y_ * Y_ ) );
+			}
+
+			Vector2 Normalised()
+			{
+				T_ mul = 1.0f / Length();
+				return Vector2( X_ * mul, Y_ * mul );
 			}
 		};
 		template< typename T_ >

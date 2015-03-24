@@ -108,5 +108,15 @@ namespace Bubblewrap
 		{
 
 		}
+		Vertex Vertices::GetVertex( int Idx )
+		{
+			return Vertices_[ Idx ];
+		}
+
+		Vertex &Vertices::EditVertex( int Idx )
+		{
+			Dirty_ = true;
+			return Vertices_[ Idx ];
+		}
 	}
 }
