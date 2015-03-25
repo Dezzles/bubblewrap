@@ -12,13 +12,13 @@ namespace Bubblewrap
 
 		void Texture::Initialise( Json::Value Params )
 		{
-			GoBase::Initialise( Params );
+			Resource::Initialise( Params );
 			
 		}
 
 		void Texture::Copy( Texture* Target, Texture* Base )
 		{
-			Component::Copy( Target, Base );
+			Resource::Copy( Target, Base );
 		}
 
 		void Texture::Update( float dt )

@@ -19,6 +19,7 @@ namespace Bubblewrap
 	}
 	namespace Base
 	{
+		class Resource;
 		class ObjectRegister
 		{
 			friend Game::Game;
@@ -65,6 +66,10 @@ namespace Bubblewrap
 			GoBase* CreateCopy( GoBase* Obj, Entity* Parent );
 
 			void LogHierarchy();
+
+			void LoadResources( std::string ResourceFile );
+
+			Resource* GetResource( std::string ResourceName );
 		private:
 			struct OrGenerators
 			{
@@ -96,9 +101,12 @@ namespace Bubblewrap
 			std::map<std::string, std::map<std::string, GoBase*>> PackageObjects_;
 			std::string CurrentPackage_;
 			bool LoadingPackage_;
+			bool LoadingResources_;
 
 			void IncLoad();
 			void DecLoad();
+
+			std::map<std::string, std::map<std::string, DType<Resource*, nullptr>>> Resources_;
 		};
 	}
 }

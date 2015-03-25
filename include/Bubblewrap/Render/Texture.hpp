@@ -2,7 +2,7 @@
 #define Texture_H
 
 #include "Bubblewrap/Base/Defines.hpp"
-#include "Bubblewrap/Base/Component.hpp"
+#include "Bubblewrap/Base/Resource.hpp"
 
 namespace Bubblewrap
 {
@@ -10,7 +10,7 @@ namespace Bubblewrap
 	{
 
 		class Texture
-			: public Base::Component
+			: public Base::Resource
 		{
 		public:
 			Texture();

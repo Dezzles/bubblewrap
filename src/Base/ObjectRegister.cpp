@@ -4,6 +4,7 @@
 #include "Bubblewrap/File/FSFile.hpp"
 #include "Bubblewrap/Logs/Log.hpp"
 #include "Bubblewrap/Managers/Managers.hpp"
+#include "Bubblewrap/Base/Resource.hpp"
 namespace Bubblewrap
 {
 	namespace Base
@@ -12,6 +13,7 @@ namespace Bubblewrap
 		{
 			LoadState_ = 0;
 			LoadingPackage_ = false;
+			LoadingResources_ = false;
 		}
 
 		ObjectRegister::~ObjectRegister()
@@ -164,7 +166,7 @@ namespace Bubblewrap
 			GoBase* obj = ClassGenerators_[ Type ].ClassGenerator_();
 			obj->Parent_ = Parent;
 			RegisterObject( obj );
-			if ( !LoadingPackage_ )
+			if ( !( LoadingPackage_ || LoadingResources_ ))
 			{
 				log.WriteLine( "Sending to Attach" );
 				char buffer[ 256 ];
@@ -188,13 +190,13 @@ namespace Bubblewrap
 			log.WriteLine( "CreateObject: " + Json[ "type" ].asString() + " (JSON)" );
 			std::string Type = Json[ "type" ].asString();
 			GoBase* obj = ClassGenerators_[ Type ].ClassGeneratorJson_( Json );
-			if ( !LoadingPackage_ )
+			if ( !( LoadingPackage_ || LoadingResources_ ) )
 				ToAttach_.push_back( obj );
 			obj->Parent_ = Parent;
 			RegisterObject( obj );
 			if ( Parent == nullptr )
 			{
-				if ( LoadingPackage_ )
+				if ( LoadingPackage_ || LoadingResources_ )
 				{
 				}
 				else
@@ -206,6 +208,10 @@ namespace Bubblewrap
 			if ( LoadingPackage_ && ( Parent == nullptr ) )
 			{
 				PackageObjects_[ CurrentPackage_ ][ obj->GetName() ] = obj;
+			}
+			else if ( LoadingResources_ && ( Parent == nullptr ) )
+			{
+				Resources_[ CurrentPackage_ ][ obj->GetName() ] = dynamic_cast<Resource*>(obj);
 			}
 			DecLoad();
 			return obj;
@@ -226,7 +232,7 @@ namespace Bubblewrap
 		{
 			Logs::Log log( "ObjectRegister::AttachItems" );
 			log.WriteLine( "Calling attach" );
-			if ( LoadingPackage_ )
+			if ( LoadingPackage_ || LoadingResources_)
 			{
 				assert( false );
 			}
@@ -317,7 +323,7 @@ namespace Bubblewrap
 		void ObjectRegister::DecLoad()
 		{
 			--LoadState_;
-			if ( ( LoadState_ == 0 ) && ( !LoadingPackage_ ) )
+			if ( ( LoadState_ == 0 ) && ( !( LoadingPackage_ || LoadingResources_ ) ) )
 			{
 				AttachItems();
 			}
@@ -327,5 +333,51 @@ namespace Bubblewrap
 		{
 			return Managers_;
 		}
+
+		void ObjectRegister::LoadResources( std::string ResourceFile )
+		{
+#ifdef DEBUG
+			Logs::Log log( "ObjectRegiser::LoadResources (" + ResourceFile + ")" );
+			log.WriteLine( "Package Name: " + ResourceFile );
+			LoadingResources_ = true;
+			File::FiFSFile file( ResourceFile + ".json" );
+			file.Open( File::FsMode::Read );
+
+			std::string fileData = file.ReadAll();
+			file.Close();
+			Json::Value root;
+			Json::Reader rdr;
+
+			rdr.parse( fileData, root );
+
+			CurrentPackage_ = root[ "name" ].asCString();
+
+			Json::Value items = root[ "resources" ];
+
+			unsigned int uCount = items.size();
+			for ( unsigned int Idx = 0; Idx < uCount; ++Idx )
+			{
+				CreateObject( items[ Idx ], nullptr );
+			}
+
+			LoadingResources_ = false;
+
+#elif RELEASE
+			assert ( FALSE );
+
+#endif
+		}
+
+		Resource* ObjectRegister::GetResource( std::string ResourceName )
+		{
+			int Idx1 = ResourceName.find_first_of( ':' );
+
+			std::string package = ResourceName.substr( 0, Idx1 );
+			std::string resource = ResourceName.substr( Idx1 + 1 );
+
+			return Resources_[ package ][ resource ];
+			
+		}
+
 	}
 }

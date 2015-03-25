@@ -34,12 +34,18 @@ namespace Bubblewrap
 
 
 			log.WriteLine( "Types: Registered" );
+			log.WriteLine( "Resources: Loading" );
+			for ( unsigned int Idx = 0; Idx < Settings.Resources_.size(); ++Idx )
+			{
+				Register_.LoadResources( Settings.Resources_[ Idx ] );
+			}
+			log.WriteLine( "Resources: Loaded" );
+			log.WriteLine( "Packages: Loading" );
 			for ( unsigned int Idx = 0; Idx < Settings.Packages_.size(); ++Idx )
 			{
-				log.WriteLine( "Packages: Loading" );
 				Register_.LoadPackage( Settings.Packages_[ Idx ] );
-				log.WriteLine( "Packages: Loaded" );
 			}
+			log.WriteLine( "Packages: Loaded" );
 			log.WriteLine( "Base object: Loading" );
 			Register_.LoadObject( Settings.BaseObject_, nullptr );
 			log.WriteLine( "Base object: Loaded" );

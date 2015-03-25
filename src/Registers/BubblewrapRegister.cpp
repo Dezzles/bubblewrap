@@ -7,7 +7,8 @@
 #include "Bubblewrap/Render/Sprite.hpp"
 #include "Bubblewrap/Render/Texture.hpp"
 #include "Bubblewrap/Render/Vertices.hpp"
-
+#include "Bubblewrap/Render/Font.hpp"
+#include "Bubblewrap/Render/Text.hpp"
 
 namespace Bubblewrap
 {
@@ -21,6 +22,8 @@ namespace Bubblewrap
 			Register->RegisterCreator( "Sprite", &Render::Sprite::Create, &Render::Sprite::CreateJson, &Render::Sprite::CopyDef );
 			Register->RegisterCreator( "Texture", &Render::Texture::Create, &Render::Texture::CreateJson, &Render::Texture::CopyDef );
 			Register->RegisterCreator( "Vertices", &Render::Vertices::Create, &Render::Vertices::CreateJson, &Render::Vertices::CopyDef );
+			Register->RegisterCreator( "Font", &Render::Font::Create, &Render::Font::CreateJson, &Render::Font::CopyDef );
+			Register->RegisterCreator( "Text", &Render::Text::Create, &Render::Text::CreateJson, &Render::Text::CopyDef );
 
 		}
 	}
