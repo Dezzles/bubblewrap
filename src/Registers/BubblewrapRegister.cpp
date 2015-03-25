@@ -9,21 +9,24 @@
 #include "Bubblewrap/Render/Vertices.hpp"
 #include "Bubblewrap/Render/Font.hpp"
 #include "Bubblewrap/Render/Text.hpp"
-
+#include "Bubblewrap/Base/Disabled.hpp"
 namespace Bubblewrap
 {
 	namespace Registers
 	{
-		void BaseRegister::Register( void* ObjectRegister )
+		using namespace Base;
+		using namespace Render;
+		void BaseRegister::Register( void* ObjRegister )
 		{
-			Base::ObjectRegister* Register = (Base::ObjectRegister*) ObjectRegister;
-			Register->RegisterCreator( "Clock", &Base::Clock::Create, &Base::Clock::CreateJson, &Base::Clock::CopyDef );
-			Register->RegisterCreator( "Entity", &Base::Entity::Create, &Base::Entity::CreateJson, &Base::Entity::CopyDef );
-			Register->RegisterCreator( "Sprite", &Render::Sprite::Create, &Render::Sprite::CreateJson, &Render::Sprite::CopyDef );
-			Register->RegisterCreator( "Texture", &Render::Texture::Create, &Render::Texture::CreateJson, &Render::Texture::CopyDef );
-			Register->RegisterCreator( "Vertices", &Render::Vertices::Create, &Render::Vertices::CreateJson, &Render::Vertices::CopyDef );
-			Register->RegisterCreator( "Font", &Render::Font::Create, &Render::Font::CreateJson, &Render::Font::CopyDef );
-			Register->RegisterCreator( "Text", &Render::Text::Create, &Render::Text::CreateJson, &Render::Text::CopyDef );
+			ObjectRegister* Register = ( ObjectRegister* ) ObjRegister;
+			Register->RegisterCreator( "Entity", &Entity::Create, &Entity::CreateJson, &Entity::CopyDef );
+
+			Register->RegisterCreator( "Clock", &Disabled<Clock>::Create, &Disabled<Clock>::CreateJson, &Disabled<Clock>::CopyDef );
+			Register->RegisterCreator( "Sprite", &Disabled<Sprite>::Create, &Disabled<Sprite>::CreateJson, &Disabled<Sprite>::CopyDef );
+			Register->RegisterCreator( "Texture", &Disabled<Texture>::Create, &Disabled<Texture>::CreateJson, &Disabled<Texture>::CopyDef );
+			Register->RegisterCreator( "Vertices", &Disabled<Vertices>::Create, &Disabled<Vertices>::CreateJson, &Disabled<Vertices>::CopyDef );
+			Register->RegisterCreator( "Font", &Disabled<Font>::Create, &Disabled<Font>::CreateJson, &Disabled<Font>::CopyDef );
+			Register->RegisterCreator( "Text", &Disabled<Text>::Create, &Disabled<Text>::CreateJson, &Disabled<Text>::CopyDef );
 
 		}
 	}

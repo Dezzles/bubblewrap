@@ -2,14 +2,14 @@
 #define BUBBLEWRAP_MUSIC_HPP
 
 #include "Bubblewrap/Base/Defines.hpp"
-#include "Bubblewrap/Base/Base.hpp"
+#include "Bubblewrap/Base/Component.hpp"
 
 namespace Bubblewrap
 {
 	namespace Sound
 	{
 		class Music :
-			public Base::GoBase
+			public Base::Component
 		{
 		public:
 			Music();
