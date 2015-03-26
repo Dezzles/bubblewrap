@@ -125,5 +125,41 @@ namespace Bubblewrap
 			else
 				return GetParentEntity()->GetRootEntity();
 		}
+
+
+		void Entity::RemoveChild( GoBase* Child )
+		{
+			for ( std::vector < GoBase* >::iterator iter = Children_.begin(); iter != Children_.end(); )
+			{
+				if ( ( *iter ) == Child )
+				{
+					iter = Children_.erase(iter);
+				}
+				else
+					++iter;
+			}
+			for ( std::vector < Component* >::iterator iter = Components_.begin(); iter != Components_.end(); )
+			{
+				if ( ( *iter ) == Child )
+				{
+					iter = Components_.erase( iter );
+				}
+				else
+					++iter;
+			}
+		}
+
+		void Entity::Destroy()
+		{
+			GoBase::Destroy();
+			for ( unsigned int Idx = 0; Idx < Children_.size(); ++Idx )
+			{
+				Children_[ Idx ]->Destroy();
+			}
+			for ( unsigned int Idx = 0; Idx < Components_.size(); ++Idx )
+			{
+				Components_[ Idx ]->Destroy();
+			}
+		}
 	}
 }

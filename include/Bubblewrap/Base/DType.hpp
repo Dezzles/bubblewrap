@@ -57,6 +57,10 @@ namespace Bubblewrap
 			{
 				return Value_;
 			}
+			T Value()
+			{
+				return Value_;
+			}
 		private:
 			T Value_;
 		};

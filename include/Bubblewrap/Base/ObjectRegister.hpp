@@ -107,6 +107,9 @@ namespace Bubblewrap
 			void DecLoad();
 
 			std::map<std::string, std::map<std::string, DType<Resource*, nullptr>>> Resources_;
+
+			bool IsNumber( const std::string& s );
+
 		};
 	}
 }

@@ -5,6 +5,8 @@
 #include "Bubblewrap/Logs/Log.hpp"
 #include "Bubblewrap/Managers/Managers.hpp"
 #include "Bubblewrap/Base/Resource.hpp"
+#include "Bubblewrap/Data/ResourceList.hpp"
+#include <cctype>
 namespace Bubblewrap
 {
 	namespace Base
@@ -57,7 +59,6 @@ namespace Bubblewrap
 				ParentlessItems_[ Idx ]->Update( Dt );
 			}
 			CheckCollisions();
-			DestroyPhase();
 		}
 
 		void ObjectRegister::CheckCollisions()
@@ -108,6 +109,11 @@ namespace Bubblewrap
 					// EvtMessage DestroyMessage( 0 /* TODO: Add Value*/ );
 					// DestroyMessage.Data_ = &Objects_[ Idx ]->Id_;
 					// RepeatMessage( DestroyMessage );
+					Objects_[ Idx ]->OnDetach();
+					if ( Objects_[ Idx ]->GetParentEntity() != nullptr )
+					{
+						Objects_[ Idx ]->GetParentEntity()->RemoveChild(Objects_[Idx ]);
+					}
 					destroyObject = true;
 				}
 			}
@@ -336,7 +342,6 @@ namespace Bubblewrap
 
 		void ObjectRegister::LoadResources( std::string ResourceFile )
 		{
-#ifdef DEBUG
 			Logs::Log log( "ObjectRegiser::LoadResources (" + ResourceFile + ")" );
 			log.WriteLine( "Package Name: " + ResourceFile );
 			LoadingResources_ = true;
@@ -361,22 +366,51 @@ namespace Bubblewrap
 			}
 
 			LoadingResources_ = false;
-
-#elif RELEASE
-			assert ( FALSE );
-
-#endif
 		}
 
 		Resource* ObjectRegister::GetResource( std::string ResourceName )
 		{
 			int Idx1 = ResourceName.find_first_of( ':' );
 
+
 			std::string package = ResourceName.substr( 0, Idx1 );
 			std::string resource = ResourceName.substr( Idx1 + 1 );
+			std::string val;
+			int Idx2 = resource.find_first_of( ':' );
+			if ( Idx2 != std::string::npos )
+			{
+				val = resource.substr( Idx2 + 1 );
+				resource = resource.substr( 0, Idx2 );
+				Data::ResourceList* list = dynamic_cast<Data::ResourceList*>( Resources_[ package ][ resource ].Value() );
+				if ( list == nullptr )
+				{
+					Logs::StaticLog::Instance()->WriteLine("Cannot load list item " + ResourceName);
+					return nullptr;
+				}
+				if ( IsNumber( val ) )
+				{
+					int itemNumber = atoi(val.c_str());
+					return list->GetItem( itemNumber );
+				}
+				else if ( val[ 0 ] == '?' )
+				{
+					int u = rand() % list->Size();
+					return list->GetItem( u );
+				}
+				else
+				{
+					return list->GetItem( val );
+				}
+			}
 
 			return Resources_[ package ][ resource ];
 			
+		}
+
+		bool ObjectRegister::IsNumber( const std::string& s )
+		{
+			return !s.empty() && std::find_if( s.begin(),
+				s.end(), [ ]( char c ) { return !std::isdigit( c ); } ) == s.end();
 		}
 
 	}

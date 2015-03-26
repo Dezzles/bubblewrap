@@ -50,6 +50,7 @@ namespace Bubblewrap
 			Target->SetFontName( Base->FontName_ );
 			Target->SetCharacterSize( Base->CharacterSize_ );
 			Target->SetHorizontalAlignment( Base->HorizontalAlignment_ );
+			Target->SetVerticalAlignment( Base->VerticalAlignment_ );
 		}
 
 		void Text::OnAttach()

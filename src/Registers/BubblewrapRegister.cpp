@@ -11,6 +11,7 @@
 #include "Bubblewrap/Render/Text.hpp"
 #include "Bubblewrap/Base/Disabled.hpp"
 #include "Bubblewrap/Data/StringList.hpp"
+#include "Bubblewrap/Data/ResourceList.hpp"
 namespace Bubblewrap
 {
 	namespace Registers
@@ -31,6 +32,7 @@ namespace Bubblewrap
 			Register->RegisterCreator( "Text", &Disabled<Text>::Create, &Disabled<Text>::CreateJson, &Disabled<Text>::CopyDef );
 
 			Register->RegisterCreator( "StringList", &StringList::Create, &StringList::CreateJson, &StringList::CopyDef );
+			Register->RegisterCreator( "ResourceList", &ResourceList::Create, &ResourceList::CreateJson, &ResourceList::CopyDef );
 
 		}
 	}

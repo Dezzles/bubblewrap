@@ -39,7 +39,7 @@ namespace Bubblewrap
 			virtual void Update( float dt ) = 0;
 
 			//! Destroys a GoBase object.
-			void Destroy();
+			virtual void Destroy();
 
 			//! Gets the internal Id of an object. This is assigned by the object's ObjectRegister
 			/*!

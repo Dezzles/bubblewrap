@@ -19,9 +19,11 @@ namespace Bubblewrap
 
 		EMPTY_POINTER( Entity );
 		class Component;
+		class ObjectRegister;
 		class Entity
 			: public GoBase
 		{
+			friend ObjectRegister;
 			friend Events::EventManager;
 			Entity();
 			void Initialise( Json::Value Params );
@@ -30,8 +32,9 @@ namespace Bubblewrap
 			std::vector< Component* > Components_;
 
 			Math::Vector2f Position_;
-
+			void RemoveChild( GoBase* Object );
 		public:
+			virtual void Destroy();
 			CREATE_REGISTER( Entity );
 
 			virtual void Update( float Dt );
@@ -99,6 +102,7 @@ namespace Bubblewrap
 			Math::Vector2f LocalPosition();
 			Entity* GetRootEntity();
 			void LogHierarchy();
+
 		};
 	}
 }

@@ -4,6 +4,7 @@
 #include "Bubblewrap/Logs/Log.hpp"
 #include "Bubblewrap/Registers/BubblewrapRegister.hpp"
 #include "Bubblewrap/Base/Clock.hpp"
+#include <time.h>
 namespace Bubblewrap
 {
 	namespace Game
@@ -11,6 +12,7 @@ namespace Bubblewrap
 		Game::Game()
 		{
 			Register_.SetManager( &Managers_ );
+			srand(time(0));
 		}
 
 		void Game::Run( GoGameSettings Settings )
@@ -76,6 +78,8 @@ namespace Bubblewrap
 				} );
 
 				Managers_.GetEventManager().ProcessMessages();
+
+				Register_.DestroyPhase();
 			}
 		}
 	}
