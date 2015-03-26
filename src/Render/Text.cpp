@@ -21,6 +21,22 @@ namespace Bubblewrap
 			SetFontName( Params[ "font" ].asString() );
 			SetText( Params[ "text" ].asString() );
 			SetCharacterSize( Params[ "characterSize" ].asInt() );
+
+			std::string alignment = Params[ "hAlign" ].asString();
+			if ( alignment == "left" )
+				HorizontalAlignment_ = HAlign::Left;
+			else if ( alignment == "centre" )
+				HorizontalAlignment_ = HAlign::Centre;
+			else if ( alignment == "right" )
+				HorizontalAlignment_ = HAlign::Right;
+
+			alignment = Params[ "vAlign" ].asString();
+			if ( alignment == "top" )
+				VerticalAlignment_ = VAlign::Top;
+			else if ( alignment == "centre" )
+				VerticalAlignment_ = VAlign::Centre;
+			else if ( alignment == "bottom" )
+				VerticalAlignment_ = VAlign::Bottom;
 		}
 
 
@@ -33,6 +49,7 @@ namespace Bubblewrap
 			Target->SetText( Base->Text_ );
 			Target->SetFontName( Base->FontName_ );
 			Target->SetCharacterSize( Base->CharacterSize_ );
+			Target->SetHorizontalAlignment( Base->HorizontalAlignment_ );
 		}
 
 		void Text::OnAttach()
@@ -108,6 +125,28 @@ namespace Bubblewrap
 		void Text::SetCharacterSize( int CharacterSize )
 		{
 			CharacterSize_ = CharacterSize;
+			IsDirty_ = true;
+		}
+
+		Text::HAlign Text::GetHorizontalAlignment()
+		{
+			return HorizontalAlignment_;
+		}
+
+		void Text::SetHorizontalAlignment( HAlign Align )
+		{
+			HorizontalAlignment_ = Align;
+			IsDirty_ = true;
+		}
+
+		Text::VAlign Text::GetVerticalAlignment()
+		{
+			return VerticalAlignment_;
+		}
+
+		void Text::SetVerticalAlignment( VAlign Align )
+		{
+			VerticalAlignment_ = Align;
 			IsDirty_ = true;
 		}
 	}

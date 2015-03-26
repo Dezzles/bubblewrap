@@ -4,7 +4,7 @@ namespace Bubblewrap
 {
 	namespace Events
 	{
-		Event::Event( EventTypes::EventTypes EventType, EventData* Data )
+		Event::Event( int EventType, EventData* Data )
 		{
 			EventType_ = EventType;
 			Data_ = Data;
@@ -14,7 +14,7 @@ namespace Bubblewrap
 		{
 		}
 
-		EventTypes::EventTypes Event::GetEventType() const
+		int Event::GetEventType() const
 		{
 			return EventType_;
 		}

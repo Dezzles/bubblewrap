@@ -29,8 +29,12 @@ namespace Bubblewrap
 			int GetDrawOrder();
 			void SetDrawOrder( int DrawOrder );
 
+			bool GetVisible();
+			void SetVisible( bool Visible );
+
 			virtual void Draw();
 		protected:
+			bool Visible_;
 			int DrawOrder_;
 			Window* Window_;
 			std::string WindowName_;

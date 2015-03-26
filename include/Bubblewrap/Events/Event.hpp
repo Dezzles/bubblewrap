@@ -24,13 +24,13 @@ namespace Bubblewrap
 		{
 			friend EventManager;
 		public:
-			Event( EventTypes::EventTypes EventType, EventData* Data );
+			Event( int EventType, EventData* Data );
 
-			EventTypes::EventTypes GetEventType() const;
+			int GetEventType() const;
 			EventData* GetData() const;
 			~Event();
 		private:
-			EventTypes::EventTypes EventType_;
+			int EventType_;
 			EventData* Data_;
 
 		};

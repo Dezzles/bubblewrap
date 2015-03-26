@@ -16,6 +16,14 @@ namespace Bubblewrap
 			: public Drawable
 		{
 		public:
+			enum class HAlign
+			{
+				Left, Centre, Right
+			};
+			enum class VAlign
+			{
+				Top, Centre, Bottom
+			};
 			Text();
 			void Initialise( Json::Value Params );
 
@@ -42,6 +50,12 @@ namespace Bubblewrap
 
 			int GetCharacterSize();
 			void SetCharacterSize( int CharacterSize );
+
+			HAlign GetHorizontalAlignment();
+			void SetHorizontalAlignment( HAlign Align );
+
+			VAlign GetVerticalAlignment();
+			void SetVerticalAlignment( VAlign Align );
 		protected:
 			Math::Vector2f Position_;
 			Math::Vector2f Size_;
@@ -51,6 +65,8 @@ namespace Bubblewrap
 			std::string FontName_;
 			int CharacterSize_;
 			Font* Font_;
+			HAlign HorizontalAlignment_;
+			VAlign VerticalAlignment_;
 		};
 	}
 }

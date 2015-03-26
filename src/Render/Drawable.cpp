@@ -9,6 +9,7 @@ namespace Bubblewrap
 		{
 			WindowName_ = "";
 			Window_ = nullptr;
+			Visible_ = true;
 		}
 
 		void Drawable::Initialise( Json::Value Params )
@@ -24,6 +25,7 @@ namespace Bubblewrap
 			Target->SetWindow( Base->Window_ );
 			Target->WindowName_ = Base->WindowName_;
 			Target->DrawOrder_ = Base->DrawOrder_;
+			Target->Visible_ = Base->Visible_;
 		}
 
 		void Drawable::OnAttach()
@@ -48,7 +50,8 @@ namespace Bubblewrap
 			{
 				Window_ = GetManager().GetWindowManager().GetItem( WindowName_ );
 			}
-			Window_->AddToQueue(this);
+			if ( Visible_ )
+				Window_->AddToQueue(this);
 		}
 
 		int Drawable::GetDrawOrder()
@@ -64,6 +67,16 @@ namespace Bubblewrap
 		void Drawable::Draw()
 		{
 
+		}
+
+		bool Drawable::GetVisible()
+		{
+			return Visible_;
+		}
+
+		void Drawable::SetVisible( bool Visible )
+		{
+			Visible_ = Visible;
 		}
 
 	}

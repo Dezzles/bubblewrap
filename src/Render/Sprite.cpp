@@ -69,7 +69,6 @@ namespace Bubblewrap
 		void Sprite::Update( float dt )
 		{
 			Drawable::Update( dt );
-			Math::Vector2f Position = GetParentEntity()->WorldPosition();
 		}
 
 		void Sprite::SetTexture( Texture* Texture )

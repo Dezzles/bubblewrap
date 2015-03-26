@@ -10,12 +10,14 @@
 #include "Bubblewrap/Render/Font.hpp"
 #include "Bubblewrap/Render/Text.hpp"
 #include "Bubblewrap/Base/Disabled.hpp"
+#include "Bubblewrap/Data/StringList.hpp"
 namespace Bubblewrap
 {
 	namespace Registers
 	{
 		using namespace Base;
 		using namespace Render;
+		using namespace Data;
 		void BaseRegister::Register( void* ObjRegister )
 		{
 			ObjectRegister* Register = ( ObjectRegister* ) ObjRegister;
@@ -27,6 +29,8 @@ namespace Bubblewrap
 			Register->RegisterCreator( "Vertices", &Disabled<Vertices>::Create, &Disabled<Vertices>::CreateJson, &Disabled<Vertices>::CopyDef );
 			Register->RegisterCreator( "Font", &Disabled<Font>::Create, &Disabled<Font>::CreateJson, &Disabled<Font>::CopyDef );
 			Register->RegisterCreator( "Text", &Disabled<Text>::Create, &Disabled<Text>::CreateJson, &Disabled<Text>::CopyDef );
+
+			Register->RegisterCreator( "StringList", &StringList::Create, &StringList::CreateJson, &StringList::CopyDef );
 
 		}
 	}
