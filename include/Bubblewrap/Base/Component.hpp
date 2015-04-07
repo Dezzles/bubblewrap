@@ -9,6 +9,7 @@ namespace Bubblewrap
 	{
 		class Entity;
 		class ObjectRegister;
+		//! Base component class that is the parent class of all game objects
 		class Component
 			: public GoBase
 		{

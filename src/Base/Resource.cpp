@@ -14,11 +14,6 @@ namespace Bubblewrap
 			GoBase::Initialise( Params );
 		}
 
-		void Resource::Update( float dt )
-		{
-
-		}
-
 		void Resource::Copy( Resource* Target, Resource* Base )
 		{
 

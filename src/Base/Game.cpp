@@ -12,15 +12,15 @@ namespace Bubblewrap
 		Game::Game()
 		{
 			Register_.SetManager( &Managers_ );
-			srand(time(0));
+			srand((unsigned int)time(0));
 		}
 
 		void Game::Run( GoGameSettings Settings )
 		{
 			Logs::Log log("Game::Run");
-			log.WriteLine( "Starting game" );
+			log.WriteLine( "Starting game", Logs::StaticLog::VERBOSE );
 
-			log.WriteLine( "Types: Registering" );
+			log.WriteLine( "Types: Registering", Logs::StaticLog::VERBOSE );
 			Registers::BaseRegister::Register( &Register_ );
 			for ( unsigned int Idx = 0; Idx < Settings.Registers_.size(); ++Idx )
 			{
@@ -30,27 +30,27 @@ namespace Bubblewrap
 
 			for ( int Idx = 0; Idx < Settings.WindowCount_; ++Idx )
 			{
-				log.WriteLine( "Creating window" );
+				log.WriteLine( "Creating window", Logs::StaticLog::VERBOSE );
 				Managers_.GetWindowManager().Create( Settings.WindowSettings_[ Idx ].Name_, &Settings.WindowSettings_[ Idx ] );
 			}
 
 
-			log.WriteLine( "Types: Registered" );
-			log.WriteLine( "Resources: Loading" );
+			log.WriteLine( "Types: Registered", Logs::StaticLog::VERBOSE );
+			log.WriteLine( "Resources: Loading", Logs::StaticLog::VERBOSE );
 			for ( unsigned int Idx = 0; Idx < Settings.Resources_.size(); ++Idx )
 			{
 				Register_.LoadResources( Settings.Resources_[ Idx ] );
 			}
-			log.WriteLine( "Resources: Loaded" );
-			log.WriteLine( "Packages: Loading" );
+			log.WriteLine( "Resources: Loaded", Logs::StaticLog::VERBOSE );
+			log.WriteLine( "Packages: Loading", Logs::StaticLog::VERBOSE );
 			for ( unsigned int Idx = 0; Idx < Settings.Packages_.size(); ++Idx )
 			{
 				Register_.LoadPackage( Settings.Packages_[ Idx ] );
 			}
-			log.WriteLine( "Packages: Loaded" );
-			log.WriteLine( "Base object: Loading" );
+			log.WriteLine( "Packages: Loaded", Logs::StaticLog::VERBOSE );
+			log.WriteLine( "Base object: Loading", Logs::StaticLog::VERBOSE );
 			Register_.LoadObject( Settings.BaseObject_, nullptr );
-			log.WriteLine( "Base object: Loaded" );
+			log.WriteLine( "Base object: Loaded", Logs::StaticLog::VERBOSE );
 			Base::Clock* clock = (Base::Clock*)Register_.CreateObject(std::string("Clock"), nullptr);
 			float PrevTime = clock->GetElapsedTime().AsSeconds();
 			bool running = true;

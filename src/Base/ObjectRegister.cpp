@@ -6,6 +6,7 @@
 #include "Bubblewrap/Managers/Managers.hpp"
 #include "Bubblewrap/Base/Resource.hpp"
 #include "Bubblewrap/Data/ResourceList.hpp"
+#include "Bubblewrap/Base/Assert.hpp"
 #include <cctype>
 namespace Bubblewrap
 {
@@ -58,45 +59,6 @@ namespace Bubblewrap
 			{
 				ParentlessItems_[ Idx ]->Update( Dt );
 			}
-			CheckCollisions();
-		}
-
-		void ObjectRegister::CheckCollisions()
-		{
-			/*		for ( unsigned int Idx0 = 0; Idx0 < Objects_.size(); ++Idx0 )
-			{
-			for ( unsigned int Idx1 = Idx0 + 1; Idx1 < Objects_.size(); ++Idx1 )
-			{
-			GoBase* objA = Objects_[ Idx0 ];
-			GoBase* objB = Objects_[ Idx1 ];
-			if ( !objA->Collidable_ || !objB->Collidable_ )
-			continue;
-			if ( objA->Id() > objB->Id() )
-			{
-			objA = Objects_[ Idx1 ];
-			objB = Objects_[ Idx0 ];
-			}
-			bool Colliding = CollisionSystem::DoCollide( objA, objB );
-
-			if ( Colliding )
-			{
-			// Yay Colliding
-			if ( !CollisionMap[ objA ][ objB ] )
-			{
-			CollisionMap[ objA ][ objB ] = true;
-			objA->BeginCollision( objB );
-			objB->BeginCollision( objA );
-			}
-			}
-			else if ( CollisionMap[ objA ][ objB ] )
-			{
-			CollisionMap[ objA ][ objB ] = false;
-			objA->EndCollision( objB );
-			objB->EndCollision( objA );
-			}
-			}
-
-			}/**/
 		}
 
 		void ObjectRegister::DestroyPhase()
@@ -153,10 +115,10 @@ namespace Bubblewrap
 			std::function< void( GoBase*, GoBase* ) > Copier, bool Override )
 		{
 			Logs::Log log( "ObjectRegister::RegisterCreator" );
-			log.WriteLine( "Registering class: " + Class );
+			log.WriteLine( "Registering class: " + Class, Logs::StaticLog::INFO );
 			if ( ( ClassGenerators_.find( Class ) != ClassGenerators_.end() ) && !Override )
 			{
-				log.WriteLine( "Overriding class: " + Class );
+				log.WriteLine( "Overriding class: " + Class, Logs::StaticLog::INFO );
 			}
 			ClassGenerators_[ Class ].ClassGenerator_ = Creator;
 			ClassGenerators_[ Class ].ClassGeneratorJson_ = CreatorJson;
@@ -166,7 +128,7 @@ namespace Bubblewrap
 		GoBase* ObjectRegister::CreateObject( std::string Type, Entity* Parent )
 		{
 			Logs::Log log( "ObjectRegister::CreateObject" );
-			log.WriteLine( "CreateObject: " + Type + " (TYPE)" );
+			log.WriteLine( "CreateObject: " + Type + " (TYPE)", Logs::StaticLog::VERBOSE );
 			IncLoad();
 
 			GoBase* obj = ClassGenerators_[ Type ].ClassGenerator_();
@@ -174,10 +136,10 @@ namespace Bubblewrap
 			RegisterObject( obj );
 			if ( !( LoadingPackage_ || LoadingResources_ ))
 			{
-				log.WriteLine( "Sending to Attach" );
+				log.WriteLine( "Sending to Attach", Logs::StaticLog::VERBOSE );
 				char buffer[ 256 ];
 				sprintf( buffer, "Id: %d", obj->Id() );
-				log.WriteLine( buffer );
+				log.WriteLine( buffer, Logs::StaticLog::VERBOSE );
 				ToAttach_.push_back( obj );
 			}
 			if ( Parent == nullptr )
@@ -193,8 +155,11 @@ namespace Bubblewrap
 		{
 			IncLoad();
 			Logs::Log log( "ObjectRegister::CreateObject" );
-			log.WriteLine( "CreateObject: " + Json[ "type" ].asString() + " (JSON)" );
+			log.WriteLine( "CreateObject: " + Json[ "type" ].asString() + " (JSON)", Logs::StaticLog::VERBOSE );
+			
 			std::string Type = Json[ "type" ].asString();
+
+			AssertMessage( ClassGenerators_.find(Type) != ClassGenerators_.end(), "Type not found: " + Type)
 			GoBase* obj = ClassGenerators_[ Type ].ClassGeneratorJson_( Json );
 			if ( !( LoadingPackage_ || LoadingResources_ ) )
 				ToAttach_.push_back( obj );
@@ -217,7 +182,9 @@ namespace Bubblewrap
 			}
 			else if ( LoadingResources_ && ( Parent == nullptr ) )
 			{
-				Resources_[ CurrentPackage_ ][ obj->GetName() ] = dynamic_cast<Resource*>(obj);
+				Resource* resourceObj = dynamic_cast<Resource*>( obj );
+				AssertMessage ( resourceObj != nullptr, "Loaded object is not a Resource" );
+				Resources_[ CurrentPackage_ ][ obj->GetName() ] = resourceObj;
 			}
 			DecLoad();
 			return obj;
@@ -237,7 +204,7 @@ namespace Bubblewrap
 		void ObjectRegister::AttachItems()
 		{
 			Logs::Log log( "ObjectRegister::AttachItems" );
-			log.WriteLine( "Calling attach" );
+			log.WriteLine( "Calling attach", Logs::StaticLog::VERBOSE );
 			if ( LoadingPackage_ || LoadingResources_)
 			{
 				assert( false );
@@ -253,7 +220,7 @@ namespace Bubblewrap
 		void ObjectRegister::LoadPackage( std::string PackageFile )
 		{
 			Logs::Log log( "ObjectRegiser::LoadPackage (" + PackageFile + ")" );
-			log.WriteLine( "Package Name: " + PackageFile );
+			log.WriteLine( "Package Name: " + PackageFile, Logs::StaticLog::VERBOSE );
 			LoadingPackage_ = true;
 			File::FiFSFile file( PackageFile );
 			file.Open( File::FsMode::Read );
@@ -317,7 +284,7 @@ namespace Bubblewrap
 				if ( ent != nullptr )
 					ent->LogHierarchy();
 				else
-					log.WriteLine( ParentlessItems_[ Idx ]->GetName() + "{" + ParentlessItems_[ Idx ]->TypeName() + "}" );
+					log.WriteLine( ParentlessItems_[ Idx ]->GetName() + "{" + ParentlessItems_[ Idx ]->TypeName() + "}", Logs::StaticLog::VERBOSE );
 			}
 		}
 
@@ -343,7 +310,7 @@ namespace Bubblewrap
 		void ObjectRegister::LoadResources( std::string ResourceFile )
 		{
 			Logs::Log log( "ObjectRegiser::LoadResources (" + ResourceFile + ")" );
-			log.WriteLine( "Package Name: " + ResourceFile );
+			log.WriteLine( "Package Name: " + ResourceFile, Logs::StaticLog::VERBOSE );
 			LoadingResources_ = true;
 			File::FiFSFile file( ResourceFile + ".json" );
 			file.Open( File::FsMode::Read );
@@ -384,7 +351,7 @@ namespace Bubblewrap
 				Data::ResourceList* list = dynamic_cast<Data::ResourceList*>( Resources_[ package ][ resource ].Value() );
 				if ( list == nullptr )
 				{
-					Logs::StaticLog::Instance()->WriteLine("Cannot load list item " + ResourceName);
+					Logs::StaticLog::Instance()->WriteLine("Cannot load list item " + ResourceName, Logs::StaticLog::ERROR );
 					return nullptr;
 				}
 				if ( IsNumber( val ) )

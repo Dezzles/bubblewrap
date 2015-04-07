@@ -3,7 +3,7 @@
 
 
 #include <string>
-
+#include "Bubblewrap/Logs/StaticLog.hpp"
 namespace Bubblewrap
 {
 	namespace Logs
@@ -14,8 +14,8 @@ namespace Bubblewrap
 			Log( std::string Grouping );
 			Log( );
 			~Log();
-			void Write( std::string Log );
-			void WriteLine( std::string Log );
+			void Write( std::string Log, StaticLog::Level LogLevel );
+			void WriteLine( std::string Log, StaticLog::Level LogLevel );
 		private:
 			std::string Grouping_;
 			bool GroupingSet_;

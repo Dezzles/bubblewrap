@@ -8,6 +8,10 @@ project "External_Json"
 		defines { "DEBUG" }
 		flags { "Symbols" }
 
+	configuration "CrashNBurn"
+		defines { "DEBUG" }
+		flags { "Symbols" }
+
 	configuration "Release"
 		defines { "NDEBUG" }
 		flags { "Optimize" }

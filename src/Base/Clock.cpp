@@ -9,11 +9,6 @@ namespace Bubblewrap
 
 		}
 
-		void Clock::Update( float dt )
-		{
-
-		}
-
 		Time Clock::GetElapsedTime()
 		{
 			return Time(0);

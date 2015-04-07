@@ -59,6 +59,32 @@ namespace Bubblewrap
 				return Z_;
 			}
 
+			void SetX( T_ X )
+			{
+				X_ = X;
+			}
+
+			void SetY( T_ Y )
+			{
+				Y_ = Y;
+			}
+
+			void SetZ( T_ Z )
+			{
+				Z_ = Z;
+			}
+
+			T_ Length()
+			{
+				return ( T_ ) ( sqrt( X_ * X_ + Y_ * Y_ + Z_ * Z_ ) );
+			}
+
+			Vector3 Normalised()
+			{
+				T_ mul = 1.0f / Length();
+				return Vector3( X_ * mul, Y_ * mul, Z_ * mul );
+			}
+
 			Vector3 operator==( Vector3& Other )
 			{
 				return ( ( X_ == Other.X_ ) && ( Y_ == Other.Y_ ) && ( Z_ == Other.Z_ ) );
@@ -143,7 +169,7 @@ namespace Bubblewrap
 		template< typename T_ >
 		Vector3<T_> operator*( T_ LHS, const Vector3<T_> V ) 
 		{
-			return Vector3<T_>( LHS * V.X(), LHS * V.Y(), LHS * V.Z_() );
+			return Vector3<T_>( LHS * V.X(), LHS * V.Y(), LHS * V.Z() );
 		}
 
 		typedef Vector3<float> Vector3f;

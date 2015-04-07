@@ -12,9 +12,19 @@ namespace Bubblewrap
 		{
 			friend Log;
 		public:
-			
-			void Write( std::string Log );
-			void WriteLine( std::string Log );
+			enum Level
+			{
+				CRITICAL = 0,
+				ERROR,
+				WARNING,
+				INFO,
+				VERBOSE
+			};
+			void Write( std::string Log, Level LogLevel );
+			void WriteLine( std::string Log, Level LogLevel );
+
+			void WriteNoIndent( std::string Log, Level LogLevel );
+			void WriteLineNoIndent( std::string Log, Level LogLevel );
 
 			static StaticLog* Instance()
 			{
@@ -22,12 +32,16 @@ namespace Bubblewrap
 					Instance_ = new StaticLog();
 				return Instance_;
 			}
+			void SetLogLevel( Level NewLevel );
 		private:
 			void Indent();
 			void Undent();
 
+			Level LogLevel_;
 			static StaticLog* Instance_;
 			int Indent_ = -1;
+
+			StaticLog();
 		};
 
 	}

@@ -18,9 +18,6 @@ namespace Bubblewrap
 		{
 		public:
 			CREATE_REGISTER_DISABLED( T_, T_ );
-
-		public:
-			virtual void Update( float dt ) {}
 		};
 	}
 }

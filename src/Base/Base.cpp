@@ -66,5 +66,10 @@ namespace Bubblewrap
 		{
 			return Name_;
 		}
+
+		void GoBase::Update( float dt )
+		{
+
+		}
 	}
 }

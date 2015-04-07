@@ -19,28 +19,25 @@ namespace Bubblewrap
 			GoBase::Initialise( Params );
 			if ( Params[ "position" ].isObject() )
 			{
-				float x = Params[ "position" ][ "x" ].asFloat();
-				float y = Params[ "position" ][ "y" ].asFloat();
-
-				Position_ = Math::Vector2f( x, y );
+				Position_ = Math::Vector3f( Params[ "position" ].asString() );
 			}
 			if ( Params[ "children" ].isArray() )
 			{
-				log.WriteLine( "Loading children" );
+				log.WriteLine( "Loading children", Logs::StaticLog::INFO );
 				for ( unsigned int Idx = 0; Idx < Params[ "children" ].size(); ++Idx )
 				{
 					Children_.push_back( GetRegister().CreateObject( Params[ "children" ][ Idx ], this ) );
 				}
-				log.WriteLine( "Loaded children" );
+				log.WriteLine( "Loaded children", Logs::StaticLog::INFO );
 			}
 			if ( Params[ "components" ].isArray() )
 			{
-				log.WriteLine( "Loading components" );
+				log.WriteLine( "Loading components", Logs::StaticLog::INFO );
 				for ( unsigned int Idx = 0; Idx < Params[ "components" ].size(); ++Idx )
 				{
 					Components_.push_back( static_cast< Component* >( GetRegister().CreateObject( Params[ "components" ][ Idx ], this ) ) );
 				}
-				log.WriteLine( "Loaded components" );
+				log.WriteLine( "Loaded components", Logs::StaticLog::INFO );
 			}
 		}
 
@@ -78,7 +75,7 @@ namespace Bubblewrap
 			}
 
 		}
-		Math::Vector2f Entity::WorldPosition()
+		Math::Vector3f Entity::WorldPosition()
 		{
 			if ( GetParentEntity() == nullptr )
 			{
@@ -86,12 +83,12 @@ namespace Bubblewrap
 			}
 			return ( GetParentEntity() )->WorldPosition() + LocalPosition();
 		}
-		Math::Vector2f Entity::LocalPosition()
+		Math::Vector3f Entity::LocalPosition()
 		{
 			return Position_;
 		}
 
-		void Entity::SetLocalPosition( Math::Vector2f Position )
+		void Entity::SetLocalPosition( Math::Vector3f Position )
 		{
 			Position_ = Position;
 		}
@@ -99,7 +96,7 @@ namespace Bubblewrap
 		void Entity::LogHierarchy()
 		{
 			Logs::Log log;
-			log.WriteLine( GetName() + "{Entity}" );
+			log.WriteLine( GetName() + "{Entity}", Logs::StaticLog::VERBOSE );
 			{
 				Logs::Log log2;
 
@@ -107,7 +104,7 @@ namespace Bubblewrap
 				{
 					try
 					{
-						log2.WriteLine( Components_[ Idx ]->GetName() + "{" + Components_[ Idx ]->TypeName() + "}" );
+						log2.WriteLine( Components_[ Idx ]->GetName() + "{" + Components_[ Idx ]->TypeName() + "}", Logs::StaticLog::VERBOSE );
 					}
 					catch (int)
 					{

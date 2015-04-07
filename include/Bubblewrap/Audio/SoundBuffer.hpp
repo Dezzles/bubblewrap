@@ -2,14 +2,14 @@
 #define BUBBLEWRAP_SOUNDBUFFER_HPP
 
 #include "Bubblewrap/Base/Defines.hpp"
-#include "Bubblewrap/Base/Base.hpp"
+#include "Bubblewrap/Base/Resource.hpp"
 
 namespace Bubblewrap
 {
-	namespace Sound
+	namespace Audio
 	{
 		class SoundBuffer :
-			public Base::GoBase
+			public Base::Resource
 		{
 		public:
 			SoundBuffer();
@@ -17,7 +17,9 @@ namespace Bubblewrap
 			CREATE_REGISTER( SoundBuffer );
 
 			void Update( float dt );
+			virtual void OnAttach();
 
+			PROTECTED_FIELD( std::string, Filename );
 		};
 
 	}

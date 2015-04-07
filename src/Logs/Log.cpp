@@ -10,7 +10,7 @@ namespace Bubblewrap
 
 		Log::Log( std::string Grouping )
 		{
-			WriteLine( "Entering: " + Grouping );
+			WriteLine( "Entering: " + Grouping, StaticLog::INFO );
 			StaticLog::Instance()->Indent();
 			GroupingSet_ = true;
 			Grouping_ = Grouping;
@@ -26,17 +26,17 @@ namespace Bubblewrap
 		{
 			StaticLog::Instance()->Undent();
 			if ( GroupingSet_ )
-				WriteLine( "Exiting: " + Grouping_ );
+				WriteLine( "Exiting: " + Grouping_, StaticLog::INFO );
 		}
 
-		void Log::Write( std::string Log )
+		void Log::Write( std::string Log, StaticLog::Level LogLevel )
 		{
-			StaticLog::Instance()->Write( Log );
+			StaticLog::Instance()->Write( Log, LogLevel );
 		}
 
-		void Log::WriteLine( std::string Log )
+		void Log::WriteLine( std::string Log, StaticLog::Level LogLevel )
 		{
-			StaticLog::Instance()->WriteLine( Log );
+			StaticLog::Instance()->WriteLine( Log, LogLevel );
 		}
 
 	}

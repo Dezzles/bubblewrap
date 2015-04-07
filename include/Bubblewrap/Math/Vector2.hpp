@@ -130,7 +130,7 @@ namespace Bubblewrap
 
 			T_ Length()
 			{
-				return ( T_ ) ( sqrt( X_ * X_ ) + sqrt( Y_ * Y_ ) );
+				return ( T_ ) ( sqrt( X_ * X_ + Y_ * Y_ ) );
 			}
 
 			Vector2 Normalised()
