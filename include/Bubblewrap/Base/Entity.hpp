@@ -24,6 +24,10 @@ namespace Bubblewrap
 		/*!
 			The Entity class dictates the base position of all child entities and components.
 			Unlike most components, it is acceptable for an Entity to be created without a parent entity.
+			An entity can have the following JSON parameters:
+			- position - a plain text description of a Vector3 (e.g. "0 0.5 1.0")
+			- children - a json array of entities
+			- components - a json array of components
 
 		*/
 		class Entity
@@ -42,10 +46,6 @@ namespace Bubblewrap
 			void RemoveChild( GoBase* Object );
 		public:
 			/*! Initialises an entity
-			An entity can have the following JSON parameters:
-			- position - a plain text description of a Vector3 (e.g. "0 0.5 1.0")
-			- children - a json array of entities
-			- components - a json array of components
 			\param Params A Json value containing the data to initialise the entity with
 			*/
 			void Initialise( Json::Value Params );

@@ -10,12 +10,23 @@ namespace Bubblewrap
 {
 	namespace Audio
 	{
+		/*! The Music class is designed to play longer sounds such as music.
+		Music can have the following JSON parameters:
+		- name <i>Required</i> - The name of the object
+		- attenuation - a plain text description of a Vector3 (e.g. "0 0.5 1.0")
+		- children - a json array of entities
+		- components - a json array of components
+
+		*/
 		class Music :
 			public Base::Component
 		{
 		public:
 
 			Music();
+			/*! Initialises a Music object
+			\param Params A Json value containing the data to initialise the Music object with
+			*/
 			void Initialise( Json::Value Params );
 			CREATE_REGISTER( Music );
 

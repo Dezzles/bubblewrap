@@ -111,8 +111,7 @@ namespace Bubblewrap
 		CallBacks_.push_back( Function );
 		}/**/
 
-		void ObjectRegister::RegisterCreator( std::string Class, std::function < GoBase*( ) > Creator, std::function < GoBase*( Json::Value ) > CreatorJson,
-			std::function< void( GoBase*, GoBase* ) > Copier, bool Override )
+		void ObjectRegister::RegisterCreator( std::string Class, std::function < GoBase*( ) > Creator, std::function< void( GoBase*, GoBase* ) > Copier, bool Override )
 		{
 			Logs::Log log( "ObjectRegister::RegisterCreator" );
 			log.WriteLine( "Registering class: " + Class, Logs::StaticLog::INFO );
@@ -121,7 +120,6 @@ namespace Bubblewrap
 				log.WriteLine( "Overriding class: " + Class, Logs::StaticLog::INFO );
 			}
 			ClassGenerators_[ Class ].ClassGenerator_ = Creator;
-			ClassGenerators_[ Class ].ClassGeneratorJson_ = CreatorJson;
 			ClassGenerators_[ Class ].ClassCopier_ = Copier;
 		}
 
@@ -160,7 +158,7 @@ namespace Bubblewrap
 			std::string Type = Json[ "type" ].asString();
 
 			AssertMessage( ClassGenerators_.find(Type) != ClassGenerators_.end(), "Type not found: " + Type)
-			GoBase* obj = ClassGenerators_[ Type ].ClassGeneratorJson_( Json );
+			GoBase* obj = ClassGenerators_[ Type ].ClassGenerator_( );
 			if ( !( LoadingPackage_ || LoadingResources_ ) )
 				ToAttach_.push_back( obj );
 			obj->Parent_ = Parent;

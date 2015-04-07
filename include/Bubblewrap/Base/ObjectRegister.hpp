@@ -83,12 +83,11 @@ namespace Bubblewrap
 				version of a class (such as Texture, Music, Sound etc.) should be ignored and implemented versions should be used instead.
 				\param Class The name of the class to be created. This doesn't necessarily need to match the class's name.
 				\param Creator A function that will create an instance of the object
-				\param CreatorJson A function that will create an instance of the object and call the Initialise() function
 				\param Copier A function that will copy data from one instance of the class to another
 				\param Override Dictates whether these creators should override creators already written for this class.
 			*/
-			void RegisterCreator( std::string Class, std::function < GoBase*( ) > Creator, std::function < GoBase*( Json::Value ) > CreatorJson,
-								  std::function< void( GoBase*, GoBase* ) > Copier, bool Override = false );
+			void RegisterCreator( std::string Class, std::function < GoBase*( ) > Creator, std::function< void( GoBase*, GoBase* ) > Copier, 
+				bool Override = false );
 
 			/*! Sets the Manager for the Object Register that will be added to all objects when they are created. This can only be called once and
 				should only be called by Game.
@@ -145,7 +144,6 @@ namespace Bubblewrap
 			struct OrGenerators
 			{
 				std::function < GoBase*( ) > ClassGenerator_;
-				std::function < GoBase*( Json::Value ) > ClassGeneratorJson_;
 				std::function < void( GoBase*, GoBase* ) > ClassCopier_;
 			};
 			int NextId_ = 0;
