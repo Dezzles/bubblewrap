@@ -21,14 +21,5 @@ namespace Bubblewrap
 			NAIVE_COPY( Filename );
 		}
 
-		void SoundBuffer::Update( float dt )
-		{
-
-		}
-
-		void SoundBuffer::OnAttach()
-		{
-
-		}
 	}
 }

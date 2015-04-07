@@ -75,6 +75,7 @@
 
 #define EMPTY_POINTER( TYPE ) class TYPE; typedef DType<TYPE*, nullptr> TYPE ## P;
 
+#define PROTECTED_READ_FIELD( TYPE, NAME ) protected: /*! Storage for NAME */ TYPE NAME ## _;  public: /*! Gets NAME \returns The current value of NAME */ TYPE Get ## NAME() { return NAME ## _; } 
 #define PROTECTED_FIELD( TYPE, NAME ) protected: /*! Storage for NAME */ TYPE NAME ## _;  public: /*! Gets NAME \returns The current value of NAME */ TYPE Get ## NAME() { return NAME ## _; } /*! Sets the value of NAME. \param NAME New value of NAME */ void Set ## NAME( TYPE NAME ) { NAME ## _ = NAME; }
 #define PROTECTED_DIRTY_FIELD( TYPE, NAME ) protected: /*! Storage for NAME */ TYPE NAME ## _;  public: /*! Gets NAME \returns The current value of NAME */ TYPE Get ## NAME() { return NAME ## _; } /*! Sets the value of NAME and sets the class to dirty. \param NAME New value of NAME */ void Set ## NAME( TYPE NAME ) { NAME ## _ = NAME; IsDirty_ = true; }
 #define REQUIRED_LOAD( TYPE, NAME, JNAME ) AssertMessage( !Params[ #JNAME ].isNull(), std::string( #JNAME ) + std::string( " is required " ) ); NAME ## _ = Params[ #JNAME ]. as ## TYPE();

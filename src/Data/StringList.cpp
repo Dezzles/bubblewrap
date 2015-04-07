@@ -34,12 +34,16 @@ namespace Bubblewrap
 
 		std::string StringList::GetItem( unsigned int Idx )
 		{
-			return Items_[ Idx ];
+			if ( Idx < Size_ )
+				return Items_[ Idx ];
+			return "";
 		}
 
 		std::string StringList::operator[]( unsigned int Idx )
 		{
-			return Items_[ Idx ];
+			if ( Idx < Size_ )
+				return Items_[ Idx ];
+			return "";
 		}
 
 

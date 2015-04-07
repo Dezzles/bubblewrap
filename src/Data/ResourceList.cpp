@@ -36,12 +36,16 @@ namespace Bubblewrap
 
 		Base::Resource* ResourceList::GetItem( unsigned int Idx )
 		{
-			return Items_[ Idx ];
+			if ( Idx < Size() )
+				return Items_[ Idx ];
+			return nullptr;
 		}
 
 		Base::Resource* ResourceList::operator[]( unsigned int Idx )
 		{
-			return Items_[ Idx ];
+			if ( Idx < Size() )
+				return Items_[ Idx ];
+			return nullptr;
 		}
 
 		Base::Resource* ResourceList::GetItem( std::string Name )

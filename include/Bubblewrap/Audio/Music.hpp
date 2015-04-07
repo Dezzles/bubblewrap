@@ -12,11 +12,16 @@ namespace Bubblewrap
 	{
 		/*! The Music class is designed to play longer sounds such as music.
 		Music can have the following JSON parameters:
-		- name <i>Required</i> - The name of the object
-		- attenuation - a plain text description of a Vector3 (e.g. "0 0.5 1.0")
-		- children - a json array of entities
-		- components - a json array of components
-
+		- name \a Required - The name of the object
+		- filename \a Required - The filename containing the music to play
+		- attenuation \a Optional
+		- loop \a Optional (default false) - whether the music should loop
+		- autoplay \a Optional (default false) - whether the music immediately
+		- minDistance \a Optional
+		- pitch \a Optional 
+		- offset \a Optional - where in the music play should be
+		- position \a Optional - a plain text description of a Vector3 (e.g. "0 0.5 1.0")
+		- volume \a Optional (default 1.0f) - volume of the music in the range 0.0 ... 1.0
 		*/
 		class Music :
 			public Base::Component
@@ -30,8 +35,12 @@ namespace Bubblewrap
 			void Initialise( Json::Value Params );
 			CREATE_REGISTER( Music );
 
+			/*! Updates the Music based on the current timestep.
+			\param dt The current timestep in seconds.
+			*/
 			void Update( float dt );
 
+			PROTECTED_READ_FIELD( std::string, Filename );
 			PROTECTED_DIRTY_FIELD( float, Attenuation );
 			PROTECTED_DIRTY_FIELD( bool, Loop );
 			PROTECTED_DIRTY_FIELD( bool, Autoplay );
@@ -41,13 +50,21 @@ namespace Bubblewrap
 			PROTECTED_DIRTY_FIELD( Math::Vector2f, Position );
 			PROTECTED_DIRTY_FIELD( float, Volume );
 
+			/*! Starts the music playing if it isn't already */
 			virtual void Play();
+			
+			/*! Pauses the music */
 			virtual void Pause();
+			/*! Stops the music */
 			virtual void Stop();
+
+			/*! Gets the current status of the music
+				\return The current status of the music
+			*/
 			virtual Sound::Status GetStatus();
 	
 		protected:
-			std::string Filename_;
+			/*! Marks when a value has been changed */
 			bool IsDirty_;
 		};
 

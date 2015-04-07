@@ -5,7 +5,7 @@ namespace Bubblewrap
 {
 	namespace Events
 	{
-
+		/*! A listing of all KeyCodes used by Bubblewrap */
 		enum class Key : int
 		{
 			Unknown = -1, ///< Unhandled key

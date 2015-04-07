@@ -5,14 +5,17 @@ namespace Bubblewrap
 {
 	namespace Events
 	{
-		unsigned int EventManager::RegisterEvent( unsigned int EventType, std::function<void( Event* )> EventFunction )
+		EventHandle EventManager::RegisterEvent( unsigned int EventType, std::function<void( Event* )> EventFunction )
 		{
 			EventStruct str( NextEventId_, EventFunction );
 			EventsCallbacks_[ EventType ].push_back( str );
 
 			unsigned int ret = NextEventId_;
 			++NextEventId_;
-			return ret;
+			EventHandle retHandle;
+			retHandle.Handle_ = ret;
+			retHandle.Manager_ = this;
+			return retHandle;
 		}
 
 		void EventManager::DeregisterEvent( unsigned int EventId )

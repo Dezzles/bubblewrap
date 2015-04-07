@@ -20,8 +20,7 @@ namespace Bubblewrap
 		EMPTY_POINTER( Entity );
 		class Component;
 		class ObjectRegister;
-		//! The Entity class that most components should be created attached to. 
-		/*!
+		/*! The Entity class that most components should be created attached to. 
 			The Entity class dictates the base position of all child entities and components.
 			Unlike most components, it is acceptable for an Entity to be created without a parent entity.
 			An entity can have the following JSON parameters:
