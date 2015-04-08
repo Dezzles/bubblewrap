@@ -20,9 +20,10 @@ namespace Bubblewrap
 	namespace Base
 	{
 		class Resource;
+		/*! Handles the creation, updating and destruction of all base objects. */
 		class ObjectRegister
 		{
-			friend Game::Game;
+			friend Bubblewrap::Game::Game;
 		public:
 			/*! Creates an object register
 			*/
@@ -47,7 +48,8 @@ namespace Bubblewrap
 			void DestroyPhase();
 
 			/*! Gets all objects instantiated of type T_
-				\param
+				\tparam T_ The type to be searched for
+				\returns A vector containing objects of type T_
 			*/
 			template<typename T_>
 			std::vector<T_*> GetObjectsByType()
@@ -91,6 +93,7 @@ namespace Bubblewrap
 
 			/*! Sets the Manager for the Object Register that will be added to all objects when they are created. This can only be called once and
 				should only be called by Game.
+				\param Manager A pointer to the managers that the object register should be used
 			*/
 			void SetManager( Managers::Managers* Manager );
 

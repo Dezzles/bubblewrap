@@ -20,15 +20,5 @@ namespace Bubblewrap
 			Base::Resource::Copy( Target, Base );
 		}
 
-		void Font::OnAttach()
-		{
-		}
-
-
-		void Font::Update( float dt )
-		{
-
-		}
-
 	}
 }

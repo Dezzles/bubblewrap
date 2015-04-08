@@ -5,12 +5,11 @@ Bubblewrap::Events::EventHandle::EventHandle()
 {
 	UseCounter_ = new int();
 	Manager_ = nullptr;
-	*UseCounter_ = 0;
+	*UseCounter_ = 1;
 }
 
 Bubblewrap::Events::EventHandle::EventHandle( const Bubblewrap::Events::EventHandle& Other )
 {
-	Destroy();
 	UseCounter_ = Other.UseCounter_;
 	Handle_ = Other.Handle_;
 	Manager_ = Other.Manager_;
@@ -19,7 +18,7 @@ Bubblewrap::Events::EventHandle::EventHandle( const Bubblewrap::Events::EventHan
 
 Bubblewrap::Events::EventHandle::~EventHandle()
 {
-	Destroy();
+	--(*UseCounter_);
 }
 
 void Bubblewrap::Events::EventHandle::Destroy()

@@ -74,6 +74,7 @@ namespace Bubblewrap
 		void Sprite::SetTexture( Texture* Texture )
 		{
 			Texture_ = Texture;
+			IsDirty_ = true;
 		}
 	}
 }

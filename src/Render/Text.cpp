@@ -116,6 +116,12 @@ namespace Bubblewrap
 		void Text::SetFontName( std::string FontName )
 		{
 			FontName_ = FontName;
+			Font_ = dynamic_cast<Font*>( GetRegister().GetResource( FontName_ ) );
+		}
+
+		void Text::SetFont( Font* Font )
+		{
+			Font_ = Font;
 		}
 
 		int Text::GetCharacterSize()

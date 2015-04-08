@@ -8,7 +8,8 @@ namespace Bubblewrap
 {
 	namespace File
 	{
-		class FiFileSystem
+		/*! Unimplemented class to wrap various file systems*/
+		class FileSystem
 		{
 
 		};

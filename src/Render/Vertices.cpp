@@ -35,7 +35,7 @@ namespace Bubblewrap
 			{
 				Vertices_[ Idx ].Colour_ = Colour( Params[ "vertices" ][ Idx ][ "colour" ].asString() );
 				Vertices_[ Idx ].Position_ = Math::Vector3f( Params[ "vertices" ][ Idx ][ "position" ].asString() );
-				Vertices_[ Idx ].TexCoords_ = Math::Vector2f( Params[ "vertices" ][ Idx ][ "textCoords" ].asString() );
+				Vertices_[ Idx ].TexCoords_ = Math::Vector2f( Params[ "vertices" ][ Idx ][ "texCoords" ].asString() );
 			}
 		}
 
@@ -50,11 +50,6 @@ namespace Bubblewrap
 			Target->ReservedCount_ = Base->VertexCount_;
 			Target->VertexCount_ = Base->VertexCount_;
 			Target->Refresh();
-		}
-
-		void Vertices::OnAttach()
-		{
-
 		}
 
 		void Vertices::Update( float dt )

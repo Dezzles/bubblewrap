@@ -21,10 +21,5 @@ namespace Bubblewrap
 			Resource::Copy( Target, Base );
 		}
 
-		void Texture::Update( float dt )
-		{
-
-		}
-
 	}
 }

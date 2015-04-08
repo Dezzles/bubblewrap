@@ -38,6 +38,7 @@ namespace Bubblewrap
 			*/
 			int GetEventType() const;
 			/*! Gets a pointer to the data this event was created with. Nullptr is a valid value.
+			\returns Pointer to the event data stored.
 			*/
 			EventData* GetData() const;
 

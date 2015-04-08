@@ -16,7 +16,7 @@ namespace Bubblewrap
 		{
 			GoBase::Initialise( Params );
 			SetWindow( Params[ "window" ].asString() );
-			DrawOrder_ = Params[ "draworder" ].asInt();
+			DrawOrder_ = Params[ "drawOrder" ].asInt();
 		}
 
 
@@ -26,11 +26,6 @@ namespace Bubblewrap
 			Target->WindowName_ = Base->WindowName_;
 			Target->DrawOrder_ = Base->DrawOrder_;
 			Target->Visible_ = Base->Visible_;
-		}
-
-		void Drawable::OnAttach()
-		{
-
 		}
 
 		void Drawable::SetWindow( std::string Name )

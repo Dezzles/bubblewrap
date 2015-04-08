@@ -28,8 +28,10 @@ namespace Bubblewrap
 			{
 				Value_ = V;
 			}
+
 			/*! Compares the object to a value
 				\param V The value to be compared to
+				\return True if the current value matches V
 			*/
 			bool operator==( bool V )
 			{
@@ -66,6 +68,7 @@ namespace Bubblewrap
 			}
 			/*! Compares the object to a value
 				\param V The value to be compared to
+				\return True if the current value matches V
 			*/
 			bool operator==( T V )
 			{
@@ -112,12 +115,13 @@ namespace Bubblewrap
 			}
 			/*! Compares the object to a value. This forces a random value into the bool
 				\param V The value to be compared to
+				\return If V is equal to the internal value
 			*/
 			bool operator==( bool V )
 			{
 				if ( Value_ == -1 )
 				{
-					Value_ = Value_ % 2;
+					Value_ = rand() % 2;
 				}
 				return V == (Value_ == 1);
 			}

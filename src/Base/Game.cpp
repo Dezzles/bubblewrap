@@ -15,7 +15,7 @@ namespace Bubblewrap
 			srand((unsigned int)time(0));
 		}
 
-		void Game::Run( GoGameSettings Settings )
+		void Game::Run( GameSettings Settings )
 		{
 			Logs::Log log("Game::Run");
 			log.WriteLine( "Starting game", Logs::StaticLog::VERBOSE );
@@ -77,7 +77,7 @@ namespace Bubblewrap
 					f->Display();
 				} );
 
-				Managers_.GetEventManager().ProcessMessages();
+				Managers_.GetEventManager().ProcessEvents();
 
 				Register_.DestroyPhase();
 			}

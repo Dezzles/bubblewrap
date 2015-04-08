@@ -9,13 +9,17 @@ namespace Bubblewrap
 {
 	namespace File
 	{
-		class FiFSFile 
-			: public FiFile
+		/*! Object used for reading files from the native file system using streams.
+		*/
+		class FSFile 
+			: public File
 		{
 		public:
-			FiFSFile( std::string Filename );
-			~FiFSFile();
-			virtual void Open( FsMode Mode );
+			/*! Sets the file to be loaded
+			\param Filename The file to be loaded */
+			FSFile( std::string Filename );
+			~FSFile();
+			virtual void Open( FileMode Mode );
 			virtual void Close();
 
 			virtual int Get();
@@ -34,16 +38,20 @@ namespace Bubblewrap
 			virtual unsigned int TellWrite();
 
 			virtual void SeekRead( unsigned int Pos );
-			virtual void SeekRead( unsigned int Pos, FsSeekDir Dir );
+			virtual void SeekRead( unsigned int Pos, SeekDir Dir );
 
 			virtual void SeekWrite( unsigned int Pos );
-			virtual void SeekWrite( unsigned int Pos, FsSeekDir Dir );
+			virtual void SeekWrite( unsigned int Pos, SeekDir Dir );
 
 			virtual void Put( char C );
 
 			virtual void Write( const char* S, unsigned int Size );
 
 			virtual bool IsOpen();
+
+			/*! Reads in all text in a file. Should only be used on non-binary files.
+			\returns All text in a file.
+			*/
 			std::string ReadAll();
 
 		private:

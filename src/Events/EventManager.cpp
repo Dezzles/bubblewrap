@@ -5,6 +5,10 @@ namespace Bubblewrap
 {
 	namespace Events
 	{
+		EventManager::EventManager()
+		{
+			NextEventId_ = 0;
+		}
 		EventHandle EventManager::RegisterEvent( unsigned int EventType, std::function<void( Event* )> EventFunction )
 		{
 			EventStruct str( NextEventId_, EventFunction );
@@ -38,12 +42,12 @@ namespace Bubblewrap
 			}
 		}
 
-		void EventManager::SendMessage( Event Events )
+		void EventManager::QueueEvent( Event Events )
 		{
 			EventQueue_.push_back( new Event( Events.EventType_, Events.Data_ ) );
 		}
 
-		void EventManager::ProcessMessages()
+		void EventManager::ProcessEvents()
 		{
 			std::vector<Event*> ToHandleEvents = EventQueue_;
 			unsigned int QueueSize = ToHandleEvents.size();

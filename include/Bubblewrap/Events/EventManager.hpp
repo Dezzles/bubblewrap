@@ -21,16 +21,24 @@ namespace Bubblewrap
 			friend EventHandle;
 			typedef std::function<void( Event* )> EventFunctionDef;
 		public:
+			/* Creates an EventManager */
+			EventManager();
+
 			/*! Registers a function to be called when a given event type is processed.
 				\param EventType The type of event that the function is looking for.
 				\param EventFunction The function that should be called when an event of EventType is being processed.
-				\returns A unique handle for the event registration. Deregister should be called with this value when an object is no longer interested in the event.
+				\returns A unique handle for the event registration.
 			*/
 			EventHandle RegisterEvent( unsigned int EventType, std::function<void( Event* )> EventFunction );
 
-			void SendMessage( Event Event );
+			/*! Adds an event to the event queue. 
+			\param Event The event to send to the event queue
+			*/
+			void QueueEvent( Event Event );
 
-			void ProcessMessages();
+			/*! Processes all events and sends them out to registered components.
+			*/
+			void ProcessEvents();
 		private:
 			void DeregisterEvent( unsigned int EventId );
 			struct EventStruct

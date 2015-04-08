@@ -220,8 +220,8 @@ namespace Bubblewrap
 			Logs::Log log( "ObjectRegiser::LoadPackage (" + PackageFile + ")" );
 			log.WriteLine( "Package Name: " + PackageFile, Logs::StaticLog::VERBOSE );
 			LoadingPackage_ = true;
-			File::FiFSFile file( PackageFile );
-			file.Open( File::FsMode::Read );
+			File::FSFile file( PackageFile );
+			file.Open( File::FileMode::Read );
 
 			std::string fileData = file.ReadAll();
 			file.Close();
@@ -310,8 +310,8 @@ namespace Bubblewrap
 			Logs::Log log( "ObjectRegiser::LoadResources (" + ResourceFile + ")" );
 			log.WriteLine( "Package Name: " + ResourceFile, Logs::StaticLog::VERBOSE );
 			LoadingResources_ = true;
-			File::FiFSFile file( ResourceFile + ".json" );
-			file.Open( File::FsMode::Read );
+			File::FSFile file( ResourceFile + ".json" );
+			file.Open( File::FileMode::Read );
 
 			std::string fileData = file.ReadAll();
 			file.Close();

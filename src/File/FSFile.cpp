@@ -4,121 +4,121 @@ namespace Bubblewrap
 {
 	namespace File
 	{
-		FiFSFile::FiFSFile( std::string Filename )
+		FSFile::FSFile( std::string Filename )
 			: Filename_( Filename )
 		{
 		}
-		FiFSFile::~FiFSFile()
+		FSFile::~FSFile()
 		{
 		}
 
-		void FiFSFile::Open( FsMode Mode )
+		void FSFile::Open( FileMode Mode )
 		{
 			std::ios_base::open_mode mode = 0;
 
-			if ( Is( Mode, FsMode::Read ) )
+			if ( Is( Mode, FileMode::Read ) )
 				mode = mode | std::ios::in;
-			if ( Is( Mode, FsMode::Write ) )
+			if ( Is( Mode, FileMode::Write ) )
 				mode = mode | std::ios::out;
-			if ( Is( Mode, FsMode::Binary ) )
+			if ( Is( Mode, FileMode::Binary ) )
 				mode = mode | std::ios::binary;
 
 			Stream_.open( Filename_.c_str(), mode );
 		}
 
-		void FiFSFile::Close()
+		void FSFile::Close()
 		{
 			Stream_.close();
 		}
 
-		int FiFSFile::Get()
+		int FSFile::Get()
 		{
 			return Stream_.get();
 		}
-		void FiFSFile::Get( char& C )
+		void FSFile::Get( char& C )
 		{
 			Stream_.get( C );
 		}
-		void FiFSFile::Get( char* S, unsigned int Size )
+		void FSFile::Get( char* S, unsigned int Size )
 		{
 			Stream_.get( S, Size );
 		}
-		void FiFSFile::Get( char* S, unsigned int Size, char Delim )
+		void FSFile::Get( char* S, unsigned int Size, char Delim )
 		{
 			Stream_.get( S, Size, Delim );
 		}
 
-		void FiFSFile::GetLine( char* S, unsigned int Size )
+		void FSFile::GetLine( char* S, unsigned int Size )
 		{
 			Stream_.getline( S, Size );
 		}
-		void FiFSFile::GetLine( char* S, unsigned int Size, char Delim )
+		void FSFile::GetLine( char* S, unsigned int Size, char Delim )
 		{
 			Stream_.getline( S, Size, Delim );
 		}
 
-		int FiFSFile::Peek()
+		int FSFile::Peek()
 		{
 			return Stream_.peek();
 		}
 
-		void FiFSFile::Read( char* S, unsigned int Size )
+		void FSFile::Read( char* S, unsigned int Size )
 		{
 			Stream_.read( S, Size );
 		}
 
-		unsigned int FiFSFile::TellRead()
+		unsigned int FSFile::TellRead()
 		{
 			return static_cast< unsigned int >( Stream_.tellg() );
 		}
 
-		unsigned int FiFSFile::TellWrite()
+		unsigned int FSFile::TellWrite()
 		{
 			return static_cast< unsigned int >( Stream_.tellp() );
 		}
 
-		void FiFSFile::SeekRead( unsigned int Pos )
+		void FSFile::SeekRead( unsigned int Pos )
 		{
 			Stream_.seekg( Pos );
 		}
 
-		void FiFSFile::SeekRead( unsigned int Pos, FsSeekDir Dir )
+		void FSFile::SeekRead( unsigned int Pos, SeekDir Dir )
 		{
 			std::ios::seekdir dir = std::ios::beg;
-			if ( Dir == FsSeekDir::End )
+			if ( Dir == SeekDir::End )
 				dir = std::ios::end;
 			Stream_.seekg( Pos, dir );
 		}
 
-		void FiFSFile::SeekWrite( unsigned int Pos )
+		void FSFile::SeekWrite( unsigned int Pos )
 		{
 			Stream_.seekp( Pos );
 		}
-		void FiFSFile::SeekWrite( unsigned int Pos, FsSeekDir Dir )
+		void FSFile::SeekWrite( unsigned int Pos, SeekDir Dir )
 		{
 			std::ios::seekdir dir = std::ios::beg;
-			if ( Dir == FsSeekDir::End )
+			if ( Dir == SeekDir::End )
 				dir = std::ios::end;
 			Stream_.seekp( Pos, dir );
 
 		}
 
-		void FiFSFile::Put( char C )
+		void FSFile::Put( char C )
 		{
 			Stream_.put( C );
 		}
 
-		void FiFSFile::Write( const char* S, unsigned int Size )
+		void FSFile::Write( const char* S, unsigned int Size )
 		{
 			Stream_.write( S, Size );
 		}
 
-		std::string FiFSFile::ReadAll()
+		std::string FSFile::ReadAll()
 		{
 			std::string str;
-			SeekRead( 0, FsSeekDir::End );
+			SeekRead( 0, SeekDir::End );
 			str.reserve( ( int ) TellRead() );
-			SeekRead( 0, FsSeekDir::Begin );
+			SeekRead( 0, SeekDir::Begin );
 
 
 			str.assign( ( std::istreambuf_iterator<char>( Stream_ ) ),
@@ -128,7 +128,7 @@ namespace Bubblewrap
 
 		}
 
-		bool FiFSFile::IsOpen()
+		bool FSFile::IsOpen()
 		{
 			return Stream_.is_open();
 		}

@@ -56,7 +56,7 @@ namespace Bubblewrap
 
 		}
 
-		Colour::Colour( unsigned char A, unsigned char R, unsigned char G, unsigned char B )
+		Colour::Colour( unsigned char R, unsigned char G, unsigned char B, unsigned char A )
 			: A_( A ), R_( R ), G_( G ), B_( B )
 		{
 
@@ -68,7 +68,7 @@ namespace Bubblewrap
 
 		}
 
-		Colour::Colour( float A, float R, float G, float B )
+		Colour::Colour( float R, float G, float B, float A )
 			: A_( (unsigned char) (A * 255.0f) ), R_( ( unsigned char ) ( R*255.0f ) ), G_( ( unsigned char ) ( G * 255.0f ) ), B_( ( unsigned char ) ( B * 255.0f ) )
 		{
 

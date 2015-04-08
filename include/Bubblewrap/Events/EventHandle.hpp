@@ -20,7 +20,7 @@ namespace Bubblewrap
 			EventHandle( const EventHandle& Other );
 			/*! When descoped this may cause the EventManager's event to be released */
 			~EventHandle();
-			/*! When descoped this may cause the EventManager's event to be released */
+			/*! Removes this instance's relationship to the EventManager. The related event to be released */
 			void Destroy();
 
 		private:
