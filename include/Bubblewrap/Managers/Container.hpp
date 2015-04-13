@@ -111,7 +111,7 @@ namespace Bubblewrap
 			*/
 			void OnAll( std::function<void(T_*)> fn )
 			{
-				for ( std::vector<MgrWrapper>::iterator iter = Items_.begin(); iter != Items_.end(); ++iter )
+				for ( typename std::vector<MgrWrapper>::iterator iter = Items_.begin(); iter != Items_.end(); ++iter )
 				{
 					if ( ( *iter ).Valid_ )
 						fn( ( *iter ).Manager_ );

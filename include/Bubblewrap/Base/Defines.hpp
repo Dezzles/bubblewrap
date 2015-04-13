@@ -3,7 +3,7 @@
 
 #include "DType.hpp"
 #include "Bubblewrap/Logs/StaticLog.hpp"
-#include "Json/Json.h"
+#include "json/json.h"
 #include "Bubblewrap/Base/Assert.hpp"
 
 #define CREATE_REGISTER(TYPE)  	\
