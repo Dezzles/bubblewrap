@@ -1,7 +1,7 @@
 #ifndef GoBase_H
 #define GoBase_H
 
-#include "Json/Json.h"
+#include "json/json.h"
 namespace Bubblewrap
 {
 	namespace Managers
