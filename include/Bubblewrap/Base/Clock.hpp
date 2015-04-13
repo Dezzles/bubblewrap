@@ -1,5 +1,5 @@
-#ifndef CLOCK_HPP
-#define CLOCK_HPP
+#ifndef BUBBLEWRAP_BASE_CLOCK_HPP
+#define BUBBLEWRAP_BASE_CLOCK_HPP
 #include "Bubblewrap/Base/Time.hpp"
 #include "Bubblewrap/Base/Base.hpp"
 #include "Defines.hpp"

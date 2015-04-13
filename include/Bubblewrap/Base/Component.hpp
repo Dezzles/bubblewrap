@@ -1,5 +1,5 @@
-#ifndef Component_H
-#define Component_H
+#ifndef BUBBLEWRAP_BASE_COMPONENT_HPP
+#define BUBBLEWRAP_BASE_COMPONENT_HPP
 
 #include "Bubblewrap/Base/Base.hpp"
 

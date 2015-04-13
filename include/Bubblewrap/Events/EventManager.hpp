@@ -1,5 +1,5 @@
-#ifndef EVENTMANAGER_HPP
-#define EVENTMANAGER_HPP
+#ifndef BUBBLEWRAP_EVENT_EVENTMANAGER_HPP
+#define BUBBLEWRAP_EVENT_EVENTMANAGER_HPP
 
 #include <functional>
 #include <map>

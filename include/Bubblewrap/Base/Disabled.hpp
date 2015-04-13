@@ -1,5 +1,5 @@
-#ifndef BUBBLEWRAP_DISABLED_HPP
-#define CLOCK_HPP
+#ifndef BUBBLEWRAP_BASE_DISABLED_HPP
+#define BUBBLEWRAP_BASE_DISABLED_HPP
 #include "Bubblewrap/Base/Base.hpp"
 #include "Defines.hpp"
 namespace Bubblewrap

@@ -1,5 +1,5 @@
-#ifndef EVMESSAGE_HPP
-#define EVMESSAGE_HPP
+#ifndef BUBBLEWRAP_EVENT_EVENT_HPP
+#define BUBBLEWRAP_EVENT_EVENT_HPP
 
 namespace Bubblewrap
 {

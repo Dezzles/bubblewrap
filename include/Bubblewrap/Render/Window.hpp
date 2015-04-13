@@ -1,5 +1,5 @@
-#ifndef WINDOW_HPP
-#define WINDOW_HPP
+#ifndef BUBBLEWRAP_RENDER_WINDOW_HPP
+#define BUBBLEWRAP_RENDER_WINDOW_HPP
 
 
 #include "Bubblewrap/Managers/BaseManager.hpp"

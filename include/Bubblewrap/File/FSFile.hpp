@@ -1,5 +1,5 @@
-#ifndef FFSFILE_HPP
-#define FIFSFILE_HPP
+#ifndef BUBBLEWRAP_FILE_FSFILE_HPP
+#define BUBBLEWRAP_FILE_FSFILE_HPP
 
 #include <string>
 #include <fstream>

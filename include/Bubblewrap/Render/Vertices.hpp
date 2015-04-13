@@ -1,5 +1,5 @@
-#ifndef Vertices_HPP
-#define Vertices_HPP
+#ifndef BUBBLEWRAP_RENDER_VERTICES_HPP
+#define BUBBLEWRAP_RENDER_VERTICES_HPP
 
 #include "Bubblewrap/Base/Defines.hpp"
 #include "Bubblewrap/Render/Drawable.hpp"

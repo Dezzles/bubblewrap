@@ -1,5 +1,5 @@
-#ifndef TIME_HPP
-#define TIME_HPP
+#ifndef BUBBLEWRAP_BASE_TIME_HPP
+#define BUBBLEWRAP_BASE_TIME_HPP
 
 namespace Bubblewrap
 {

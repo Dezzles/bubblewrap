@@ -1,5 +1,5 @@
-#ifndef Texture_H
-#define Texture_H
+#ifndef BUBBLEWRAP_RENDER_TEXTURE_HPP
+#define BUBBLEWRAP_RENDER_TEXTURE_HPP
 
 #include "Bubblewrap/Base/Defines.hpp"
 #include "Bubblewrap/Base/Resource.hpp"

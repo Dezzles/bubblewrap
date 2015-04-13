@@ -1,5 +1,5 @@
-#ifndef BUBBLEWRAP_RESOURCE_HPP
-#define BUBBLEWRAP_RESOURCE_HPP
+#ifndef BUBBLEWRAP_BASE_RESOURCE_HPP
+#define BUBBLEWRAP_BASE_RESOURCE_HPP
 
 #include "Bubblewrap/Base/Base.hpp"
 #include "Bubblewrap/Base/Defines.hpp"

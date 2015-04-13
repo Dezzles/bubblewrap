@@ -1,10 +1,8 @@
-#ifndef DTYPE_H
-#define DTYPE_H
+#ifndef BUBBLEWRAP_BASE_DTYPE_HPP
+#define BUBBLEWRAP_BASE_DTYPE_HPP
 
 #include <stdlib.h>
 #include <assert.h>
-
-
 
 namespace Bubblewrap
 {

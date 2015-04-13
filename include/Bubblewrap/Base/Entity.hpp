@@ -1,12 +1,10 @@
-#ifndef Entity_H
-#define Entity_H
+#ifndef BUBBLEWRAP_BASE_ENTITY_HPP
+#define BUBBLEWRAP_BASE_ENTITY_HPP
 
 #include "Bubblewrap/Base/Base.hpp"
 #include "Bubblewrap/Base/Defines.hpp"
 #include "Bubblewrap/Math/Vector3.hpp"
 #include "json/json.h"
-
-
 
 namespace Bubblewrap
 {

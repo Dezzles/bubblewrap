@@ -1,5 +1,5 @@
-#ifndef FIFILESYSTEM_HPP
-#define FIFILESYSTEM_HPP
+#ifndef BUBBLEWRAP_FILE_FILESYSTEM_HPP
+#define BUBBLEWRAP_FILE_FILESYSTEM_HPP
 
 #include <fstream>
 #include <streambuf>

@@ -1,5 +1,5 @@
-#ifndef MESSAGES_HPP
-#define MESSAGES_HPP
+#ifndef BUBBLEWRAP_EVENT_EVENTS_HPP
+#define BUBBLEWRAP_EVENT_EVENTS_HPP
 
 #include "Bubblewrap/Events/Event.hpp"
 #include "Bubblewrap/Events/EventKeyInput.hpp"

@@ -1,5 +1,6 @@
-#ifndef MGRMANAGERS_H
-#define MGRMANAGERS_H
+#ifndef BUBBLEWRAP_MANAGERS_MANAGERS_HPP
+#define BUBBLEWRAP_MANAGERS_MANAGERS_HPP
+
 #include "Bubblewrap/Managers/Container.hpp"
 #include "Bubblewrap/Render/Window.hpp"
 #include "Bubblewrap/Events/EventManager.hpp"

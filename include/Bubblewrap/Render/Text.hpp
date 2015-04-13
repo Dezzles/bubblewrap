@@ -1,5 +1,5 @@
-#ifndef BUBBLEWRAP_TEXT_HPP
-#define BUBBLEWRAP_TEXT_HPP
+#ifndef BUBBLEWRAP_RENDER_TEXT_HPP
+#define BUBBLEWRAP_RENDER_TEXT_HPP
 
 #include "Bubblewrap/Base/Defines.hpp"
 #include "Bubblewrap/Render/Drawable.hpp"

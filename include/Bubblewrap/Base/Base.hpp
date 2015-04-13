@@ -1,5 +1,5 @@
-#ifndef GoBase_H
-#define GoBase_H
+#ifndef BUBBLEWRAP_BASE_BASE_HPP
+#define BUBBLEWRAP_BASE_BASE_HPP
 
 #include "json/json.h"
 namespace Bubblewrap

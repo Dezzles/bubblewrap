@@ -1,5 +1,5 @@
-#ifndef BUBBLEWRAP_RESOURCELIST_HPP
-#define BUBBLEWRAP_RESOURCELIST_HPP
+#ifndef BUBBLEWRAP_DATA_RESOURCELIST_HPP
+#define BUBBLEWRAP_DATA_RESOURCELIST_HPP
 
 #include "Bubblewrap/Base/Defines.hpp"
 #include "Bubblewrap/Base/Resource.hpp"

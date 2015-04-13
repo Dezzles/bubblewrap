@@ -1,5 +1,5 @@
-#ifndef SPRITE_HPP
-#define SPRITE_HPP
+#ifndef BUBBLEWRAP_RENDER_SPRITE_HPP
+#define BUBBLEWRAP_RENDER_SPRITE_HPP
 
 #include "Bubblewrap/Base/Defines.hpp"
 #include "Bubblewrap/Render/Drawable.hpp"

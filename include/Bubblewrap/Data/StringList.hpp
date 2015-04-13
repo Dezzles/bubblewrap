@@ -1,5 +1,5 @@
-#ifndef BUBBLEWRAP_STRINGLIST_HPP
-#define BUBBLEWRAP_STRINGLIST_HPP
+#ifndef BUBBLEWRAP_DATA_STRINGLIST_HPP
+#define BUBBLEWRAP_DATA_STRINGLIST_HPP
 
 #include "Bubblewrap/Base/Defines.hpp"
 #include "Bubblewrap/Base/Resource.hpp"

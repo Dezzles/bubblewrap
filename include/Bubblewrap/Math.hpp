@@ -1,0 +1,5 @@
+#include "Bubblewrap/Math/Bounds1.hpp"
+#include "Bubblewrap/Math/Bounds2.hpp"
+#include "Bubblewrap/Math/Bounds3.hpp"
+#include "Bubblewrap/Math/Vector2.hpp"
+#include "Bubblewrap/Math/Vector3.hpp"

@@ -1,5 +1,5 @@
-#ifndef MGRCONTAINER_H
-#define MGRCONTAINER_H
+#ifndef BUBBLEWRAP_MANAGERS_CONTAINER_HPP
+#define BUBBLEWRAP_MANAGERS_CONTAINER_HPP
 
 #include <algorithm>
 #include <vector>

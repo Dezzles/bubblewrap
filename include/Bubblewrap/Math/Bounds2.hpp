@@ -1,5 +1,5 @@
-#ifndef BUBBLEWRAP_BOUNDS2_HPP
-#define BUBBLEWRAP_BOUNDS2_HPP
+#ifndef BUBBLEWRAP_MATH_BOUNDS2_HPP
+#define BUBBLEWRAP_MATH_BOUNDS2_HPP
 
 #include "Bubblewrap/Math/Bounds1.hpp"
 #include "Bubblewrap/Math/Vector2.hpp"

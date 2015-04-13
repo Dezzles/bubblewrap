@@ -1,5 +1,5 @@
-#ifndef Colour_HPP
-#define Colour_HPP
+#ifndef BUBBLEWRAP_RENDER_COLOUR_HPP
+#define BUBBLEWRAP_RENDER_COLOUR_HPP
 
 #include <string>
 

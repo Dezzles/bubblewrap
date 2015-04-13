@@ -1,5 +1,5 @@
-#ifndef Drawable_HPP
-#define Drawable_HPP
+#ifndef BUBBLEWRAP_RENDER_DRAWABLE_HPP
+#define BUBBLEWRAP_RENDER_DRAWABLE_HPP
 
 #include "Bubblewrap/Base/Defines.hpp"
 #include "Bubblewrap/Base/Component.hpp"

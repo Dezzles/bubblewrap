@@ -1,5 +1,5 @@
-#ifndef OBJECTREGISTER_H
-#define OBJECTREGISTER_H
+#ifndef BUBBLEWRAP_BASE_OBJECTREGISTER_HPP
+#define BUBBLEWRAP_BASE_OBJECTREGISTER_HPP
 
 #include "Bubblewrap/Base/Base.hpp"
 #include "Bubblewrap/Base/DType.hpp"

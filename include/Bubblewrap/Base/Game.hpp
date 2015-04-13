@@ -1,5 +1,5 @@
-#ifndef GOGAME_H
-#define GOGAME_H
+#ifndef BUBBLEWRAP_BASE_GAME_HPP
+#define BUBBLEWRAP_BASE_GAME_HPP
 
 #include "Bubblewrap/Base/ObjectRegister.hpp"
 #include "Bubblewrap/Managers/Managers.hpp"

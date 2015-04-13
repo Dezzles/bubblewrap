@@ -1,5 +1,5 @@
-#ifndef DEFINES_H
-#define DEFINES_H
+#ifndef BUBBLEWRAP_BASE_DEFINES_HPP
+#define BUBBLEWRAP_BASE_DEFINES_HPP
 
 #include "DType.hpp"
 #include "Bubblewrap/Logs/StaticLog.hpp"

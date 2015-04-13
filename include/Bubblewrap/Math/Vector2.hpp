@@ -1,5 +1,5 @@
-#ifndef MAVECTOR2_H
-#define MAVECTOR2_H
+#ifndef BUBBLEWRAP_MATH_VECTOR2_HPP
+#define BUBBLEWRAP_MATH_VECTOR2_HPP
 
 #include <math.h>
 #include <string>

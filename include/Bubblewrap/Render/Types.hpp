@@ -1,5 +1,5 @@
-#ifndef Types_HPP
-#define Types_HPP
+#ifndef BUBBLEWRAP_RENDER_TYPES_HPP
+#define BUBBLEWRAP_RENDER_TYPES_HPP
 
 #include "Bubblewrap/Render/Colour.hpp"
 #include "Bubblewrap/Math/Vector2.hpp"

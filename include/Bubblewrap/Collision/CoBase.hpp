@@ -1,5 +1,5 @@
-#ifndef BUBBLEWRAP_COBASE_HPP
-#define BUBBLEWRAP_COBASE_HPP
+#ifndef BUBBLEWRAP_COLLISION_COBASE_HPP
+#define BUBBLEWRAP_COLLISION_COBASE_HPP
 
 #include "Bubblewrap/Base/Component.hpp"
 

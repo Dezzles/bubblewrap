@@ -1,5 +1,5 @@
-#ifndef STATICLOG_HPP
-#define STATICLOG_HPP
+#ifndef BUBBLEWRAP_LOGS_STATICLOG_HPP
+#define BUBBLEWRAP_LOGS_STATICLOG_HPP
 
 #include <string>
 
