@@ -4,7 +4,7 @@
 #include <math.h>
 #include <string>
 #include "Bubblewrap/Math/Vector2.hpp"
-
+#include "Bubblewrap/Base/Assert.hpp"
 namespace Bubblewrap
 {
 	namespace Math
@@ -179,7 +179,7 @@ namespace Bubblewrap
 			Vector3 operator/( const T_ M )
 			{
 				return Vector3( X_ / M, Y_ / M, Z_ / M );
-			}
+			} 
 
 			/*! Gets individiual components of the vector by index
 			\param Idx The index of the component
@@ -187,7 +187,7 @@ namespace Bubblewrap
 			*/
 			T_& operator[]( int Idx )
 			{
-				assert( Idx >= 0 && Idx <= 2 );
+				AssertMessage( Idx >= 0 && Idx <= 2, "Index out of bounds" );
 				if ( 0 == Idx )
 					return X_;
 				if ( 1 == Idx )

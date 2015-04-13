@@ -3,6 +3,7 @@
 
 #include <math.h>
 #include <string>
+#include "Bubblewrap/Base/Assert.hpp" 
 namespace Bubblewrap
 {
 	namespace Math
@@ -158,7 +159,7 @@ namespace Bubblewrap
 			*/
 			T_& operator[]( int Idx )
 			{
-				assert( Idx >= 0 && Idx <= 1 );
+				AssertMessage( Idx >= 0 && Idx <= 1, "Index out of bounds" );
 				if ( 0 == Idx )
 					return X_;
 				else
