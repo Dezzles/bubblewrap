@@ -68,11 +68,19 @@ namespace Bubblewrap
 			}
 
 			/*! Creates a new object by type name and attaches it to a parent.
-				\param Type The type name of the object to be created.
-				\param Parent The parent this object should be attached to. If Parent is nullptr the created object becomes a root object.
-				\return A pointer to the newly created object
+			\param Type The type name of the object to be created.
+			\param Parent The parent this object should be attached to. If Parent is nullptr the created object becomes a root object.
+			\return A pointer to the newly created object
 			*/
 			GoBase* CreateObject( std::string Type, Entity* Parent );
+
+			/*! Creates a new object by type name and attaches it to a parent.
+			\param Type The type name of the object to be created.
+			\param Parent The parent this object should be attached to. If Parent is nullptr the created object becomes a root object.
+			\return A pointer to the newly created object
+			*/
+			GoBase* CreateObject( char* Type, Entity* Parent );
+
 			/*! Creates a new object using data in a Json array and attaches it to a parent.
 				\param Json The Json data that defines the object to be created.
 				\param Parent The parent this object should be attached to. If Parent is nullptr the created object becomes a root object.

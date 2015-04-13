@@ -7,6 +7,7 @@
 #include "Bubblewrap/Base/Resource.hpp"
 #include "Bubblewrap/Data/ResourceList.hpp"
 #include "Bubblewrap/Base/Assert.hpp"
+#include "Bubblewrap/Base/Component.hpp"
 #include <cctype>
 namespace Bubblewrap
 {
@@ -123,6 +124,11 @@ namespace Bubblewrap
 			ClassGenerators_[ Class ].ClassCopier_ = Copier;
 		}
 
+		GoBase* ObjectRegister::CreateObject( char* Type, Entity* Parent )
+		{
+			return CreateObject( std::string( Type ), Parent );
+		}
+
 		GoBase* ObjectRegister::CreateObject( std::string Type, Entity* Parent )
 		{
 			Logs::Log log( "ObjectRegister::CreateObject" );
@@ -143,6 +149,12 @@ namespace Bubblewrap
 			if ( Parent == nullptr )
 			{
 				ParentlessItems_.push_back( obj );
+			}
+			else
+			{
+				Component* componentObject = dynamic_cast<Component*>( obj );
+				if ( componentObject != nullptr )
+					Parent->Components_.push_back( componentObject );
 			}
 			DecLoad();
 
@@ -173,6 +185,12 @@ namespace Bubblewrap
 					ParentlessItems_.push_back( obj );
 				}
 			}
+			else
+			{
+				Component* componentObject = dynamic_cast<Component*>( obj );
+				if ( componentObject != nullptr )
+					Parent->Components_.push_back( componentObject );
+			}
 			obj->Initialise( Json );
 			if ( LoadingPackage_ && ( Parent == nullptr ) )
 			{
@@ -201,18 +219,21 @@ namespace Bubblewrap
 
 		void ObjectRegister::AttachItems()
 		{
-			Logs::Log log( "ObjectRegister::AttachItems" );
-			log.WriteLine( "Calling attach", Logs::StaticLog::VERBOSE );
 			if ( LoadingPackage_ || LoadingResources_)
 			{
 				assert( false );
 			}
 			unsigned int uCount = ToAttach_.size();
+			if ( uCount == 0 )
+				return;
+			Logs::Log log( "ObjectRegister::AttachItems" );
+			log.WriteLine( "Calling attach", Logs::StaticLog::VERBOSE );
+			std::vector< GoBase* > toDo = ToAttach_;
+			ToAttach_.clear();
 			for ( unsigned int Idx = 0; Idx < uCount; ++Idx )
 			{
-				ToAttach_[ Idx ]->OnAttach();
+				toDo[ Idx ]->OnAttach();
 			}
-			ToAttach_.clear();
 		}
 
 		void ObjectRegister::LoadPackage( std::string PackageFile )
@@ -296,7 +317,6 @@ namespace Bubblewrap
 			--LoadState_;
 			if ( ( LoadState_ == 0 ) && ( !( LoadingPackage_ || LoadingResources_ ) ) )
 			{
-				AttachItems();
 			}
 		}
 

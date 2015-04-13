@@ -35,7 +35,7 @@ namespace Bubblewrap
 				log.WriteLine( "Loading components", Logs::StaticLog::INFO );
 				for ( unsigned int Idx = 0; Idx < Params[ "components" ].size(); ++Idx )
 				{
-					Components_.push_back( static_cast< Component* >( GetRegister().CreateObject( Params[ "components" ][ Idx ], this ) ) );
+					static_cast< Component* >( GetRegister().CreateObject( Params[ "components" ][ Idx ], this ) );
 				}
 				log.WriteLine( "Loaded components", Logs::StaticLog::INFO );
 			}
@@ -96,7 +96,7 @@ namespace Bubblewrap
 		void Entity::LogHierarchy()
 		{
 			Logs::Log log;
-			log.WriteLine( GetName() + "{Entity}", Logs::StaticLog::VERBOSE );
+			log.WriteLine( GetName() + "{Entity}", Logs::StaticLog::INFO );
 			{
 				Logs::Log log2;
 
@@ -104,7 +104,7 @@ namespace Bubblewrap
 				{
 					try
 					{
-						log2.WriteLine( Components_[ Idx ]->GetName() + "{" + Components_[ Idx ]->TypeName() + "}", Logs::StaticLog::VERBOSE );
+						log2.WriteLine( Components_[ Idx ]->GetName() + "{" + Components_[ Idx ]->TypeName() + "}", Logs::StaticLog::INFO );
 					}
 					catch (int)
 					{

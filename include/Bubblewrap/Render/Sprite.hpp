@@ -7,6 +7,7 @@
 #include "Bubblewrap/Render/Colour.hpp"
 #include "Bubblewrap/Render/Window.hpp"
 #include "Bubblewrap/Render/Texture.hpp"
+#include "Bubblewrap/Render/Vertices.hpp"
 
 namespace Bubblewrap
 {
@@ -81,6 +82,8 @@ namespace Bubblewrap
 
 			/*! Marks whether any settings have been changed. */
 			bool IsDirty_;
+
+			Vertices* RenderItem_;
 		};
 	}
 }

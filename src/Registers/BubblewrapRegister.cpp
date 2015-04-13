@@ -30,7 +30,7 @@ namespace Bubblewrap
 			Register->RegisterCreator( "Entity", &Entity::Create, &Entity::CopyDef );
 
 			Register->RegisterCreator( "Clock", &Disabled<Clock>::Create, &Disabled<Clock>::CopyDef );
-			Register->RegisterCreator( "Sprite", &Disabled<Sprite>::Create, &Disabled<Sprite>::CopyDef );
+			Register->RegisterCreator( "Sprite", &Sprite::Create, &Sprite::CopyDef );
 			Register->RegisterCreator( "Texture", &Disabled<Texture>::Create, &Disabled<Texture>::CopyDef );
 			Register->RegisterCreator( "Vertices", &Disabled<Vertices>::Create, &Disabled<Vertices>::CopyDef );
 			Register->RegisterCreator( "Font", &Disabled<Font>::Create, &Disabled<Font>::CopyDef );

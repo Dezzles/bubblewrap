@@ -55,5 +55,10 @@ namespace Bubblewrap
 		{
 			--Indent_;
 		}
+
+		void StaticLog::SetLogLevel( Level NewLevel )
+		{
+			LogLevel_ = NewLevel;
+		}
 	}
 }

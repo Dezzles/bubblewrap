@@ -60,6 +60,7 @@ namespace Bubblewrap
 				float CurrentTime = clock->GetElapsedTime().AsSeconds();
 				float TimeStep = CurrentTime - PrevTime;
 
+
 				Managers_.GetWindowManager().OnAll( [ TimeStep ]( Render::Window* f )
 				{
 					f->Update( TimeStep );
@@ -67,6 +68,7 @@ namespace Bubblewrap
 				} );
 				Managers_.GetWindowManager().Update( TimeStep );
 				
+				Register_.AttachItems();
 				Register_.Update( TimeStep );
 				PrevTime = CurrentTime;
 

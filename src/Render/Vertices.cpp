@@ -3,6 +3,8 @@
 #include "Bubblewrap/Base/Base.hpp"
 #include "Bubblewrap/Render/Types.hpp"
 #include "Bubblewrap/Math/Vector2.hpp"
+#include "Bubblewrap/Base.hpp"
+#include "Bubblewrap/Render.hpp"
 
 namespace Bubblewrap
 {
@@ -15,6 +17,7 @@ namespace Bubblewrap
 
 			Vertices_ = new Vertex[ 0 ];
 			Dirty_ = false;
+			Texture_ = nullptr;
 		}
 
 
@@ -37,6 +40,7 @@ namespace Bubblewrap
 				Vertices_[ Idx ].Position_ = Math::Vector3f( Params[ "vertices" ][ Idx ][ "position" ].asString() );
 				Vertices_[ Idx ].TexCoords_ = Math::Vector2f( Params[ "vertices" ][ Idx ][ "texCoords" ].asString() );
 			}
+			OPTIONAL_LOAD( String, TextureName, texture );
 		}
 
 
@@ -45,7 +49,8 @@ namespace Bubblewrap
 			Drawable::Copy( Target, Base ); 
 			Target->Reserve( Base->VertexCount_ );
 			memcpy( Target->Vertices_, Base->Vertices_, Base->VertexCount_ * sizeof( Vertex ) );
-
+			
+			Target->TextureName_ = Base->TextureName_;
 			Target->PrimitiveType_ = Base->PrimitiveType_;
 			Target->ReservedCount_ = Base->VertexCount_;
 			Target->VertexCount_ = Base->VertexCount_;
@@ -112,6 +117,12 @@ namespace Bubblewrap
 		{
 			Dirty_ = true;
 			return Vertices_[ Idx ];
+		}
+
+		void Vertices::OnAttach()
+		{
+			if ( TextureName_ != "" )
+				Texture_ = dynamic_cast<Texture*>( GetRegister().GetResource( TextureName_ ) );
 		}
 	}
 }

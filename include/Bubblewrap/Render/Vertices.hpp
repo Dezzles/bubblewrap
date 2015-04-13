@@ -9,6 +9,7 @@ namespace Bubblewrap
 {
 	namespace Render
 	{
+		class Texture;
 		/*! Renders sets of vertices 
 		Vertices can have the following JSON parameters:
 		- primitiveType /a Optional - name of the sprite
@@ -73,6 +74,13 @@ namespace Bubblewrap
 			\return A reference to the vertex
 			*/
 			Vertex &EditVertex( int Idx );
+
+			/*! Attempts to get any texture that's set to the object 
+			*/
+			void OnAttach();
+
+			PROTECTED_FIELD( std::string, TextureName );
+			PROTECTED_FIELD( Texture*, Texture );
 		protected:
 
 			/*! Pointer to an array of vertices */
