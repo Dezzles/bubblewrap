@@ -1,6 +1,8 @@
 #include "Bubblewrap/Render/Sprite.hpp"
 #include "Bubblewrap/Base/Entity.hpp"
 #include "Bubblewrap/Base/Base.hpp"
+#include "Bubblewrap/Base/ObjectRegister.hpp"
+
 namespace Bubblewrap
 {
 	namespace Render
@@ -8,6 +10,8 @@ namespace Bubblewrap
 		Sprite::Sprite()
 		{
 			IsDirty_ = false;
+			RenderItem_ = nullptr;
+			Texture_ = nullptr;
 		}
 
 		void Sprite::Initialise( Json::Value Params )
@@ -34,19 +38,43 @@ namespace Bubblewrap
 		{
 			if ( TextureName_ != "" )
 			{
-				auto values = GetParentEntity()->GetComponentsByType<Texture>( TextureName_ );
+				auto values = dynamic_cast<Texture*>( GetRegister().GetResource( TextureName_ ) );
 
-				if ( values.size() > 0 )
-				{
-					SetTexture( values[ 0 ] );
-				}
+				SetTexture( values );
 			}
+			RenderItem_ = (Render::Vertices*)GetRegister().CreateObject( std::string( "Vertices" ), GetParentEntity() );
+			RenderItem_->Reserve( 4 );
+			Vertex v;
+			v.Colour_ = Colour_;
+			v.Position_ = Math::Vector3f( -Size_.X() * 0.5f, -Size_.Y() * 0.5f, 0.0f );
+			v.TexCoords_ = Math::Vector2f( 0.0f, 0.0f );
+			RenderItem_->AddVertex( v );
+
+			v.Colour_ = Colour_;
+			v.Position_ = Math::Vector3f( Size_.X() * 0.5f, -Size_.Y() * 0.5f, 0.0f );
+			v.TexCoords_ = Math::Vector2f( 1.0f, 0.0f );
+			RenderItem_->AddVertex( v );
+
+			v.Colour_ = Colour_;
+			v.Position_ = Math::Vector3f( -Size_.X() * 0.5f, Size_.Y() * 0.5f, 0.0f );
+			v.TexCoords_ = Math::Vector2f( 0.0f, 1.0f );
+			RenderItem_->AddVertex( v );
+
+			v.Colour_ = Colour_;
+			v.Position_ = Math::Vector3f( Size_.X() * 0.5f, Size_.Y() * 0.5f, 0.0f );
+			v.TexCoords_ = Math::Vector2f( 1.0f, 1.0f );
+			RenderItem_->AddVertex( v );/**/
+			RenderItem_->SetPrimitiveType( Render::Primitives::TrianglesStrip );
+			RenderItem_->SetDrawOrder( DrawOrder_ );
+			RenderItem_->SetTexture( Texture_ );
+			RenderItem_->SetWindow( Window_ );
+			RenderItem_->Refresh();
 		}
 
 
 		Math::Vector2f Sprite::GetSize()
 		{
-			return Size_;
+			return Size_; 
 		}
 
 		void Sprite::SetSize( Math::Vector2f Size )
@@ -74,6 +102,8 @@ namespace Bubblewrap
 		void Sprite::SetTexture( Texture* Texture )
 		{
 			Texture_ = Texture;
+			if ( RenderItem_ != nullptr )
+				RenderItem_->SetTexture( Texture_ );
 			IsDirty_ = true;
 		}
 	}
