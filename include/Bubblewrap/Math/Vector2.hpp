@@ -8,20 +8,24 @@ namespace Bubblewrap
 {
 	namespace Math
 	{
+		template < typename T_ >
+		class Matrix3;
 		/*! A two dimensional Vector template
 		*/
 		template < typename T_ >
 		class Vector2
 		{
+			friend Matrix3< T_ >;
 		private:
 			T_ X_;
 			T_ Y_;
+			T_ W_;
 
 
 		public:
 			/*! Creates a Vector2 with default coordinates */
 			Vector2()
-				: X_( 0 ), Y_( 0 )
+				: X_( 0 ), Y_( 0 ), W_( 1 )
 			{
 			}
 			/*! Creates a Vector2
@@ -29,7 +33,7 @@ namespace Bubblewrap
 			\param Y The Y coordinate
 			*/
 			Vector2( T_ X, T_ Y )
-				: X_( X ), Y_( Y )
+				: X_( X ), Y_( Y ), W_( 1 )
 			{
 
 			}
@@ -47,7 +51,7 @@ namespace Bubblewrap
 				
 				X_ = (T_)atof( sX.c_str() );
 				Y_ = (T_)atof( sY.c_str() );
-
+				W_ = 1;
 			}
 
 			/*! Gets the X coordinate of the Vector2 
@@ -234,7 +238,7 @@ namespace Bubblewrap
 		\returns A vector multiplied by the scalar
 		*/
 		template< typename T_ >
-		Vector2<T_> operator*( T_ LHS, const Vector2<T_> V ) 
+		Vector2<T_> operator*( const T_ LHS, const Vector2<T_> V ) 
 		{
 			return Vector2<T_>( LHS * V.X(), LHS * V.Y() );
 		}

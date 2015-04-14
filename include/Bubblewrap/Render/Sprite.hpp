@@ -83,6 +83,7 @@ namespace Bubblewrap
 			/*! Marks whether any settings have been changed. */
 			bool IsDirty_;
 
+			/*! The vertices that are created by Sprite to draw the sprite*/
 			Vertices* RenderItem_;
 		};
 	}
