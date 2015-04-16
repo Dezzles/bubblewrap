@@ -4,6 +4,7 @@
 #include "Bubblewrap/Managers/Container.hpp"
 #include "Bubblewrap/Render/Window.hpp"
 #include "Bubblewrap/Events/EventManager.hpp"
+#include "Bubblewrap/File/FileSystem.hpp"
 namespace Bubblewrap
 {
 	namespace Managers
@@ -33,6 +34,7 @@ namespace Bubblewrap
 
 			CREATE_MANAGER_CONTAINER( Render::Window, Window );
 			CREATE_MANAGER( Events::EventManager, Event );
+			CREATE_MANAGER( File::FileSystem, File );
 		};
 
 #undef CREATE_MANAGER

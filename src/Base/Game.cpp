@@ -1,6 +1,6 @@
 #include "Bubblewrap/Base/Game.hpp"
 #include "Bubblewrap/Base/Entity.hpp"
-#include "Bubblewrap/File/FSFile.hpp"
+#include "Bubblewrap/File/File.hpp"
 #include "Bubblewrap/Logs/Log.hpp"
 #include "Bubblewrap/Registers/BubblewrapRegister.hpp"
 #include "Bubblewrap/Base/Clock.hpp"
@@ -20,6 +20,7 @@ namespace Bubblewrap
 			Logs::Log log("Game::Run");
 			log.WriteLine( "Starting game", Logs::StaticLog::VERBOSE );
 
+
 			log.WriteLine( "Types: Registering", Logs::StaticLog::VERBOSE );
 			Registers::BaseRegister::Register( &Register_ );
 			for ( unsigned int Idx = 0; Idx < Settings.Registers_.size(); ++Idx )
@@ -34,6 +35,9 @@ namespace Bubblewrap
 				Managers_.GetWindowManager().Create( Settings.WindowSettings_[ Idx ].Name_, &Settings.WindowSettings_[ Idx ] );
 			}
 
+			Managers_.GetFileManager().Initialise();
+			/* TODO Improve this */
+			Managers_.GetFileManager().AddPath( "assets", 0 );
 
 			log.WriteLine( "Types: Registered", Logs::StaticLog::VERBOSE );
 			log.WriteLine( "Resources: Loading", Logs::StaticLog::VERBOSE );
@@ -71,7 +75,6 @@ namespace Bubblewrap
 				Register_.AttachItems();
 				Register_.Update( TimeStep );
 				PrevTime = CurrentTime;
-
 
 
 				Managers_.GetWindowManager().OnAll( [ TimeStep ]( Render::Window* f )

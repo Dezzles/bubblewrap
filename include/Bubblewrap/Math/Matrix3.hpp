@@ -18,7 +18,7 @@ namespace Bubblewrap
 			Matrix3()
 			{
 				for ( int Idx = 0; Idx < 9; ++Idx )
-					Matrix_[ Idx ] = ( T_ ) ( ( Idx % 3 ) == ( Idx / 3 ) ) ? 1 : 0;
+					Matrix_[ Idx ] = ( T_ )( ( ( Idx % 3 ) == ( Idx / 3 ) ) ? 1 : 0 );
 			}
 			/*! Creates a new matrix
 			\param i00 Initialises a component of the matrix
@@ -111,7 +111,6 @@ namespace Bubblewrap
 					V.X_ * Matrix_[ 0 ] + V.Y_ * Matrix_[ 1 ] + Matrix_[ 2 ],
 					V.X_ * Matrix_[ 3 ] + V.Y_ * Matrix_[ 4 ] + Matrix_[ 5 ]
 					);
-				ret.W_ = V.X_ * Matrix_[ 6 ] + V.Y_ * Matrix_[ 7 ] + Matrix_[ 8 ]
 				return ret;
 			}
 

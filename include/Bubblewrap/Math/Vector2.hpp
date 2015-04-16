@@ -19,13 +19,12 @@ namespace Bubblewrap
 		private:
 			T_ X_;
 			T_ Y_;
-			T_ W_;
 
 
 		public:
 			/*! Creates a Vector2 with default coordinates */
 			Vector2()
-				: X_( 0 ), Y_( 0 ), W_( 1 )
+				: X_( 0 ), Y_( 0 )
 			{
 			}
 			/*! Creates a Vector2
@@ -33,7 +32,7 @@ namespace Bubblewrap
 			\param Y The Y coordinate
 			*/
 			Vector2( T_ X, T_ Y )
-				: X_( X ), Y_( Y ), W_( 1 )
+				: X_( X ), Y_( Y )
 			{
 
 			}
@@ -51,7 +50,6 @@ namespace Bubblewrap
 				
 				X_ = (T_)atof( sX.c_str() );
 				Y_ = (T_)atof( sY.c_str() );
-				W_ = 1;
 			}
 
 			/*! Gets the X coordinate of the Vector2 

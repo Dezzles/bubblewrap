@@ -3,15 +3,19 @@
 
 #include <fstream>
 #include <streambuf>
-
+#include "Bubblewrap/File/File.hpp"
 namespace Bubblewrap
 {
 	namespace File
 	{
-		/*! Unimplemented class to wrap various file systems*/
+		/*! Wraps PhysFS*/
 		class FileSystem
 		{
-
+		public :
+			void Initialise();
+			void AddPath( std::string Path, bool AddToFront );
+			bool FileExists( std::string Path );
+			File GetFile( std::string Path );
 		};
 
 	}

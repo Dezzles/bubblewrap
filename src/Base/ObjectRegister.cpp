@@ -1,7 +1,7 @@
 #include "Bubblewrap/Base/ObjectRegister.hpp"
 #include "Bubblewrap/Base/Entity.hpp"
 #include "Bubblewrap/Base/Base.hpp"
-#include "Bubblewrap/File/FSFile.hpp"
+#include "Bubblewrap/File/File.hpp"
 #include "Bubblewrap/Logs/Log.hpp"
 #include "Bubblewrap/Managers/Managers.hpp"
 #include "Bubblewrap/Base/Resource.hpp"
@@ -241,10 +241,12 @@ namespace Bubblewrap
 			Logs::Log log( "ObjectRegiser::LoadPackage (" + PackageFile + ")" );
 			log.WriteLine( "Package Name: " + PackageFile, Logs::StaticLog::VERBOSE );
 			LoadingPackage_ = true;
-			File::FSFile file( PackageFile );
+			File::File file = GetManager()->GetFileManager().GetFile( PackageFile );
 			file.Open( File::FileMode::Read );
 
-			std::string fileData = file.ReadAll();
+			char* data = file.ReadAll();
+			std::string fileData = data;
+			delete data;
 			file.Close();
 			Json::Value root;
 			Json::Reader rdr;
@@ -330,10 +332,12 @@ namespace Bubblewrap
 			Logs::Log log( "ObjectRegiser::LoadResources (" + ResourceFile + ")" );
 			log.WriteLine( "Package Name: " + ResourceFile, Logs::StaticLog::VERBOSE );
 			LoadingResources_ = true;
-			File::FSFile file( ResourceFile + ".json" );
+			File::File file = GetManager()->GetFileManager().GetFile( ResourceFile + ".json" ) ;
 			file.Open( File::FileMode::Read );
 
-			std::string fileData = file.ReadAll();
+			char* data = file.ReadAll();
+			std::string fileData = data;
+			delete data;
 			file.Close();
 			Json::Value root;
 			Json::Reader rdr;

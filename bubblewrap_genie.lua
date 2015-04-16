@@ -6,6 +6,7 @@ project "Bubblewrap"
 	includedirs { 
 		"./include", 
 		"./External",
+		PHYSFSDIR
 		}
 	links { 
 		"External_Json"
