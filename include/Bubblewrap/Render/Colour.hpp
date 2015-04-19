@@ -25,32 +25,32 @@ namespace Bubblewrap
 			\param G The green component in the range 0 - 255
 			\param B The blue component in the range 0 - 255
 			*/
-			Colour( unsigned char R, unsigned char G, unsigned char B );
+			explicit Colour( unsigned char R, unsigned char G, unsigned char B );
 			/*! Creates a new Colour
 			\param A The alpha component in the range 0 - 255
 			\param R The red component in the range 0 - 255
 			\param G The green component in the range 0 - 255
 			\param B The blue component in the range 0 - 255
 			*/
-			Colour( unsigned char R, unsigned char G, unsigned char B, unsigned char A );
+			explicit Colour( unsigned char R, unsigned char G, unsigned char B, unsigned char A );
 			/*! Creates a new Colour
 			\param R The red component in the range 0.0 - 1.0
 			\param G The green component in the range 0.0 - 1.0
 			\param B The blue component in the range 0.0 - 1.0
 			*/
-			Colour( float R, float G, float B );
+			explicit Colour( float R, float G, float B );
 			/*! Creates a new Colour
 			\param A The alpha component in the range 0.0 - 1.0
 			\param R The red component in the range 0.0 - 1.0
 			\param G The green component in the range 0.0 - 1.0
 			\param B The blue component in the range 0.0 - 1.0
 			*/
-			Colour( float R, float G, float B, float A );
+			explicit Colour( float R, float G, float B, float A );
 
 			/*! Creates a new Colour from a string
 			\param Colour The colour in string format of "R G B A" where A is optional and all values should be in the range 0 - 255.
 			*/
-			Colour( std::string Colour );
+			explicit Colour( std::string Colour );
 
 			/*! Gets the R component
 			\returns The R component of the colour

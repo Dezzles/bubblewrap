@@ -16,6 +16,7 @@
 #include "Bubblewrap/Audio/Music.hpp"
 #include "Bubblewrap/Audio/Sound.hpp"
 #include "Bubblewrap/Audio/SoundBuffer.hpp"
+#include "Bubblewrap/Render/Image.hpp"
 namespace Bubblewrap
 {
 	namespace Registers
@@ -35,6 +36,7 @@ namespace Bubblewrap
 			Register->RegisterCreator( "Vertices", &Disabled<Vertices>::Create, &Disabled<Vertices>::CopyDef );
 			Register->RegisterCreator( "Font", &Disabled<Font>::Create, &Disabled<Font>::CopyDef );
 			Register->RegisterCreator( "Text", &Disabled<Text>::Create, &Disabled<Text>::CopyDef );
+			Register->RegisterCreator( "Image", &Disabled<Image>::Create, &Disabled<Image>::CopyDef );
 
 			Register->RegisterCreator( "StringList", &StringList::Create, &StringList::CopyDef );
 			Register->RegisterCreator( "ResourceList", &ResourceList::Create, &ResourceList::CopyDef );

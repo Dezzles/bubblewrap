@@ -13,9 +13,6 @@ namespace Bubblewrap
 		Vertices::Vertices()
 		{
 			VertexCount_ = 0;
-			ReservedCount_ = 0;
-
-			Vertices_ = new Vertex[ 0 ];
 			Dirty_ = false;
 			Texture_ = nullptr;
 		}
@@ -23,7 +20,6 @@ namespace Bubblewrap
 
 		Vertices::~Vertices()
 		{
-			delete Vertices_;
 		}
 
 		void Vertices::Initialise( Json::Value Params )
@@ -36,6 +32,7 @@ namespace Bubblewrap
 			VertexCount_ = uCount;
 			for ( int Idx = 0; Idx < uCount; ++Idx )
 			{
+				Vertices_.push_back( Vertex() );
 				Vertices_[ Idx ].Colour_ = Colour( Params[ "vertices" ][ Idx ][ "colour" ].asString() );
 				Vertices_[ Idx ].Position_ = Math::Vector3f( Params[ "vertices" ][ Idx ][ "position" ].asString() );
 				Vertices_[ Idx ].TexCoords_ = Math::Vector2f( Params[ "vertices" ][ Idx ][ "texCoords" ].asString() );
@@ -48,11 +45,9 @@ namespace Bubblewrap
 		{
 			Drawable::Copy( Target, Base ); 
 			Target->Reserve( Base->VertexCount_ );
-			memcpy( Target->Vertices_, Base->Vertices_, Base->VertexCount_ * sizeof( Vertex ) );
-			
+			Target->Vertices_ = Base->Vertices_;
 			Target->TextureName_ = Base->TextureName_;
 			Target->PrimitiveType_ = Base->PrimitiveType_;
-			Target->ReservedCount_ = Base->VertexCount_;
 			Target->VertexCount_ = Base->VertexCount_;
 			Target->Refresh();
 		}
@@ -60,14 +55,14 @@ namespace Bubblewrap
 		void Vertices::Update( float dt )
 		{
 			Drawable::Update( dt );
-			assert( !Dirty_ );
+			//AssertMessage( !Dirty_ , "Refresh has not been called"  );
 			if ( ( Window_ == nullptr ) && ( WindowName_ != "" ) )
 			{
 				Window_ = GetManager().GetWindowManager().GetItem( WindowName_ );
 			}
 			if ( Window_ == nullptr )
 				return;
-
+			Refresh();
 
 		}
 
@@ -76,26 +71,16 @@ namespace Bubblewrap
 			PrimitiveType_ = PrimitiveType;
 		}
 
-		void Vertices::AddVertex( Vertex V )
+		int Vertices::AddVertex( Vertex V )
 		{
-			if ( VertexCount_ == ReservedCount_ )
-			{
-				Reserve( 1 );
-			}
-			Vertices_[ VertexCount_ ] = V;
+			Vertices_.push_back( V );
 			++VertexCount_;
 			Dirty_ = true;
+			return VertexCount_ - 1;
 		}
 		void Vertices::Reserve( unsigned int Amount )
 		{
-			int CurrentCount = ReservedCount_;
-			int NewCount = ReservedCount_ + Amount;
-			Vertex* newMem = new Vertex[ NewCount ];
-			memset( newMem, 0, NewCount * sizeof( Vertex ) );
-			memcpy( newMem, Vertices_, CurrentCount * sizeof( Vertex ) );
-			delete Vertices_;
-			Vertices_ = newMem;
-			ReservedCount_ = NewCount;
+			Vertices_.reserve( Amount );
 		}
 		void Vertices::SetVertex( unsigned int Idx, Vertex V )
 		{
@@ -123,6 +108,11 @@ namespace Bubblewrap
 		{
 			if ( TextureName_ != "" )
 				Texture_ = dynamic_cast<Texture*>( GetRegister().GetResource( TextureName_ ) );
+		}
+
+		void Vertices::SetDirty()
+		{
+			Dirty_ = true;
 		}
 	}
 }

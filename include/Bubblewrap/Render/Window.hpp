@@ -3,6 +3,7 @@
 
 
 #include "Bubblewrap/Managers/BaseManager.hpp"
+#include "Bubblewrap/Render/Colour.hpp"
 #include <functional>
 #include <vector>
 
@@ -29,6 +30,8 @@ namespace Bubblewrap
 				std::string Title_;
 				/*! Name of the window */
 				std::string Name_;
+				/*! Colour to clear the window to*/
+				Render::Colour Colour_;
 			};
 			/*! Creates a window
 			\param Settings All of the settings required to create the window
@@ -61,6 +64,9 @@ namespace Bubblewrap
 			void* Window_;
 			/*! The queue of drawable objects to be rendered */
 			std::vector<Render::Drawable*> RenderQueue_;
+
+			/*! The colour the window should be cleared to */
+			Render::Colour ClearColour_;
 		};
 
 	}

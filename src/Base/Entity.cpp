@@ -17,7 +17,7 @@ namespace Bubblewrap
 			Logs::Log log( "Entity::Initialise" + Params[ "name"].asString() );
 
 			GoBase::Initialise( Params );
-			if ( Params[ "position" ].isObject() )
+			if ( Params[ "position" ].isString() )
 			{
 				Position_ = Math::Vector3f( Params[ "position" ].asString() );
 			}

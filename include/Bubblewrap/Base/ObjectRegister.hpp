@@ -147,10 +147,23 @@ namespace Bubblewrap
 			void LoadResources( std::string ResourceFile );
 
 			/*! Loads a specific resource
-				\param ResourceName The name of the resource to be loaded in the format "ResourceSet:ResourceName"
-				\return The loaded resource. If no such resource exists, nullptr will be returned.
+			\param ResourceName The name of the resource to be loaded in the format "ResourceSet:ResourceName"
+			\return The loaded resource. If no such resource exists, nullptr will be returned.
 			*/
 			Resource* GetResource( std::string ResourceName );
+
+			/*! Loads a specific resource
+			\param ResourceName The name of the resource to be loaded in the format "ResourceSet:ResourceName"
+			\tparam T_ The type of the object we're getting
+			\return The loaded resource. If no such resource exists, nullptr will be returned.
+			*/
+			template < typename T_ > 
+			T_* GetResource( std::string ResourceName )
+			{
+				return dynamic_cast<T_*>( GetResource( ResourceName ) );
+			}
+
+
 		private:
 			struct OrGenerators
 			{

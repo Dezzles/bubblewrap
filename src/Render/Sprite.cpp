@@ -18,7 +18,7 @@ namespace Bubblewrap
 		{
 			Drawable::Initialise( Params );
 			SetWindow( Params[ "window" ].asString() );
-			SetSize( Math::Vector2f( Params[ "size" ][ "x" ].asFloat(), Params[ "size" ][ "y" ].asFloat() ) );
+			SetSize( Math::Vector2f( Params[ "size" ].asString() ) );
 			TextureName_ = "";
 			if ( !Params[ "texture" ].isNull() )
 				TextureName_ = Params[ "texture" ].asString();
@@ -92,6 +92,14 @@ namespace Bubblewrap
 		{
 			Colour_ = Colour;
 			IsDirty_ = true;
+			if ( RenderItem_ != nullptr )
+			{
+				for ( int i = 0; i < 4; ++i )
+				{
+					RenderItem_->EditVertex( i ).Colour_ = Colour_;
+					RenderItem_->SetDirty();
+				}
+			}
 		}
 
 		void Sprite::Update( float dt )

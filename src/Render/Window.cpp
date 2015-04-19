@@ -13,7 +13,7 @@ namespace Bubblewrap
 		Window::Window( WindowSettings Settings )
 			: Window_( nullptr )
 		{
-
+			ClearColour_ = Settings.Colour_;
 		}
 
 		void Window::Update( float dt )

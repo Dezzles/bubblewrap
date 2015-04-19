@@ -155,7 +155,6 @@ namespace Bubblewrap
 			/*! Prints out the current hierarchy of this entity, its children and its components.
 			*/
 			void LogHierarchy();
-
 		};
 	}
 }

@@ -40,7 +40,7 @@ namespace Bubblewrap
 
 			/*! Adds a Vertex to the vertices list 
 			\param V The vertex to be added */
-			void AddVertex( Vertex V );
+			int AddVertex( Vertex V );
 			
 			/*! Reserves memory for the vertex list 
 			\param Amount The amound of additional memory to reserve 
@@ -79,18 +79,18 @@ namespace Bubblewrap
 			*/
 			void OnAttach();
 
+			/*! Marks the Vertices object as dirty */
+			void SetDirty();
+
 			PROTECTED_FIELD( std::string, TextureName );
 			PROTECTED_FIELD( Texture*, Texture );
 		protected:
 
 			/*! Pointer to an array of vertices */
-			Vertex* Vertices_;
+			std::vector< Vertex > Vertices_;
 
 			/*! Number of vertices that exist in the Vertices_ array */
 			unsigned int VertexCount_;
-
-			/*! Amount of memory reserved in the Vertices_ array*/
-			unsigned int ReservedCount_;
 
 			/*! The type of primitive that should be used when rendering */
 			Primitives PrimitiveType_;

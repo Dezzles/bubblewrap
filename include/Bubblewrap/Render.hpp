@@ -7,3 +7,4 @@
 #include "Bubblewrap/Render/Types.hpp"
 #include "Bubblewrap/Render/Vertices.hpp"
 #include "Bubblewrap/Render/Window.hpp"
+#include "Bubblewrap/Render/Image.hpp"

@@ -155,6 +155,12 @@ namespace Bubblewrap
 				Component* componentObject = dynamic_cast<Component*>( obj );
 				if ( componentObject != nullptr )
 					Parent->Components_.push_back( componentObject );
+				else
+				{
+					Entity* entityObject = dynamic_cast<Entity*> ( obj );
+					if ( entityObject != nullptr )
+						Parent->Children_.push_back( entityObject );
+				}
 			}
 			DecLoad();
 

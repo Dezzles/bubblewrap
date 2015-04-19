@@ -22,6 +22,7 @@ namespace Bubblewrap
 
 		void Drawable::Copy( Drawable* Target, Drawable* Base )
 		{
+			GoBase::Copy( Target, Base );
 			Target->SetWindow( Base->Window_ );
 			Target->WindowName_ = Base->WindowName_;
 			Target->DrawOrder_ = Base->DrawOrder_;

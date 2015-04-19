@@ -16,6 +16,7 @@ namespace Bubblewrap
 
 		void Resource::Copy( Resource* Target, Resource* Base )
 		{
+			AssertMessage( false, "Copy should not be called on Resources" );
 
 		}
 	}
