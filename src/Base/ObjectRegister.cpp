@@ -238,7 +238,14 @@ namespace Bubblewrap
 			ToAttach_.clear();
 			for ( unsigned int Idx = 0; Idx < uCount; ++Idx )
 			{
-				toDo[ Idx ]->OnAttach();
+				try
+				{
+					toDo[ Idx ]->OnAttach();
+				}
+				catch (...)
+				{
+
+				}
 			}
 		}
 
