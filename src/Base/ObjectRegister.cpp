@@ -77,12 +77,35 @@ namespace Bubblewrap
 					{
 						Objects_[ Idx ]->GetParentEntity()->RemoveChild(Objects_[Idx ]);
 					}
+					else
+					{
+						for ( auto iter = ParentlessItems_.begin(); iter != ParentlessItems_.end(); )
+						{
+							if ( ( *iter ) == Objects_[ Idx ] )
+							{
+								iter = ParentlessItems_.erase( iter );
+							}
+							else
+								++iter;
+						}
+					}
 					destroyObject = true;
 				}
 			}
 			if ( !destroyObject )
 				return;
 
+			for ( std::vector<GoBase*>::iterator iter = ToAttach_.begin(); iter != ToAttach_.end(); )
+			{
+				if ( ( *iter )->Destroy_ )
+				{
+					iter = ToAttach_.erase( iter );
+				}
+				else
+				{
+					++iter;
+				}
+			}
 			for ( std::vector<GoBase*>::iterator iter = Objects_.begin(); iter != Objects_.end(); )
 			{
 				if ( ( *iter )->Destroy_ )
@@ -93,6 +116,7 @@ namespace Bubblewrap
 				else
 					++iter;
 			}
+
 		}
 
 		/*void ObjectRegister::RepeatMessage( EvtMessage  Message )
