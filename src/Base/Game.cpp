@@ -13,6 +13,7 @@ namespace Bubblewrap
 		{
 			Register_.SetManager( &Managers_ );
 			srand((unsigned int)time(0));
+			KeepRunning_ = true;
 		}
 
 		void Game::Run( GameSettings Settings )
@@ -37,8 +38,10 @@ namespace Bubblewrap
 
 			Managers_.GetFileManager().Initialise();
 			/* TODO Improve this */
-			Managers_.GetFileManager().AddPath( "assets", 0 );
-
+			for ( int Idx = 0; Idx < Settings.Paths_.size(); ++Idx )
+			{
+				Managers_.GetFileManager().AddPath( Settings.Paths_[ 0 ], false );
+			}
 			log.WriteLine( "Types: Registered", Logs::StaticLog::VERBOSE );
 			log.WriteLine( "Resources: Loading", Logs::StaticLog::VERBOSE );
 			for ( unsigned int Idx = 0; Idx < Settings.Resources_.size(); ++Idx )
@@ -59,7 +62,8 @@ namespace Bubblewrap
 			float PrevTime = clock->GetElapsedTime().AsSeconds();
 			bool running = true;
 			Register_.LogHierarchy();
-			while ( running )
+			Managers_.SetGame( this );
+			while ( KeepRunning_ )
 			{
 				float CurrentTime = clock->GetElapsedTime().AsSeconds();
 				float TimeStep = CurrentTime - PrevTime;
@@ -86,6 +90,11 @@ namespace Bubblewrap
 
 				Register_.DestroyPhase();
 			}
+		}
+
+		void Game::Shutdown()
+		{
+			KeepRunning_ = false;
 		}
 	}
 }

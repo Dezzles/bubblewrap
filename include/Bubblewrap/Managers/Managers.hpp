@@ -7,6 +7,10 @@
 #include "Bubblewrap/File/FileSystem.hpp"
 namespace Bubblewrap
 {
+	namespace Game
+	{
+		class Game;
+	}
 	namespace Managers
 	{
 #define CREATE_MANAGER_CONTAINER( T, U ) \
@@ -35,6 +39,19 @@ namespace Bubblewrap
 			CREATE_MANAGER_CONTAINER( Render::Window, Window );
 			CREATE_MANAGER( Events::EventManager, Event );
 			CREATE_MANAGER( File::FileSystem, File );
+
+		public:
+			/*! Gets the Game used
+			\param The game object that is being used
+			*/
+			Game::Game* GetGame();
+
+			/*! Sets the Game used 
+			\param Game The game object that is being used
+			*/
+			void SetGame( Game::Game* Game );
+		private:
+			Game::Game* Game_;
 		};
 
 #undef CREATE_MANAGER

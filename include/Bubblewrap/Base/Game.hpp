@@ -18,6 +18,8 @@ namespace Bubblewrap
 			Render::Window::WindowSettings* WindowSettings_ = nullptr;
 			/*! A list of all packages that should be loaded */
 			std::vector<std::string> Packages_;
+			/*! A list of all paths that should be used */
+			std::vector<std::string> Paths_;
 			/*! A list of all resource sets that should be loaded */
 			std::vector<std::string> Resources_;
 			/*! A list of all module registers that should be loaded */
@@ -37,10 +39,15 @@ namespace Bubblewrap
 			/*! Starts the game.
 			\param Settings The settings that dicatate how the game runs. */
 			void Run( GameSettings Settings );
+
+			/*! Shuts down the game */
+			void Shutdown();
 		private:
 			Base::ObjectRegister Register_;
 
 			Managers::Managers Managers_;
+
+			bool KeepRunning_;
 		};
 	}
 }
