@@ -64,13 +64,13 @@ namespace Bubblewrap
 			unsigned int uCount = Base->Components_.size();
 			for ( unsigned int Idx = 0; Idx < uCount; ++Idx )
 			{
-				Target->Components_.push_back( static_cast<Component*>( Base->GetRegister().CreateCopy( Base->Components_[ Idx ], Target ) ) );
+				static_cast<Component*>( Base->GetRegister().CreateCopy( Base->Components_[ Idx ], Target ) );
 			}
 
 			uCount = Base->Children_.size();
 			for ( unsigned int Idx = 0; Idx < uCount; ++Idx )
 			{
-				Target->Children_.push_back( Base->GetRegister().CreateCopy( Base->Children_[ Idx ], Target ) );
+				Base->GetRegister().CreateCopy( Base->Children_[ Idx ], Target );
 				// Children_[ Idx ]->Update( Dt );
 			}
 

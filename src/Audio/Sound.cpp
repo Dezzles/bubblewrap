@@ -13,7 +13,7 @@ namespace Bubblewrap
 			Offset_ = 0.0f;
 			Volume_ = 1.0f;
 			Autoplay_ = false;
-
+			PositionalSound_ = true;
 		}
 
 		void Sound::Initialise( Json::Value Params )
@@ -27,6 +27,7 @@ namespace Bubblewrap
 			OPTIONAL_LOAD( Float, Offset, offset );
 			OPTIONAL_LOAD( Float, Volume, volume );
 			OPTIONAL_LOAD( Bool, Autoplay, autoplay );
+			OPTIONAL_LOAD( Bool, PositionalSound, positionalSound );
 		}
 
 		void Sound::Copy( Sound* Target, Sound* Base )
@@ -40,6 +41,7 @@ namespace Bubblewrap
 			NAIVE_COPY( Offset );
 			NAIVE_COPY( Volume );
 			NAIVE_COPY( Autoplay );
+			NAIVE_COPY( PositionalSound );
 			Target->IsDirty_ = true;
 		}
 

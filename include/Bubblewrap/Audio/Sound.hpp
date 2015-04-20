@@ -66,6 +66,7 @@ namespace Bubblewrap
 			PROTECTED_DIRTY_FIELD( float, Offset );
 			PROTECTED_DIRTY_FIELD( Math::Vector2f, Position );
 			PROTECTED_DIRTY_FIELD( float, Volume );
+			PROTECTED_DIRTY_FIELD( bool, PositionalSound );
 
 			/*! Starts the sound playing if it isn't already */
 			virtual void Play();
