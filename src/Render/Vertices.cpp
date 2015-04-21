@@ -6,6 +6,9 @@
 #include "Bubblewrap/Base.hpp"
 #include "Bubblewrap/Render.hpp"
 
+#include <memory>
+#include <cstring>
+
 namespace Bubblewrap
 {
 	namespace Render

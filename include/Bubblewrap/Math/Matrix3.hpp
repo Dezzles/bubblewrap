@@ -130,39 +130,39 @@ namespace Bubblewrap
 			/*! Gets the 0,0th item in the Matrix
 			\returns A float representing a value in the matrix
 			*/
-			T_ I00() const { return Matrix_[ 0 * Rows + 0 ] }
+			T_ I00() const { return Matrix_[ 0 * Rows + 0 ]; }
 
 			/*! Gets the 0,1th item in the Matrix
 			\returns A float representing a value in the matrix
 			*/
-			T_ I01() const { return Matrix_[ 0 * Rows + 1 ] }
+			T_ I01() const { return Matrix_[ 0 * Rows + 1 ]; }
 
 			/*! Gets the 0,2th item in the Matrix
 			\returns A float representing a value in the matrix
 			*/
-			T_ I02() const{ return Matrix_[ 0 * Rows + 2 ] }
+			T_ I02() const{ return Matrix_[ 0 * Rows + 2 ]; }
 
 			/*! Gets the 1,0th item in the Matrix
 			\returns A float representing a value in the matrix
 			*/
-			T_ I10() const { return Matrix_[ 1 * Rows + 0 ] }
+			T_ I10() const { return Matrix_[ 1 * Rows + 0 ]; }
 
 			/*! Gets the 1,1th item in the Matrix
 			\returns A float representing a value in the matrix
 			*/
-			T_ I11() const { return Matrix_[ 1 * Rows + 1 ] }
+			T_ I11() const { return Matrix_[ 1 * Rows + 1 ]; }
 
 			/*! Gets the 1,2th item in the Matrix
 			\returns A float representing a value in the matrix
 			*/
-			T_ I12() const { return Matrix_[ 1 * Rows + 2 ] }
+			T_ I12() const { return Matrix_[ 1 * Rows + 2 ]; }
 
 			/*! Gets the 2,0th item in the Matrix
 			\returns A float representing a value in the matrix
 			*/
 			T_ I20() const
 			{
-				return Matrix_[ 2 * Rows + 0 ]
+				return Matrix_[ 2 * Rows + 0 ];
 			}
 
 			/*! Gets the 2,1th item in the Matrix
@@ -170,7 +170,7 @@ namespace Bubblewrap
 			*/
 			T_ I21() const
 			{
-				return Matrix_[ 2 * Rows + 1 ]
+				return Matrix_[ 2 * Rows + 1 ];
 			}
 
 			/*! Gets the 2,2th item in the Matrix
@@ -178,7 +178,7 @@ namespace Bubblewrap
 			*/
 			T_ I22() const
 			{
-				return Matrix_[ 2 * Rows + 2 ]
+				return Matrix_[ 2 * Rows + 2 ];
 			}
 
 			/*! Creates a rotation matrix
