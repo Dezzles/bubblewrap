@@ -6,6 +6,8 @@
 #include "json/json.h"
 #include "Bubblewrap/Base/Assert.hpp"
 
+#include <typeinfo>
+
 #define CREATE_REGISTER(TYPE)  	\
 	/*! Creates a disabled instance of TYPE. \return A pointer to a new instance of NAME.*/\
 	static Bubblewrap::Base::GoBase* Create( ) \
@@ -80,5 +82,5 @@
 #define PROTECTED_DIRTY_FIELD( TYPE, NAME ) protected: /*! Storage for NAME */ TYPE NAME ## _;  public: /*! Gets NAME \returns The current value of NAME */ TYPE Get ## NAME() { return NAME ## _; } /*! Sets the value of NAME and sets the class to dirty. \param NAME New value of NAME */ void Set ## NAME( TYPE NAME ) { NAME ## _ = NAME; IsDirty_ = true; }
 #define REQUIRED_LOAD( TYPE, NAME, JNAME ) AssertMessage( !Params[ #JNAME ].isNull(), std::string( #JNAME ) + std::string( " is required " ) ); NAME ## _ = Params[ #JNAME ]. as ## TYPE();
 #define OPTIONAL_LOAD( TYPE, NAME, JNAME ) if ( !Params[ #JNAME ].isNull() ) NAME ## _ = Params[ #JNAME ]. as ## TYPE();
-#define NAIVE_COPY( NAME ) Target-> ## NAME ## _ = Base-> ## NAME ## _;
+#define NAIVE_COPY( NAME ) Target -> NAME ## _ = Base -> NAME ## _;
 #endif 
