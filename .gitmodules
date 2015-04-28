@@ -1,0 +1,3 @@
+[submodule "External/physfs"]
+	path = External/physfs
+	url = https://github.com/bubblewrap-engine/physfs.git
