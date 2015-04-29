@@ -5,6 +5,7 @@ if PsyProjectExternalLib( "physfs", "C++" ) then
 			"physfs",
 		}
 		files {
+			"physfs/physfs.c",
 			"physfs/physfs_byteorder.c",
 			"physfs/physfs_unicode.c",
 			"physfs/platform/os2.c",
@@ -43,6 +44,6 @@ if PsyProjectExternalLib( "physfs", "C++" ) then
 			"physfs/zlib123/inftrees.c",
 			"physfs/zlib123/trees.c",
 			"physfs/zlib123/uncompr.c",
-			"physfs/zlib123/zutil.c"
+			"physfs/zlib123/zutil.c",
 		}
 end
