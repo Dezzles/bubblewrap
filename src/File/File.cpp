@@ -1,6 +1,6 @@
 #include "Bubblewrap/File/File.hpp"
 #include "Bubblewrap/Base/Assert.hpp"
-#include "physfs.h"
+#include <physfs/physfs.h>
 
 Bubblewrap::File::File::File()
 {

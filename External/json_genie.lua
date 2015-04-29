@@ -1,17 +1,8 @@
-project "External_Json"
-	kind "staticlib"
-	language "C++"
+if PsyProjectExternalLib( "json", "C++" ) then
+	configuration "*"
+		kind ( EXTERNAL_PROJECT_KIND )
+		includedirs {
+			"json",
+		}
 	files { "json/*.h", "json/*.cpp" }
-	location "../../build/external"
-
-	configuration "Debug"
-		defines { "DEBUG" }
-		flags { "Symbols" }
-
-	configuration "CrashNBurn"
-		defines { "DEBUG" }
-		flags { "Symbols" }
-
-	configuration "Release"
-		defines { "NDEBUG" }
-		flags { "Optimize" }
+end

@@ -131,24 +131,17 @@ function PsyProjectCommonEngine( _name )
 
 	-- Defines for all configurations
 	configuration "Debug"
-		defines { "PSY_USE_PROFILER=0" }
-		defines { "PSY_DEBUG" }
+		defines { "DEBUG" }
 
 	configuration "Release"
-		defines { "PSY_USE_PROFILER=0" }
-		defines { "PSY_RELEASE" }
+		defines { "RELEASE" }
 
 	configuration "Profile"
-		defines { "PSY_USE_PROFILER=1" }
-		defines { "PSY_RELEASE" }
+		defines { "RELEASE" }
 
 	configuration "Production"
-		defines { "PSY_USE_PROFILER=0" }
-		defines { "PSY_PRODUCTION" }
+		defines { "PRODUCTION" }
 
-	-- Import pipeline.
-	configuration "windows-* or linux-*"
-		defines { "PSY_IMPORT_PIPELINE" }
 
 
 	-- Include paths.
@@ -249,7 +242,7 @@ end
 -- Setup engine lib project.
 function PsyProjectEngineLib( _name )
 	-- Prepend "Engine_"
-	_name = "Engine_" .. _name
+	_name = "Bubblewrap_" .. _name
 
 	PsyProjectCommonEngine( _name )
 	print( "Adding Engine Library: " .. _name )
@@ -293,7 +286,7 @@ end
 -- Add engine link.
 function PsyAddEngineLinks( _names )
 	for i, name in ipairs( _names ) do
-		links { "Engine_" .. name }
+		links { "Bubblewrap_" .. name }
 	end
 end
 

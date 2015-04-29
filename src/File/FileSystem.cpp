@@ -1,6 +1,6 @@
 #include "Bubblewrap/File/FileSystem.hpp"
 #include "Bubblewrap/File/File.hpp"
-#include "physfs.h"
+#include <physfs/physfs.h>
 
 void Bubblewrap::File::FileSystem::Initialise()
 {
