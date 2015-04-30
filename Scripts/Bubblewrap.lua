@@ -2,6 +2,7 @@
 -- http://github.com/Psybrus/psybrus
 additionalIncludes = {}
 additionalLibraries = {}
+additionalExternalLibraries = {}
 
 dofile( "Toolchain.lua" )
 dofile( "SDK.lua" )
