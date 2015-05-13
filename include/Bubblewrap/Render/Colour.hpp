@@ -69,6 +69,15 @@ namespace Bubblewrap
 			*/
 			unsigned char A();
 
+			/*! Gets the RGBA value of the colour
+			\returns An integer representing the colour
+			*/
+			unsigned int RGBA();
+
+			/*! Gets the RGBA value of the colour
+			\returns An integer representing the colour
+			*/
+			unsigned int ABGR();
 		private:
 			unsigned char R_;
 			unsigned char G_;

@@ -91,5 +91,15 @@ namespace Bubblewrap
 			return A_;
 		}
 
+		unsigned int Colour::RGBA()
+		{
+			return ( ( R_ << 24 ) | ( G_ << 16 ) | ( B_ << 8 ) | A_ );
+		}
+
+		unsigned int Colour::ABGR()
+		{
+			return ( ( A_ << 24 ) | ( B_ << 16 ) | ( G_ << 8 ) | R_ );
+		}
+
 	}
 }

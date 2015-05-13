@@ -50,6 +50,11 @@ namespace Bubblewrap
 			/*! Adds a drawable item to the queue to be rendered */
 			void AddToQueue( Render::Drawable* Draw );
 
+			/*! Gets a void pointer to the internal window object.
+			\returns Nullptr if no window is initialised 
+			*/
+			virtual void* GetInternalPointer();
+
 			/*! Gets the Window_ pointer with a specific type. Bad casting may result in undefined behaviour.
 			\tparam T_ The type that the window should be cast to
 			\returns The internal window cast to T 
@@ -67,6 +72,9 @@ namespace Bubblewrap
 
 			/*! The colour the window should be cleared to */
 			Render::Colour ClearColour_;
+
+			/*! The settings used to create the object */
+			WindowSettings Settings_;
 		};
 
 	}

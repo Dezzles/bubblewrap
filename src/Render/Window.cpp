@@ -11,7 +11,7 @@ namespace Bubblewrap
 	{
 
 		Window::Window( WindowSettings Settings )
-			: Window_( nullptr )
+			: Window_( nullptr ), Settings_( Settings )
 		{
 			ClearColour_ = Settings.Colour_;
 		}
@@ -45,6 +45,11 @@ namespace Bubblewrap
 		void Window::AddToQueue( Render::Drawable* Draw )
 		{
 			RenderQueue_.push_back( Draw );
+		}
+
+		void* Window::GetInternalPointer()
+		{
+			return nullptr;
 		}
 	}
 }

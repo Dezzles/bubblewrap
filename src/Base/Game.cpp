@@ -60,7 +60,6 @@ namespace Bubblewrap
 			log.WriteLine( "Base object: Loaded", Logs::StaticLog::VERBOSE );
 			Base::Clock* clock = (Base::Clock*)Register_.CreateObject(std::string("Clock"), nullptr);
 			float PrevTime = clock->GetElapsedTime().AsSeconds();
-			bool running = true;
 			Register_.LogHierarchy();
 			Managers_.SetGame( this );
 			while ( KeepRunning_ )

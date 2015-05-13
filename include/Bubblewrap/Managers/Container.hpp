@@ -13,6 +13,7 @@ namespace Bubblewrap
 		template <class T_>
 		class MgrContainer
 		{
+			friend T_;
 			struct MgrWrapper
 			{
 				MgrWrapper( T_* Mgr, int Index, std::string Name )
@@ -74,12 +75,24 @@ namespace Bubblewrap
 			\param Params A pointer to the object containing the details required to create the new object
 			\returns The index of the newly created item.
 			*/
-			int Create(std::string Name, void* Params )
+			int Create( std::string Name, void* Params )
 			{
 				int ret = Items_.size();
-				Items_.push_back( MgrWrapper( Creator_(Params) , ret, Name ) );
+				Items_.push_back( MgrWrapper( Creator_( Params, Owner_ ), ret, Name ) );
 				Items_[ ret ].Manager_->SetManager( Owner_ );
 				return ret;
+			}
+
+			/*! Creates a new instance of the BaseManager that this object wraps using the first creator assigned.
+				This is used when OverloadCreate has been called and you want to call the original function. Objects called through here are NOT managed.
+			\param Name The name that should be assigned to this object
+			\param Params A pointer to the object containing the details required to create the new object
+			\returns The index of the newly created item.
+			*/
+			T_* CreateOver( std::string Name, void* Params )
+			{
+				T_* ptr = ChildCreator_( Params, Owner_ );
+				return ptr;
 			}
 
 			/*! Destroys an item stored in the container.
@@ -123,15 +136,37 @@ namespace Bubblewrap
 			/*! Sets the create function for items stored in the container.
 			\param Fn A function that returns a new instance of an item.
 			*/
-			void SetCreate( std::function<T_* ( void* )> Fn )
+			void SetCreate( std::function<T_* ( void*, Managers* )> Fn )
 			{
 				Creator_ = Fn;
 			}
 
+			/*! Gets the create function for items stored in the container.
+			\returns A function that will create the managed objects
+			*/
+			std::function< T_* ( void* ) > GetCreate()
+			{
+				return Creator_;
+			}
+
+			/*! Overloads the create for this function. Base function will be set to Creator2_.
+			\param Fn A function that returns a new instance of an item.
+			*/
+			void OverrideCreate( std::function<T_* ( void*, Managers* )> Fn )
+			{
+				ChildCreator_ = Creator_;
+				Creator_ = Fn;
+			}
+
+
 		private:
 			std::vector<MgrWrapper> Items_;
 
-			std::function<T_*( void* )> Creator_;
+			std::function<T_*( void*, Managers* )> Creator_;
+
+			/* Primarily used if multiple creators are used for derived objects
+			*/
+			std::function<T_*( void*, Managers* )> ChildCreator_;
 		};
 
 	}

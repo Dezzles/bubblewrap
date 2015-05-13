@@ -3,7 +3,8 @@
 additionalIncludes = {}
 additionalLibraries = {}
 additionalExternalLibraries = {}
-
+additionalOtherLibraries = {}
+additionalDefines = {} 
 dofile( "Toolchain.lua" )
 dofile( "SDK.lua" )
 dofile( "Solution.lua" )

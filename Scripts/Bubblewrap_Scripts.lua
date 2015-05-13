@@ -7,3 +7,12 @@ loadLibrary = function ( lib )
 	table.insert(additionalLibraries, lib )
 end
 
+loadLibraries = function ( _libraries )
+	for i, name in ipairs( _libraries ) do
+		table.insert( additionalDefines, string.upper("bubblewrap_" .. name ) )
+		links { "External_" .. name }
+	end
+	for i, name in ipairs( _libraries ) do
+		loadLibrary( name )
+	end
+end

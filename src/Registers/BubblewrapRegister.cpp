@@ -9,6 +9,8 @@
 #include "Bubblewrap/Render/Vertices.hpp"
 #include "Bubblewrap/Render/Font.hpp"
 #include "Bubblewrap/Render/Text.hpp"
+#include "Bubblewrap/Render/Shader.hpp"
+
 #include "Bubblewrap/Base/Disabled.hpp"
 #include "Bubblewrap/Data/StringList.hpp"
 #include "Bubblewrap/Data/ResourceList.hpp"
@@ -37,6 +39,7 @@ namespace Bubblewrap
 			Register->RegisterCreator( "Font", &Disabled<Font>::Create, &Disabled<Font>::CopyDef );
 			Register->RegisterCreator( "Text", &Disabled<Text>::Create, &Disabled<Text>::CopyDef );
 			Register->RegisterCreator( "Image", &Disabled<Image>::Create, &Disabled<Image>::CopyDef );
+			Register->RegisterCreator("Shader", &Disabled<Shader>::Create, &Disabled<Shader>::CopyDef);
 
 			Register->RegisterCreator( "StringList", &StringList::Create, &StringList::CopyDef );
 			Register->RegisterCreator( "ResourceList", &ResourceList::Create, &ResourceList::CopyDef );

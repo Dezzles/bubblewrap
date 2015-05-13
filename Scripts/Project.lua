@@ -251,6 +251,7 @@ function PsyProjectEngineLib( _name )
 		kind "StaticLib"
 		language "C++"
 
+	defines (additionalDefines)
 	-- Add STATICLIB define for libraries.
 	configuration "*"
 		defines{ "STATICLIB" }
@@ -275,6 +276,7 @@ function PsyProjectExternalLib( _name, _lang )
 	-- Add STATICLIB define for libraries.
 	configuration "*"
 		defines{ "STATICLIB" }
+		defines (additionalDefines)
 
 	-- Terminate project.
 	configuration "*"
@@ -294,6 +296,13 @@ end
 function PsyAddExternalLinks( _names )
 	for i, name in ipairs( _names ) do
 		links { "External_" .. name }
+	end
+end
+
+-- Add other link.
+function PsyAddOtherLinks( _names )
+	for i, name in ipairs( _names ) do
+		links { name }
 	end
 end
 
