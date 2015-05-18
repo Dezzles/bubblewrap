@@ -46,11 +46,6 @@ namespace Bubblewrap
 			void Initialise( Json::Value Params );
 			CREATE_REGISTER( Sound );
 
-			/*! Updates the Music based on the current timestep.
-			\param dt The current timestep in seconds.
-			*/
-			void Update( float dt );
-
 			/*! Called during the OnAttach stage, this function will attempt to grab a SoundBuffer if Resource is set*/
 			void OnAttach();
 

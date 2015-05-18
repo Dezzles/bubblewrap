@@ -69,7 +69,7 @@ namespace Bubblewrap
 
 		void GoBase::Update( float dt )
 		{
-
+			dt += 0;
 		}
 	}
 }

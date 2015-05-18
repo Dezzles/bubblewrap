@@ -6,7 +6,7 @@ namespace Bubblewrap
 	{
 		void Clock::Copy( Clock* Target, Clock* Base )
 		{
-
+			GoBase::Copy( Target, Base );
 		}
 
 		Time Clock::GetElapsedTime()

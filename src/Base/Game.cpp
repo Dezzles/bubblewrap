@@ -38,7 +38,7 @@ namespace Bubblewrap
 
 			Managers_.GetFileManager().Initialise();
 			/* TODO Improve this */
-			for ( int Idx = 0; Idx < Settings.Paths_.size(); ++Idx )
+			for ( unsigned int Idx = 0; Idx < Settings.Paths_.size(); ++Idx )
 			{
 				Managers_.GetFileManager().AddPath( Settings.Paths_[ 0 ], false );
 			}

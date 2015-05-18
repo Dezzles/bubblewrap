@@ -45,11 +45,6 @@ namespace Bubblewrap
 			
 		}
 
-		void Music::Update( float dt )
-		{
-
-		}
-
 		void Music::Play()
 		{
 

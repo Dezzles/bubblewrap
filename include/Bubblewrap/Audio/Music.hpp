@@ -35,11 +35,6 @@ namespace Bubblewrap
 			void Initialise( Json::Value Params );
 			CREATE_REGISTER( Music );
 
-			/*! Updates the Music based on the current timestep.
-			\param dt The current timestep in seconds.
-			*/
-			void Update( float dt );
-
 			PROTECTED_READ_FIELD( std::string, Filename );
 			PROTECTED_DIRTY_FIELD( float, Attenuation );
 			PROTECTED_DIRTY_FIELD( bool, Loop );

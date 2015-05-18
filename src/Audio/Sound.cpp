@@ -45,11 +45,6 @@ namespace Bubblewrap
 			Target->IsDirty_ = true;
 		}
 
-		void Sound::Update( float dt )
-		{
-
-		}
-
 		void Sound::OnAttach()
 		{
 			if ( Resource_ != "" )
