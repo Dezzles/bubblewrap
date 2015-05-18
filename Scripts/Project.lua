@@ -241,6 +241,7 @@ end
 
 -- Setup engine lib project.
 function PsyProjectEngineLib( _name )
+	group "Engine"
 	-- Prepend "Engine_"
 	_name = "Bubblewrap_" .. _name
 
@@ -263,6 +264,7 @@ end
 
 -- Setup external lib project.
 function PsyProjectExternalLib( _name, _lang )
+	group "External"
 	-- Prepend "External_"
 	_name = "External_" .. _name
 
